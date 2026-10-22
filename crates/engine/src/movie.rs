@@ -182,15 +182,15 @@ pub struct Library {
     pub hairlines: HashMap<CharId, Vec<(usize, f32)>>,
 }
 
-fn field(what: &str) -> MovieError {
+pub(crate) fn field(what: &str) -> MovieError {
     MovieError::Field(what.to_string())
 }
 
-fn as_f32(v: &Value, what: &str) -> Result<f32, MovieError> {
+pub(crate) fn as_f32(v: &Value, what: &str) -> Result<f32, MovieError> {
     v.as_f64().map(|x| x as f32).ok_or_else(|| field(what))
 }
 
-fn as_id(text: &str) -> Result<CharId, MovieError> {
+pub(crate) fn as_id(text: &str) -> Result<CharId, MovieError> {
     text.parse().map_err(|_| field(&format!("kimlik {text}")))
 }
 
@@ -208,7 +208,7 @@ fn floats(v: &Value, n: usize, what: &str) -> Result<Vec<f32>, MovieError> {
     list.iter().map(|x| as_f32(x, what)).collect()
 }
 
-fn matrix(v: &Value) -> Result<Affine2, MovieError> {
+pub(crate) fn matrix(v: &Value) -> Result<Affine2, MovieError> {
     let m = floats(v, 6, "matrix")?;
     Ok(Affine2::from_cols_array(&[
         m[0], m[1], m[2], m[3], m[4], m[5],
@@ -362,7 +362,7 @@ fn button(v: &Value) -> Result<Vec<ButtonRecord>, MovieError> {
         .collect()
 }
 
-fn entries(v: &Value, key: &str) -> impl Iterator<Item = (String, Value)> {
+pub(crate) fn entries(v: &Value, key: &str) -> impl Iterator<Item = (String, Value)> {
     v.get(key)
         .and_then(Value::as_object)
         .map(|m| {

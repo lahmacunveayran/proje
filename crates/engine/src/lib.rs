@@ -10,6 +10,7 @@ pub mod input;
 pub mod morph;
 pub mod movie;
 pub mod movie_draw;
+pub mod movie_text;
 pub mod paint;
 pub mod render;
 pub mod shape;

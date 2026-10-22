@@ -181,6 +181,57 @@ fn every_translated_text_can_be_drawn_with_its_font() {
 }
 
 #[test]
+fn every_text_and_text_field_lays_out_in_both_languages() {
+    use engine::movie_text::{Fonts, TextBank};
+    let assets = game::content::assets(None);
+    for game in ["f1", "f2"] {
+        let prefix = format!("feudalism/{game}/");
+        for turkish in [false, true] {
+            let bank = TextBank::load(&assets, &prefix, turkish).unwrap();
+            let mut fonts = Fonts::new(assets.clone());
+            let mut problems = Vec::new();
+            let mut glyphs = 0;
+            let mut ids: Vec<_> = bank.texts.keys().copied().collect();
+            ids.sort();
+            for id in ids {
+                match bank.static_runs(id, &mut fonts) {
+                    Ok((_, runs)) => {
+                        for g in runs.iter().flat_map(|r| &r.glyphs) {
+                            glyphs += 1;
+                            if g.id == 0 {
+                                problems.push(format!("yazı {id}: yazı tipinde olmayan harf"));
+                            }
+                        }
+                    }
+                    Err(e) => problems.push(format!("yazı {id}: {e}")),
+                }
+            }
+            let mut ids: Vec<_> = bank.edit_texts.keys().copied().collect();
+            ids.sort();
+            for id in ids {
+                match bank.edit_runs(id, None, &mut fonts) {
+                    Ok(runs) => {
+                        for g in runs.iter().flat_map(|r| &r.glyphs) {
+                            glyphs += 1;
+                            if g.id == 0 {
+                                problems.push(format!("kutu {id}: yazı tipinde olmayan harf"));
+                            }
+                        }
+                    }
+                    Err(e) => problems.push(format!("kutu {id}: {e}")),
+                }
+            }
+            assert!(glyphs > 5000, "{game}: yalnız {glyphs} harf dizildi");
+            assert!(
+                problems.is_empty(),
+                "{game} (Türkçe: {turkish}):\n{}",
+                problems.join("\n")
+            );
+        }
+    }
+}
+
+#[test]
 fn translation_tables_and_drawn_texts_are_embedded() {
     for (game, drawn) in [("f1", "2019"), ("f2", "3094")] {
         for table in [

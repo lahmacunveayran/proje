@@ -115,10 +115,19 @@ Feudalism'in görselleri SWF'deki yapılarıyla aktarılır (`content/feudalism/
   grafik kartında tek bir atlas dokusundadır; gölgelendirici şekil koordinatından resim pikselini bulur.
   Flash'taki dört tür: tekrarlı ya da kırpılmış (resmin dışında kenar pikseli uzar), yumuşatmalı ya da
   en yakın piksel. Tür, aktarım aracının desen kimliğine yazdığı ekten okunur (`-kirp`, `-yumusak`).
-- Henüz çizilmeyenler: yazılar (Türkçe metinler açık lisanslı yazı tipleriyle dizilecek), süzgeçler
-  (parlama, bulanıklık), karışım kipleri.
+- Yazılar (`engine::movie_text`): sabit yazılar ve yazı alanları açık lisanslı karşılık yazı
+  tipleriyle dizilir (`texts.json` → `fonts`). `TextBank::load(.., true)` Türkçe çeviriyi uygular;
+  kurallar Türkçe SWF'yi üreten aracınkiyle aynıdır: sabit yazının her kaydı çevirideki parçayla
+  değişir (istenirse eski satırın ortasına hizalanır ya da küçültülür); özgün yazısı elle satırlara
+  bölünmüş çok satırlı kutu yazıyı kendisi kaydırır ve genişliği özgün yazının en uzun satırına iner.
+  Yazı alanında Flash'ın kuralları: kenarlarda 2 piksel boşluk, hizalama, kenar boşlukları, girinti,
+  satır aralığı, kelime kaydırma; HTML yazılarında `p`, `font` (ad, boy, renk), `b`, `i`, `br`/`sbr`.
+  Yazı tiplerinin kalınlık ve italiklik bayrakları uygulanır (özgün Flash oynatıcısı gibi). Yazı bankası
+  verilmezse yazılar çizilmez, sayılır.
+- Henüz çizilmeyenler: süzgeçler (parlama, bulanıklık), karışım kipleri.
 - Deneme aracı: `cargo run --release -p engine --example movie-png -- content feudalism/f1 4 menu.png`
-  kök filmin bir karesini resme çizer.
+  kök filmin bir karesini resme çizer (`sprite:<kimlik>:<kare>` ile bir sprite'ı; yazılar Türkçe,
+  `orijinal` verilirse özgün hâliyle).
 
 ## Pencere ve döngü
 

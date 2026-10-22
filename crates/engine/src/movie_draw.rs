@@ -4,7 +4,9 @@
 //! önbellekte tutulur. Morph'ların ara hâlleri orana göre kurulur (oran başına bir kez). Flash'ın ince
 //! çizgi kuralı uygulanır: 1 pikselden ince çizgi ekranda 1 piksel çizilir (ölçeğe göre ayrı ağ).
 //!
-//! Resim dolgulu şekiller resim boyasıyla çizilir. Henüz çizilmeyenler sayılır ([`DrawStats`]): yazılar.
+//! Resim dolgulu şekiller resim boyasıyla çizilir. Sabit yazılar ve yazı alanları, yazı bankası
+//! verildiyse ([`MovieMeshes::with_texts`]) açık lisanslı yazı tipleriyle dizilip çizilir
+//! ([`crate::movie_text`]); verilmediyse çizilmeyip sayılır ([`DrawStats`]).
 
 use std::collections::HashMap;
 
@@ -13,6 +15,7 @@ use glam::Affine2;
 use crate::assets::Assets;
 use crate::morph::lerp_image;
 use crate::movie::{CharId, DrawCommand, DrawItem, DrawKind, Library};
+use crate::movie_text::{Fonts, TextBank};
 use crate::render::{DrawList, GpuMesh, Renderer};
 use crate::shape::{VectorImage, transform_scale};
 use crate::svg::load_svg;
@@ -31,9 +34,11 @@ pub struct DrawStats {
     pub drawn: usize,
     /// Çizilen resim dolgulu şekiller.
     pub bitmap_shapes: usize,
-    /// Sabit yazılar ve yazı alanları (henüz çizilmiyor).
+    /// Çizilen sabit yazılar ve yazı alanları.
     pub texts: usize,
-    /// Dosyası okunamayan ya da üçgenlenemeyen semboller.
+    /// Yazı bankası verilmediği için çizilmeyen yazılar.
+    pub skipped_texts: usize,
+    /// Dosyası okunamayan, dizilemeyen ya da üçgenlenemeyen semboller.
     pub failed: usize,
 }
 
@@ -45,15 +50,55 @@ pub struct MovieMeshes {
     images: HashMap<String, Option<VectorImage>>,
     meshes: HashMap<(CharId, i32), Option<GpuMesh>>,
     morphs: HashMap<(CharId, u32), Option<GpuMesh>>,
+    texts: Option<TextBank>,
+    fonts: Fonts,
+    text_meshes: HashMap<CharId, Option<GpuMesh>>,
 }
 
 impl MovieMeshes {
     pub fn new(assets: Assets, prefix: &str) -> Self {
         MovieMeshes {
+            fonts: Fonts::new(assets.clone()),
             assets,
             prefix: prefix.to_string(),
             ..Default::default()
         }
+    }
+
+    /// Yazılar bu bankadan (özgün ya da çevrilmiş) dizilip çizilir.
+    pub fn with_texts(mut self, bank: TextBank) -> Self {
+        self.texts = Some(bank);
+        self.text_meshes.clear();
+        self
+    }
+
+    /// Yazının ağı (başlangıç yazısıyla). Bankası yoksa `None`.
+    fn text(&mut self, renderer: &mut Renderer, kind: &DrawKind) -> Option<Option<GpuMesh>> {
+        let bank = self.texts.as_ref()?;
+        let (id, image) = match *kind {
+            DrawKind::Text(id) => {
+                if let Some(m) = self.text_meshes.get(&id) {
+                    return Some(m.clone());
+                }
+                (id, bank.static_image(id, &mut self.fonts))
+            }
+            DrawKind::EditText(id) => {
+                if let Some(m) = self.text_meshes.get(&id) {
+                    return Some(m.clone());
+                }
+                (id, bank.edit_image(id, None, &mut self.fonts))
+            }
+            _ => return None,
+        };
+        let mesh = match image {
+            Ok(image) => upload(renderer, &image, id),
+            Err(e) => {
+                log::warn!("yazı {id}: {e}");
+                None
+            }
+        };
+        self.text_meshes.insert(id, mesh.clone());
+        Some(mesh)
     }
 
     fn image(&mut self, file: String) -> Option<VectorImage> {
@@ -160,10 +205,16 @@ impl MovieMeshes {
                 stats.bitmap_shapes += 1;
                 self.bitmap_shape(renderer, id)
             }
-            DrawKind::Text(_) | DrawKind::EditText(_) => {
-                stats.texts += 1;
-                return None;
-            }
+            DrawKind::Text(_) | DrawKind::EditText(_) => match self.text(renderer, &item.kind) {
+                Some(mesh) => {
+                    stats.texts += 1;
+                    mesh
+                }
+                None => {
+                    stats.skipped_texts += 1;
+                    return None;
+                }
+            },
         };
         if mesh.is_none() {
             stats.failed += 1;

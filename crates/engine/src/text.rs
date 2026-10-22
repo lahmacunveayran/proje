@@ -202,6 +202,13 @@ impl Font {
             .is_some_and(|f| f.charmap().map(c).is_some())
     }
 
+    /// Harfin yazı tipindeki numarası (yoksa `None`).
+    pub fn glyph_id(&self, c: char) -> Option<u32> {
+        self.font_ref()
+            .and_then(|f| f.charmap().map(c))
+            .map(|g| g.to_u32())
+    }
+
     /// Verilen boydaki yükseklik ölçüleri: (taban çizgisinin üstü, altı).
     pub fn vertical_metrics(&self, size: f32) -> (f32, f32) {
         let s = size / self.units_per_em;
@@ -233,6 +240,26 @@ impl Font {
     pub fn measure(&self, text: &str, size: f32) -> Result<f32, FontError> {
         let s = size / self.units_per_em;
         Ok(self.shape(text)?.iter().map(|g| g.advance).sum::<f32>() * s)
+    }
+
+    /// Tek satırı dizer: harfler x = 0'dan başlar, taban çizgisi y = 0'dır. Satırın genişliğini de verir.
+    /// Yazı tipinde olmayan harf 0 numaralı harftir.
+    pub fn shape_line(&self, text: &str, size: f32) -> Result<(Vec<PlacedGlyph>, f32), FontError> {
+        let s = size / self.units_per_em;
+        let mut x = 0.0;
+        let glyphs = self
+            .shape(text)?
+            .iter()
+            .map(|g| {
+                let placed = PlacedGlyph {
+                    id: g.id,
+                    position: Vec2::new(x, 0.0) + g.offset * s,
+                };
+                x += g.advance * s;
+                placed
+            })
+            .collect();
+        Ok((glyphs, x))
     }
 
     /// Yazıyı dizer, satırlara böler ve hizalar.
@@ -335,17 +362,32 @@ impl Font {
         path
     }
 
-    /// Dizilmiş yazıyı tek bir vektör şekle çevirir.
-    pub fn build_image(&self, layout: &TextLayout, paint: impl Into<Paint>) -> VectorImage {
-        let scale = layout.font_size / self.units_per_em;
-        let mut builder = Path::builder();
-        for g in &layout.glyphs {
+    /// Harflerin çizgilerini yola ekler: `size` boyunda, `transform` ile taşınmış.
+    pub fn append_glyphs(
+        &self,
+        builder: &mut lyon_tessellation::path::path::Builder,
+        glyphs: &[PlacedGlyph],
+        size: f32,
+        transform: Affine2,
+    ) {
+        let scale = Affine2::from_scale(Vec2::splat(size / self.units_per_em));
+        for g in glyphs {
             if let Some(path) = self.glyph_path(g.id) {
-                let t =
-                    Affine2::from_translation(g.position) * Affine2::from_scale(Vec2::splat(scale));
-                append_path(&mut builder, &path, t);
+                let t = transform * Affine2::from_translation(g.position) * scale;
+                append_path(builder, &path, t);
             }
         }
+    }
+
+    /// Dizilmiş yazıyı tek bir vektör şekle çevirir.
+    pub fn build_image(&self, layout: &TextLayout, paint: impl Into<Paint>) -> VectorImage {
+        let mut builder = Path::builder();
+        self.append_glyphs(
+            &mut builder,
+            &layout.glyphs,
+            layout.font_size,
+            Affine2::IDENTITY,
+        );
         let mut image = VectorImage::new(layout.size);
         image.push(Shape {
             path: builder.build(),
