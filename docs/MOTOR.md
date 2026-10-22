@@ -124,7 +124,16 @@ Feudalism'in görselleri SWF'deki yapılarıyla aktarılır (`content/feudalism/
   satır aralığı, kelime kaydırma; HTML yazılarında `p`, `font` (ad, boy, renk), `b`, `i`, `br`/`sbr`.
   Yazı tiplerinin kalınlık ve italiklik bayrakları uygulanır (özgün Flash oynatıcısı gibi). Yazı bankası
   verilmezse yazılar çizilmez, sayılır.
-- Henüz çizilmeyenler: süzgeçler (parlama, bulanıklık), karışım kipleri.
+- Süzgeçler (`engine::render::Filter`): süzgeçli nesne ekran boyunda ayrı bir dokuya çizilir, süzgeçten
+  geçer ve dıştaki çizime konur (dıştaki maskeler sonuca uygulanır; içindeki maskeler kendi dokusunda
+  çalışır). `DrawList::push_filters` / `pop_filters`. Flash'taki gibi: bulanıklık kutu süzgecidir
+  (yatay, dikey, "geçiş" sayısı kadar); parlama, bulanıklaştırılmış saydamlığın gücüyle çarpılıp
+  parlama rengiyle çizimin arkasına konmasıdır (iç parlama ve delme de var). Süzgeç genişlikleri sahne
+  pikselidir: sahneyi büyüten dönüşümle büyür, nesnenin kendi ölçeğiyle büyümez. Feudalism'de
+  kullanılanlar yalnız parlama ve bulanıklık; F2 menüsündeki kılıç parlaması Ruffle'ın (wgpu)
+  çizimiyle karşılaştırıldı.
+- Karışım kipleri: iki oyunda da yalnız "normal" kullanılıyor (SWF dökümünde başka kip yok); oynatıcı
+  başka bir kip görürse hata verir.
 - Deneme aracı: `cargo run --release -p engine --example movie-png -- content feudalism/f1 4 menu.png`
   kök filmin bir karesini resme çizer (`sprite:<kimlik>:<kare>` ile bir sprite'ı; yazılar Türkçe,
   `orijinal` verilirse özgün hâliyle).

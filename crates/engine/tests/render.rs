@@ -7,7 +7,7 @@ use common::{assert_close, assert_snapshot, renderer};
 use engine::color::Color;
 use engine::glam::{Affine2, UVec2, Vec2};
 use engine::paint::{Gradient, GradientKind, GradientStop, Paint, Spread};
-use engine::render::{ColorTransform, DrawList, LETTERBOX_COLOR};
+use engine::render::{ColorTransform, DrawList, Filter, GpuMesh, LETTERBOX_COLOR};
 use engine::shape::{Shape, Stroke, VectorImage, circle_path, polygon_path, rect_path};
 use engine::tessellate::tessellate;
 use engine::viewport::{LOGICAL_SIZE, Viewport};
@@ -483,4 +483,120 @@ fn too_large_image_is_an_error_not_a_crash() {
     let list = DrawList::new(hex("#FFFFFF"));
     let viewport = Viewport::fit(Vec2::new(10000.0, 10.0), UVec2::new(10000, 10));
     assert!(r.render_to_image(&viewport, &list).is_err());
+}
+
+fn filled_rect(r: &mut engine::render::Renderer, min: Vec2, max: Vec2, color: &str) -> GpuMesh {
+    r.upload(
+        &tessellate(
+            &image(vec![Shape::filled(rect_path(min, max), hex(color))]),
+            0.05,
+        )
+        .unwrap(),
+    )
+}
+
+#[test]
+fn blur_filter_spreads_edges_and_zero_blur_changes_nothing() {
+    // Flash'ın bulanıklığı: genişliği verilen kutu süzgeci (yatay ve dikey). 20 piksellik karenin
+    // ortası 10 piksellik kutuyla değişmez; kenarın 3 piksel dışı kutunun dörtte birini kaplar.
+    let mut r = renderer();
+    let square = filled_rect(&mut r, Vec2::splat(40.0), Vec2::splat(60.0), "#FFFFFF");
+    let draw = |r: &mut engine::render::Renderer, filters: Option<&[Filter]>| {
+        let mut list = DrawList::new(Color::BLACK);
+        if let Some(f) = filters {
+            list.push_filters(f);
+        }
+        list.draw(&square, Affine2::IDENTITY);
+        if filters.is_some() {
+            list.pop_filters();
+        }
+        r.render_to_image(&small_viewport(), &list).unwrap()
+    };
+    let blurred = draw(
+        &mut r,
+        Some(&[Filter::Blur {
+            x: 10.0,
+            y: 10.0,
+            passes: 1,
+        }]),
+    );
+    assert_eq!(blurred.pixel(50, 50), [255, 255, 255, 255]);
+    assert_close(blurred.pixel(37, 50), [64, 64, 64, 255], 3, "kenarın dışı");
+    assert_eq!(blurred.pixel(30, 50), [0, 0, 0, 255]);
+    let plain = draw(&mut r, None);
+    assert_eq!(plain.pixel(37, 50), [0, 0, 0, 255]);
+    let zero = draw(
+        &mut r,
+        Some(&[Filter::Blur {
+            x: 0.0,
+            y: 0.0,
+            passes: 1,
+        }]),
+    );
+    assert_eq!(zero.data, plain.data);
+    // İki geçiş daha geniş yayar
+    let twice = draw(
+        &mut r,
+        Some(&[Filter::Blur {
+            x: 10.0,
+            y: 10.0,
+            passes: 2,
+        }]),
+    );
+    assert!(twice.pixel(32, 50)[0] > 0);
+}
+
+#[test]
+fn glow_filter_draws_a_coloured_halo_behind_the_shape() {
+    let mut r = renderer();
+    let square = filled_rect(&mut r, Vec2::splat(40.0), Vec2::splat(60.0), "#FFFFFF");
+    let mut list = DrawList::new(Color::BLACK);
+    list.push_filters(&[Filter::Glow {
+        color: hex("#FF0000"),
+        x: 8.0,
+        y: 8.0,
+        strength: 2.0,
+        inner: false,
+        knockout: false,
+        passes: 1,
+    }]);
+    list.draw(&square, Affine2::IDENTITY);
+    list.pop_filters();
+    let img = r.render_to_image(&small_viewport(), &list).unwrap();
+    // Şeklin kendisi üstte, hale arkada: kenarın 2,5 piksel dışında saydamlık 1,5/8 × 2
+    assert_eq!(img.pixel(50, 50), [255, 255, 255, 255]);
+    assert_close(img.pixel(37, 50), [96, 0, 0, 255], 3, "hale");
+    assert_eq!(img.pixel(20, 50), [0, 0, 0, 255]);
+}
+
+#[test]
+fn filtered_group_stays_inside_outer_masks_and_keeps_its_own() {
+    let mut r = renderer();
+    let left = filled_rect(&mut r, Vec2::ZERO, Vec2::new(50.0, 100.0), "#000000");
+    let top = filled_rect(&mut r, Vec2::ZERO, Vec2::new(100.0, 50.0), "#000000");
+    let square = filled_rect(&mut r, Vec2::splat(40.0), Vec2::splat(60.0), "#2040A0");
+    let mut list = DrawList::new(hex("#FFFFFF"));
+    list.push_mask(&[(left, Affine2::IDENTITY)]);
+    list.push_filters(&[Filter::Glow {
+        color: hex("#00FF00"),
+        x: 4.0,
+        y: 4.0,
+        strength: 10.0,
+        inner: false,
+        knockout: false,
+        passes: 1,
+    }]);
+    list.push_mask(&[(top, Affine2::IDENTITY)]);
+    list.draw(&square, Affine2::IDENTITY);
+    list.pop_mask();
+    list.pop_filters();
+    list.pop_mask();
+    let img = r.render_to_image(&small_viewport(), &list).unwrap();
+    // İç maske: karenin yalnız üst yarısı; hale onun çevresinde
+    assert_eq!(img.pixel(45, 45), [0x20, 0x40, 0xA0, 255]);
+    assert_eq!(img.pixel(45, 51), [0, 255, 0, 255]);
+    assert_eq!(img.pixel(45, 55), [255, 255, 255, 255]);
+    assert_eq!(img.pixel(38, 45), [0, 255, 0, 255]);
+    // Dış maske: sağ yarı hiç görünmez
+    assert_eq!(img.pixel(55, 45), [255, 255, 255, 255]);
 }

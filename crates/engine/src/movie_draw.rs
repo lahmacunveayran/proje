@@ -6,7 +6,8 @@
 //!
 //! Resim dolgulu şekiller resim boyasıyla çizilir. Sabit yazılar ve yazı alanları, yazı bankası
 //! verildiyse ([`MovieMeshes::with_texts`]) açık lisanslı yazı tipleriyle dizilip çizilir
-//! ([`crate::movie_text`]); verilmediyse çizilmeyip sayılır ([`DrawStats`]).
+//! ([`crate::movie_text`]); verilmediyse çizilmeyip sayılır ([`DrawStats`]). Süzgeçli kümeler
+//! (parlama, bulanıklık) çizim listesinde süzgeçli katman olur.
 
 use std::collections::HashMap;
 
@@ -38,6 +39,8 @@ pub struct DrawStats {
     pub texts: usize,
     /// Yazı bankası verilmediği için çizilmeyen yazılar.
     pub skipped_texts: usize,
+    /// Süzgeçli kümeler.
+    pub filtered: usize,
     /// Dosyası okunamayan, dizilemeyen ya da üçgenlenemeyen semboller.
     pub failed: usize,
 }
@@ -251,6 +254,11 @@ impl MovieMeshes {
                     list.push_mask(&shapes);
                 }
                 DrawCommand::MaskEnd => list.pop_mask(),
+                DrawCommand::FilterStart(filters) => {
+                    stats.filtered += 1;
+                    list.push_filters(filters);
+                }
+                DrawCommand::FilterEnd => list.pop_filters(),
             }
         }
         stats

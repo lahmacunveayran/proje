@@ -7,6 +7,7 @@
 //! - Her çizime Flash'taki gibi bir renk dönüşümü ([`ColorTransform`]) verilebilir: saydamlık,
 //!   renklendirme, gün saati ışığı.
 
+mod filters;
 mod paints;
 
 use std::collections::HashMap;
@@ -23,7 +24,10 @@ use crate::paint::RAMP_WIDTH;
 use crate::tessellate::{Mesh, MeshVertex};
 use crate::viewport::Viewport;
 
+use filters::{FilterFrame, LAYER_FORMAT, LayerTexture, frame_release, frame_size};
 use paints::{ATLAS_WIDTH, GpuPaint, PaintTable, affine_rows};
+
+pub use filters::Filter;
 
 /// Kenar yumuşatmadaki örnek sayısı.
 pub const SAMPLE_COUNT: u32 = 4;
@@ -168,10 +172,38 @@ enum Pass {
 #[derive(Clone, Debug)]
 struct DrawEntry {
     mesh: GpuMesh,
-    instance: GpuInstance,
+    /// Örnek tablosundaki sırası.
+    index: u32,
     pass: Pass,
     /// Kalıp karşılaştırma değeri (maske düzeyi).
     level: u32,
+}
+
+/// Süzgeçli katman: içindekiler ayrı bir dokuya çizilir, süzgeçlerden geçer, sonra dıştaki çizime
+/// konur (dıştaki maskeler katmanın sonucuna uygulanır).
+#[derive(Clone, Debug)]
+struct Layer {
+    filters: Vec<Filter>,
+    items: Vec<Item>,
+    /// Dıştaki maske düzeyi.
+    level: u32,
+}
+
+#[derive(Clone, Debug)]
+enum Item {
+    Entry(DrawEntry),
+    Layer(Layer),
+}
+
+type MaskShapes = Vec<(GpuMesh, u32)>;
+
+/// Açık süzgeçli katman: süzgeçleri ve dıştaki çizimler ile maskeler (süzgeci olmayan katman
+/// yalnız yer tutar).
+#[derive(Clone, Debug)]
+struct OpenLayer {
+    filters: Option<Vec<Filter>>,
+    items: Vec<Item>,
+    masks: Vec<MaskShapes>,
 }
 
 /// Bir karede çizilecekler, çizim sırasıyla.
@@ -179,21 +211,45 @@ struct DrawEntry {
 /// Maskeler (Flash'taki gibi): [`DrawList::push_mask`] ile verilen şekiller görünmez; sonraki çizimler
 /// [`DrawList::pop_mask`]'a kadar yalnız bu şekillerin içinde görünür. Maskeler iç içe olabilir;
 /// içteki çizim bütün açık maskelerin kesişiminde görünür.
+///
+/// Süzgeçler: [`DrawList::push_filters`] ile [`DrawList::pop_filters`] arasındaki çizimler birlikte
+/// süzgeçten geçer (bulanıklık, parlama).
 #[derive(Clone, Debug)]
 pub struct DrawList {
     /// Mantıksal alanın arka plan rengi.
     pub clear: Color,
-    items: Vec<DrawEntry>,
-    masks: Vec<Vec<(GpuMesh, GpuInstance)>>,
+    instances: Vec<GpuInstance>,
+    items: Vec<Item>,
+    masks: Vec<MaskShapes>,
+    layers: Vec<OpenLayer>,
+    entries: usize,
 }
 
 impl DrawList {
     pub fn new(clear: Color) -> Self {
         DrawList {
             clear,
+            instances: Vec::new(),
             items: Vec::new(),
             masks: Vec::new(),
+            layers: Vec::new(),
+            entries: 0,
         }
+    }
+
+    fn push_entry(&mut self, mesh: &GpuMesh, index: u32, pass: Pass, level: u32) {
+        self.entries += 1;
+        self.items.push(Item::Entry(DrawEntry {
+            mesh: mesh.clone(),
+            index,
+            pass,
+            level,
+        }));
+    }
+
+    fn instance(&mut self, transform: Affine2, color: ColorTransform) -> u32 {
+        self.instances.push(GpuInstance::new(transform, color));
+        (self.instances.len() - 1) as u32
     }
 
     pub fn draw(&mut self, mesh: &GpuMesh, transform: Affine2) {
@@ -202,55 +258,79 @@ impl DrawList {
 
     pub fn draw_with(&mut self, mesh: &GpuMesh, transform: Affine2, color: ColorTransform) {
         if mesh.0.index_count > 0 {
-            self.items.push(DrawEntry {
-                mesh: mesh.clone(),
-                instance: GpuInstance::new(transform, color),
-                pass: Pass::Draw,
-                level: self.masks.len() as u32,
-            });
+            let index = self.instance(transform, color);
+            self.push_entry(mesh, index, Pass::Draw, self.masks.len() as u32);
         }
     }
 
     /// Maske açar: şekiller görünmez, sonraki çizimler yalnız onların içinde görünür.
     pub fn push_mask(&mut self, shapes: &[(GpuMesh, Affine2)]) {
         let level = self.masks.len() as u32;
-        let shapes: Vec<(GpuMesh, GpuInstance)> = shapes
-            .iter()
-            .filter(|(m, _)| m.0.index_count > 0)
-            .map(|(m, t)| (m.clone(), GpuInstance::new(*t, ColorTransform::IDENTITY)))
-            .collect();
-        for (mesh, instance) in &shapes {
-            self.items.push(DrawEntry {
-                mesh: mesh.clone(),
-                instance: *instance,
-                pass: Pass::MaskPush,
-                level,
-            });
+        let mut mask = Vec::new();
+        for (mesh, t) in shapes.iter().filter(|(m, _)| m.0.index_count > 0) {
+            let index = self.instance(*t, ColorTransform::IDENTITY);
+            self.push_entry(mesh, index, Pass::MaskPush, level);
+            mask.push((mesh.clone(), index));
         }
-        self.masks.push(shapes);
+        self.masks.push(mask);
     }
 
     /// En son açılan maskeyi kapatır (açık maske yoksa bir şey yapmaz).
     pub fn pop_mask(&mut self) {
         let level = self.masks.len() as u32;
         if let Some(shapes) = self.masks.pop() {
-            for (mesh, instance) in shapes {
-                self.items.push(DrawEntry {
-                    mesh,
-                    instance,
-                    pass: Pass::MaskPop,
-                    level,
-                });
+            for (mesh, index) in shapes {
+                self.push_entry(&mesh, index, Pass::MaskPop, level);
             }
         }
     }
 
+    /// Süzgeçli katman açar. Etkisi olmayan süzgeçler (ör. sıfır bulanıklık) atlanır; hiç süzgeç
+    /// kalmazsa çizimler doğrudan yapılır.
+    pub fn push_filters(&mut self, filters: &[Filter]) {
+        let filters: Vec<Filter> = filters.iter().filter(|f| !f.is_noop()).cloned().collect();
+        if filters.is_empty() {
+            self.layers.push(OpenLayer {
+                filters: None,
+                items: Vec::new(),
+                masks: Vec::new(),
+            });
+            return;
+        }
+        self.layers.push(OpenLayer {
+            filters: Some(filters),
+            items: std::mem::take(&mut self.items),
+            masks: std::mem::take(&mut self.masks),
+        });
+    }
+
+    /// En son açılan süzgeçli katmanı kapatır (katmanın içinde açık kalan maskeler de kapanır).
+    pub fn pop_filters(&mut self) {
+        let Some(open) = self.layers.pop() else {
+            return;
+        };
+        let Some(filters) = open.filters else {
+            return;
+        };
+        while !self.masks.is_empty() {
+            self.pop_mask();
+        }
+        let items = std::mem::replace(&mut self.items, open.items);
+        self.masks = open.masks;
+        self.items.push(Item::Layer(Layer {
+            filters,
+            items,
+            level: self.masks.len() as u32,
+        }));
+    }
+
+    /// Çizim ve maske işlemlerinin sayısı.
     pub fn len(&self) -> usize {
-        self.items.len()
+        self.entries
     }
 
     pub fn is_empty(&self) -> bool {
-        self.items.is_empty()
+        self.entries == 0
     }
 }
 
@@ -286,8 +366,16 @@ pub struct Renderer {
     bind_group: wgpu::BindGroup,
     instance_buffer: wgpu::Buffer,
     instance_capacity: usize,
-    msaa: Option<MsaaTarget>,
+    /// Çok örneklemeli hedefler (biçim başına bir tane: ekran ve süzgeç katmanları).
+    msaa: Vec<MsaaTarget>,
     background: GpuMesh,
+    filter_shader: wgpu::ShaderModule,
+    filter_layout: wgpu::BindGroupLayout,
+    filter_pipeline_layout: wgpu::PipelineLayout,
+    filter_pipelines: HashMap<(&'static str, wgpu::TextureFormat), wgpu::RenderPipeline>,
+    /// Önceki çizimlerden kalan boş süzgeç dokuları (`layer_size` boyunda).
+    layer_pool: Vec<LayerTexture>,
+    layer_size: UVec2,
 }
 
 impl Renderer {
@@ -404,6 +492,17 @@ impl Renderer {
         );
         let instance_capacity = 1024;
         let instance_buffer = create_instance_buffer(&device, instance_capacity);
+        let filter_shader = device.create_shader_module(wgpu::ShaderModuleDescriptor {
+            label: Some("süzgeç gölgelendirici"),
+            source: wgpu::ShaderSource::Wgsl(include_str!("filter.wgsl").into()),
+        });
+        let filter_layout = Renderer::filter_layout(&device);
+        let filter_pipeline_layout =
+            device.create_pipeline_layout(&wgpu::PipelineLayoutDescriptor {
+                label: Some("süzgeç boru hattı düzeni"),
+                bind_group_layouts: &[Some(&filter_layout)],
+                immediate_size: 0,
+            });
         let mut renderer = Renderer {
             device,
             queue,
@@ -424,11 +523,17 @@ impl Renderer {
             bind_group,
             instance_buffer,
             instance_capacity,
-            msaa: None,
+            msaa: Vec::new(),
             background: GpuMesh(Arc::new(GpuMeshData {
                 buffers: None,
                 index_count: 0,
             })),
+            filter_shader,
+            filter_layout,
+            filter_pipeline_layout,
+            filter_pipelines: HashMap::new(),
+            layer_pool: Vec::new(),
+            layer_size: UVec2::ZERO,
         };
         renderer.background = renderer.upload(&unit_square());
         renderer
@@ -661,9 +766,10 @@ impl Renderer {
         format: wgpu::TextureFormat,
         size: UVec2,
     ) -> (wgpu::TextureView, wgpu::TextureView) {
-        if let Some(m) = &self.msaa
-            && m.format == format
-            && m.size == size
+        if let Some(m) = self
+            .msaa
+            .iter()
+            .find(|m| m.format == format && m.size == size)
         {
             return (m.view.clone(), m.stencil.clone());
         }
@@ -699,7 +805,8 @@ impl Renderer {
                 view_formats: &[],
             })
             .create_view(&wgpu::TextureViewDescriptor::default());
-        self.msaa = Some(MsaaTarget {
+        self.msaa.retain(|m| m.format != format && m.size == size);
+        self.msaa.push(MsaaTarget {
             format,
             size,
             view: view.clone(),
@@ -735,29 +842,29 @@ impl Renderer {
         } else {
             LETTERBOX_COLOR
         };
+        let mut instances = list.instances.clone();
         let mut items = Vec::with_capacity(list.items.len() + 1);
         if !seritsiz && list.clear.a > 0.0 {
-            let bg = GpuInstance::new(
+            instances.push(GpuInstance::new(
                 Affine2::from_scale(viewport.logical),
                 ColorTransform::multiply(list.clear),
-            );
-            items.push(DrawEntry {
+            ));
+            items.push(Item::Entry(DrawEntry {
                 mesh: self.background.clone(),
-                instance: bg,
+                index: (instances.len() - 1) as u32,
                 pass: Pass::Draw,
                 level: 0,
-            });
+            }));
         }
         items.extend(list.items.iter().cloned());
 
         self.flush_paints();
-        if items.len() > self.instance_capacity {
-            while self.instance_capacity < items.len() {
+        if instances.len() > self.instance_capacity {
+            while self.instance_capacity < instances.len() {
                 self.instance_capacity *= 2;
             }
             self.instance_buffer = create_instance_buffer(&self.device, self.instance_capacity);
         }
-        let instances: Vec<GpuInstance> = items.iter().map(|e| e.instance).collect();
         self.queue
             .write_buffer(&self.instance_buffer, 0, bytemuck::cast_slice(&instances));
         let (row0, row1) = affine_rows(viewport.clip_transform());
@@ -774,17 +881,78 @@ impl Renderer {
         self.queue
             .write_buffer(&self.view_buffer, 0, bytemuck::bytes_of(&view));
 
-        let (msaa, stencil) = self.msaa_view(format, size);
-        for pass in [Pass::Draw, Pass::MaskPush, Pass::MaskPop] {
-            self.pipeline(format, pass);
-        }
+        // Mantıksal alanın dışına taşan çizimler (ör. paralaks katmanları) kırpılır.
+        let (origin, extent) = viewport.content_rect();
+        let x0 = origin.x.floor().max(0.0) as u32;
+        let y0 = origin.y.floor().max(0.0) as u32;
+        let x1 = ((origin.x + extent.x).ceil() as u32).min(size.x);
+        let y1 = ((origin.y + extent.y).ceil() as u32).min(size.y);
+        let scissor = [
+            x0,
+            y0,
+            x1.saturating_sub(x0).max(1),
+            y1.saturating_sub(y0).max(1),
+        ];
+        let mut frame = self.filter_frame(&items, size, viewport.scale);
         let mut encoder = self
             .device
             .create_command_encoder(&wgpu::CommandEncoderDescriptor {
                 label: Some("çizim"),
             });
+        let clear = wgpu::Color {
+            r: f64::from(temiz.r),
+            g: f64::from(temiz.g),
+            b: f64::from(temiz.b),
+            a: f64::from(temiz.a),
+        };
+        self.draw_items(
+            &mut encoder,
+            &mut frame,
+            &items,
+            (target, format),
+            clear,
+            scissor,
+        );
+        self.finish_filter_frame(frame);
+        self.queue.submit([encoder.finish()]);
+    }
+
+    /// Bir katmanın (ya da en dıştaki listenin) çizimleri: önce içindeki süzgeçli katmanlar kendi
+    /// dokularına çizilir, sonra bu hedefe tek geçişte çizim, maske ve katman koyma yapılır.
+    fn draw_items(
+        &mut self,
+        encoder: &mut wgpu::CommandEncoder,
+        frame: &mut FilterFrame,
+        items: &[Item],
+        (target, format): (&wgpu::TextureView, wgpu::TextureFormat),
+        clear: wgpu::Color,
+        scissor: [u32; 4],
+    ) {
+        let mut layers = Vec::new();
+        for item in items {
+            if let Item::Layer(layer) = item {
+                let content = self.take_texture(frame);
+                self.draw_items(
+                    encoder,
+                    frame,
+                    &layer.items,
+                    (&content.view, LAYER_FORMAT),
+                    wgpu::Color::TRANSPARENT,
+                    scissor,
+                );
+                let mut result = content;
+                for filter in &layer.filters {
+                    result = self.apply_filter(encoder, frame, filter, result);
+                }
+                let bind_group = self.composite_bind_group(frame, &result, format);
+                layers.push((result, bind_group));
+            }
+        }
+        let (msaa, stencil) = self.msaa_view(format, frame_size(frame));
+        for pass in [Pass::Draw, Pass::MaskPush, Pass::MaskPop] {
+            self.pipeline(format, pass);
+        }
         {
-            let bar = temiz;
             let mut pass = encoder.begin_render_pass(&wgpu::RenderPassDescriptor {
                 label: Some("vektör geçişi"),
                 color_attachments: &[Some(wgpu::RenderPassColorAttachment {
@@ -792,12 +960,7 @@ impl Renderer {
                     depth_slice: None,
                     resolve_target: Some(target),
                     ops: wgpu::Operations {
-                        load: wgpu::LoadOp::Clear(wgpu::Color {
-                            r: f64::from(bar.r),
-                            g: f64::from(bar.g),
-                            b: f64::from(bar.b),
-                            a: f64::from(bar.a),
-                        }),
+                        load: wgpu::LoadOp::Clear(clear),
                         store: wgpu::StoreOp::Discard,
                     },
                 })],
@@ -813,43 +976,56 @@ impl Renderer {
                 occlusion_query_set: None,
                 multiview_mask: None,
             });
-            // Mantıksal alanın dışına taşan çizimler (ör. paralaks katmanları) kırpılır.
-            let (origin, extent) = viewport.content_rect();
-            let x0 = origin.x.floor().max(0.0) as u32;
-            let y0 = origin.y.floor().max(0.0) as u32;
-            let x1 = ((origin.x + extent.x).ceil() as u32).min(size.x);
-            let y1 = ((origin.y + extent.y).ceil() as u32).min(size.y);
-            pass.set_scissor_rect(
-                x0,
-                y0,
-                x1.saturating_sub(x0).max(1),
-                y1.saturating_sub(y0).max(1),
-            );
-            pass.set_bind_group(0, &self.bind_group, &[]);
+            let [x, y, w, h] = scissor;
+            pass.set_scissor_rect(x, y, w, h);
             pass.set_vertex_buffer(1, self.instance_buffer.slice(..));
-            let mut current: Option<(Pass, u32)> = None;
-            for (i, entry) in items.iter().enumerate() {
-                let Some((vb, ib)) = &entry.mesh.0.buffers else {
-                    continue;
-                };
-                if current.map(|c| c.0) != Some(entry.pass) {
-                    let Some(pipeline) = self.pipelines.get(&(format, entry.pass)) else {
-                        continue;
-                    };
-                    pass.set_pipeline(pipeline);
+            // Şu anki hat (çizim geçişi ya da katman koyma) ve kalıp değeri
+            let mut current: Option<(Option<Pass>, u32)> = None;
+            let mut next_layer = layers.iter();
+            for item in items {
+                match item {
+                    Item::Entry(entry) => {
+                        let Some((vb, ib)) = &entry.mesh.0.buffers else {
+                            continue;
+                        };
+                        if current.map(|c| c.0) != Some(Some(entry.pass)) {
+                            let Some(pipeline) = self.pipelines.get(&(format, entry.pass)) else {
+                                continue;
+                            };
+                            pass.set_pipeline(pipeline);
+                            pass.set_bind_group(0, &self.bind_group, &[]);
+                        }
+                        if current.map(|c| c.1) != Some(entry.level) {
+                            pass.set_stencil_reference(entry.level);
+                        }
+                        current = Some((Some(entry.pass), entry.level));
+                        pass.set_vertex_buffer(0, vb.slice(..));
+                        pass.set_index_buffer(ib.slice(..), wgpu::IndexFormat::Uint32);
+                        pass.draw_indexed(
+                            0..entry.mesh.0.index_count,
+                            0,
+                            entry.index..entry.index + 1,
+                        );
+                    }
+                    Item::Layer(layer) => {
+                        let Some((_, Some(bind_group))) = next_layer.next() else {
+                            continue;
+                        };
+                        let Some(pipeline) = self.composite_pipeline(format) else {
+                            continue;
+                        };
+                        pass.set_pipeline(pipeline);
+                        pass.set_bind_group(0, bind_group, &[0]);
+                        pass.set_stencil_reference(layer.level);
+                        current = Some((None, layer.level));
+                        pass.draw(0..3, 0..1);
+                    }
                 }
-                if current.map(|c| c.1) != Some(entry.level) {
-                    pass.set_stencil_reference(entry.level);
-                }
-                current = Some((entry.pass, entry.level));
-                let mesh = &entry.mesh;
-                pass.set_vertex_buffer(0, vb.slice(..));
-                pass.set_index_buffer(ib.slice(..), wgpu::IndexFormat::Uint32);
-                let i = i as u32;
-                pass.draw_indexed(0..mesh.0.index_count, 0, i..i + 1);
             }
         }
-        self.queue.submit([encoder.finish()]);
+        for (texture, _) in layers {
+            frame_release(frame, texture);
+        }
     }
 
     /// Çizim listesini ekransız bir resme çizer.

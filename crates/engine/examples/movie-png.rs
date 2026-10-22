@@ -69,8 +69,8 @@ fn main() -> Result<(), Box<dyn Error>> {
         .render_to_image(&viewport, &list)?
         .save_png(std::path::Path::new(output))?;
     println!(
-        "kare {frame}: {} çizim (resim dolgulu {}, yazı {}); hata {}",
-        stats.drawn, stats.bitmap_shapes, stats.texts, stats.failed
+        "kare {frame}: {} çizim (resim dolgulu {}, yazı {}, süzgeçli küme {}); hata {}",
+        stats.drawn, stats.bitmap_shapes, stats.texts, stats.filtered, stats.failed
     );
     Ok(())
 }

@@ -25,7 +25,9 @@ use std::fmt;
 use glam::{Affine2, Vec2};
 use serde_json::Value;
 
-use crate::render::ColorTransform;
+use crate::color::Color;
+use crate::render::{ColorTransform, Filter};
+use crate::shape::transform_scale;
 
 /// Karakter (sembol) kimliği.
 pub type CharId = u16;
@@ -64,6 +66,8 @@ pub struct Place {
     /// Kırpma derinliği: bu örnek maskedir.
     pub clip: Option<Depth>,
     pub visible: Option<bool>,
+    /// Süzgeçler (verilirse eskilerin yerine geçer; boş liste kaldırır).
+    pub filters: Option<Vec<Filter>>,
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -128,6 +132,7 @@ pub struct ButtonRecord {
     pub depth: Depth,
     pub matrix: Affine2,
     pub color: ColorTransform,
+    pub filters: Vec<Filter>,
 }
 
 /// Düğmenin görünen durumu.
@@ -238,6 +243,7 @@ fn frame_op(v: &Value) -> Result<FrameOp, MovieError> {
         return Ok(FrameOp::Remove(as_u16(depth, "remove")?));
     }
     let depth = as_u16(v.get("depth").ok_or_else(|| field("depth"))?, "depth")?;
+    check_blend(v)?;
     Ok(FrameOp::Place(Place {
         depth,
         moves: v.get("move").and_then(Value::as_bool).unwrap_or(false),
@@ -248,7 +254,61 @@ fn frame_op(v: &Value) -> Result<FrameOp, MovieError> {
         name: v.get("name").and_then(Value::as_str).map(str::to_string),
         clip: v.get("clip").map(|c| as_u16(c, "clip")).transpose()?,
         visible: v.get("visible").and_then(Value::as_bool),
+        filters: filters(v)?,
     }))
+}
+
+/// İki oyunda da yalnız "normal" karışım kipi kullanılıyor; başkası gelirse sessizce yanlış
+/// çizilmesin diye hata verilir.
+fn check_blend(v: &Value) -> Result<(), MovieError> {
+    match v.get("blend").and_then(Value::as_str) {
+        Some(blend) if blend != "normal" => {
+            Err(field(&format!("desteklenmeyen karışım kipi {blend}")))
+        }
+        _ => Ok(()),
+    }
+}
+
+fn filters(v: &Value) -> Result<Option<Vec<Filter>>, MovieError> {
+    v.get("filters")
+        .map(|f| {
+            f.as_array()
+                .ok_or_else(|| field("filters"))?
+                .iter()
+                .map(filter)
+                .collect::<Result<Vec<_>, _>>()
+        })
+        .transpose()
+}
+
+fn filter(v: &Value) -> Result<Filter, MovieError> {
+    let blur = floats(v.get("blur").ok_or_else(|| field("blur"))?, 2, "blur")?;
+    let passes = v.get("passes").and_then(Value::as_u64).unwrap_or(1) as u32;
+    let flag = |k: &str| v.get(k).and_then(Value::as_bool).unwrap_or(false);
+    match v.get("type").and_then(Value::as_str) {
+        Some("blur") => Ok(Filter::Blur {
+            x: blur[0],
+            y: blur[1],
+            passes,
+        }),
+        Some("glow") => {
+            let c = floats(v.get("color").ok_or_else(|| field("color"))?, 4, "color")?;
+            let byte = |x: f32| x.clamp(0.0, 255.0) as u8;
+            Ok(Filter::Glow {
+                color: Color::from_rgba8(byte(c[0]), byte(c[1]), byte(c[2]), byte(c[3])),
+                x: blur[0],
+                y: blur[1],
+                strength: as_f32(
+                    v.get("strength").ok_or_else(|| field("strength"))?,
+                    "strength",
+                )?,
+                inner: flag("inner"),
+                knockout: flag("knockout"),
+                passes,
+            })
+        }
+        other => Err(field(&format!("süzgeç türü {other:?}"))),
+    }
 }
 
 fn action(v: &Value) -> Result<Action, MovieError> {
@@ -338,6 +398,7 @@ fn button(v: &Value) -> Result<Vec<ButtonRecord>, MovieError> {
                 .and_then(Value::as_array)
                 .ok_or_else(|| field("states"))?;
             let has = |s: &str| states.iter().any(|x| x.as_str() == Some(s));
+            check_blend(r)?;
             Ok(ButtonRecord {
                 states: ButtonStates {
                     up: has("up"),
@@ -357,6 +418,7 @@ fn button(v: &Value) -> Result<Vec<ButtonRecord>, MovieError> {
                     .map(cxform)
                     .transpose()?
                     .unwrap_or(ColorTransform::IDENTITY),
+                filters: filters(r)?.unwrap_or_default(),
             })
         })
         .collect()
@@ -511,6 +573,7 @@ pub struct Instance {
     pub name: Option<String>,
     pub clip: Option<Depth>,
     pub visible: bool,
+    pub filters: Vec<Filter>,
     pub button_state: ButtonState,
     /// Sprite örneğinin kendi oynatıcısı.
     pub clip_player: Option<Box<Clip>>,
@@ -717,6 +780,7 @@ impl Clip {
             name: p.name.clone(),
             clip: p.clip,
             visible: p.visible.unwrap_or(true),
+            filters: p.filters.clone().unwrap_or_default(),
             button_state: ButtonState::Up,
             clip_player,
         }
@@ -751,6 +815,9 @@ impl Clip {
             fresh.ratio = p.ratio.unwrap_or(inst.ratio);
             fresh.name = p.name.clone().or(inst.name.take());
             fresh.clip = p.clip.or(inst.clip);
+            if p.filters.is_none() {
+                fresh.filters = std::mem::take(&mut inst.filters);
+            }
             *inst = fresh;
             self.placed.insert(p.depth);
             return;
@@ -773,6 +840,9 @@ impl Clip {
         if let Some(v) = p.visible {
             inst.visible = v;
         }
+        if let Some(f) = &p.filters {
+            inst.filters = f.clone();
+        }
     }
 
     /// Bu karenin çizim komutları, çizim sırasıyla. `transform` ve `color` en dıştaki dönüşümlerdir
@@ -784,7 +854,9 @@ impl Clip {
         color: ColorTransform,
     ) -> Vec<DrawCommand> {
         let mut out = Vec::new();
-        self.collect(lib, transform, color, &mut out);
+        // Süzgeçler sahne pikseliyle verilir: nesnelerin kendi ölçeğiyle değil, sahneyi yerleştiren
+        // dönüşümle büyür (Flash'taki gibi)
+        self.collect(lib, transform, color, transform_scale(transform), &mut out);
         out
     }
 
@@ -793,6 +865,7 @@ impl Clip {
         lib: &Library,
         transform: Affine2,
         color: ColorTransform,
+        filter_scale: f32,
         out: &mut Vec<DrawCommand>,
     ) {
         collect_list(
@@ -800,6 +873,7 @@ impl Clip {
             self.display.iter().map(|(d, i)| (*d, i)),
             transform,
             color,
+            filter_scale,
             out,
         );
     }
@@ -848,6 +922,9 @@ pub enum DrawCommand {
     /// Maske başlar: sonraki çizimler, `MaskEnd`'e kadar, bu şekillerin içinde görünür.
     MaskStart(Vec<DrawItem>),
     MaskEnd,
+    /// Süzgeçli küme başlar: sonraki çizimler, `FilterEnd`'e kadar, birlikte süzgeçten geçer.
+    FilterStart(Vec<Filter>),
+    FilterEnd,
 }
 
 fn collect_list<'a>(
@@ -855,6 +932,7 @@ fn collect_list<'a>(
     list: impl Iterator<Item = (Depth, &'a Instance)>,
     transform: Affine2,
     color: ColorTransform,
+    filter_scale: f32,
     out: &mut Vec<DrawCommand>,
 ) {
     let mut masks: Vec<Depth> = Vec::new();
@@ -868,7 +946,7 @@ fn collect_list<'a>(
         if let Some(end) = inst.clip {
             // Maskenin kendisi görünmez; yalnız şekilleri kırpma alanı olur
             let mut mask = Vec::new();
-            instance_commands(lib, inst, t, c, &mut mask);
+            instance_commands(lib, inst, t, c, filter_scale, &mut mask);
             let items = mask
                 .into_iter()
                 .filter_map(|cmd| match cmd {
@@ -881,7 +959,18 @@ fn collect_list<'a>(
             continue;
         }
         if inst.visible {
-            instance_commands(lib, inst, t, c, out);
+            if inst.filters.is_empty() {
+                instance_commands(lib, inst, t, c, filter_scale, out);
+            } else {
+                out.push(DrawCommand::FilterStart(
+                    inst.filters
+                        .iter()
+                        .map(|f| f.scaled(filter_scale))
+                        .collect(),
+                ));
+                instance_commands(lib, inst, t, c, filter_scale, out);
+                out.push(DrawCommand::FilterEnd);
+            }
         }
     }
     for _ in masks {
@@ -894,6 +983,7 @@ fn instance_commands(
     inst: &Instance,
     t: Affine2,
     c: ColorTransform,
+    filter_scale: f32,
     out: &mut Vec<DrawCommand>,
 ) {
     let item = |kind| {
@@ -914,7 +1004,7 @@ fn instance_commands(
         Some(Symbol::EditText) => out.push(item(DrawKind::EditText(inst.char))),
         Some(Symbol::Sprite(_)) => {
             if let Some(child) = &inst.clip_player {
-                child.collect(lib, t, c, out);
+                child.collect(lib, t, c, filter_scale, out);
             }
         }
         Some(Symbol::Button(records)) => {
@@ -939,6 +1029,7 @@ fn instance_commands(
                         name: None,
                         clip: None,
                         visible: None,
+                        filters: Some(r.filters.clone()),
                     };
                     (
                         r.depth,
@@ -946,7 +1037,14 @@ fn instance_commands(
                     )
                 })
                 .collect();
-            collect_list(lib, children.iter().map(|(d, i)| (*d, i)), t, c, out);
+            collect_list(
+                lib,
+                children.iter().map(|(d, i)| (*d, i)),
+                t,
+                c,
+                filter_scale,
+                out,
+            );
         }
         None => {}
     }
@@ -1181,6 +1279,7 @@ mod tests {
                 name: None,
                 clip: None,
                 visible: None,
+                filters: None,
             },
             &mut Vec::new(),
         );
@@ -1190,6 +1289,7 @@ mod tests {
             &inst,
             Affine2::IDENTITY,
             ColorTransform::IDENTITY,
+            1.0,
             &mut out,
         );
         assert_eq!(drawn(&out), vec![DrawKind::Shape(1)]);
@@ -1200,6 +1300,7 @@ mod tests {
             &inst,
             Affine2::IDENTITY,
             ColorTransform::IDENTITY,
+            1.0,
             &mut out,
         );
         assert_eq!(drawn(&out), vec![DrawKind::Shape(2)]);
@@ -1211,5 +1312,85 @@ mod tests {
         assert!(
             Library::from_json(br#"{"stage": {"width": 1, "height": 1, "fps": 1}}"#, None).is_err()
         );
+    }
+
+    #[test]
+    fn unsupported_blend_mode_is_an_error() {
+        // İki oyunda da yalnız "normal" karışım var; başka bir kip gelirse sessizce yanlış çizilmesin
+        let lib = |blend: &str| {
+            let json = format!(
+                r#"{{"stage": {{"width": 1, "height": 1, "fps": 1}},
+                    "root": {{"frames": [[{{"depth": 1, "char": 1, "blend": "{blend}"}}]]}}}}"#
+            );
+            Library::from_json(json.as_bytes(), None)
+        };
+        assert!(lib("normal").is_ok());
+        assert!(lib("multiply").is_err());
+    }
+
+    #[test]
+    fn filters_wrap_the_instance_and_persist_through_moves() {
+        let json = r##"{
+          "stage": {"width": 800, "height": 600, "fps": 30},
+          "shapes": {"1": [0, 0]},
+          "sprites": {"13": {"frames": [
+            [{"depth": 1, "char": 1, "filters": [
+               {"type": "glow", "color": [255, 0, 0, 128], "blur": [4.0, 6.0], "strength": 2.5,
+                "inner": false, "knockout": false, "composite": true, "passes": 1},
+               {"type": "blur", "blur": [10.0, 10.0], "passes": 2}]},
+             {"depth": 2, "char": 1}],
+            [{"depth": 1, "move": true, "matrix": [2, 0, 0, 2, 0, 0]}],
+            [{"depth": 1, "move": true, "filters": []}]
+          ]}},
+          "root": {"frames": []}
+        }"##;
+        let lib = Library::from_json(json.as_bytes(), None).unwrap();
+        let mut clip = Clip::sprite(&lib, 13, &mut Vec::new());
+        let expected = vec![
+            Filter::Glow {
+                color: crate::color::Color::from_rgba8(255, 0, 0, 128),
+                x: 4.0,
+                y: 6.0,
+                strength: 2.5,
+                inner: false,
+                knockout: false,
+                passes: 1,
+            },
+            Filter::Blur {
+                x: 10.0,
+                y: 10.0,
+                passes: 2,
+            },
+        ];
+        let filtered = |clip: &Clip| {
+            let cmds = clip.draw_commands(&lib, Affine2::IDENTITY, ColorTransform::IDENTITY);
+            match &cmds[0] {
+                DrawCommand::FilterStart(f) => {
+                    assert!(matches!(cmds[1], DrawCommand::Draw(_)));
+                    assert_eq!(cmds[2], DrawCommand::FilterEnd);
+                    assert_eq!(cmds.len(), 4);
+                    Some(f.clone())
+                }
+                _ => {
+                    assert_eq!(cmds.len(), 2);
+                    None
+                }
+            }
+        };
+        assert_eq!(filtered(&clip), Some(expected.clone()));
+        // "Taşı" süzgeç vermezse süzgeçler kalır; boş liste kaldırır
+        // Sahneyi büyüten dış dönüşüm süzgeçleri de büyütür
+        let cmds = clip.draw_commands(
+            &lib,
+            Affine2::from_scale(Vec2::splat(2.0)),
+            ColorTransform::IDENTITY,
+        );
+        assert!(
+            matches!(&cmds[0], DrawCommand::FilterStart(f) if f[1] == Filter::Blur { x: 20.0, y: 20.0, passes: 2 })
+        );
+        clip.tick(&lib, &mut Vec::new());
+        assert_eq!(filtered(&clip), Some(expected));
+        clip.tick(&lib, &mut Vec::new());
+        assert_eq!(filtered(&clip), None);
     }
 }
