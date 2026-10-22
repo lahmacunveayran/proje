@@ -1,8 +1,8 @@
 //! SVG dosyalarını vektör resme çevirmek.
 //!
-//! Sanat rehberindeki (docs/SANAT.md) SVG alt kümesi desteklenir. Desteklenmeyen bir öğe
-//! (filtre, maske, kırpma yolu, desen, gömülü resim, SVG içinde yazı, kesikli çizgi) sessizce
-//! atlanmaz; açık bir hata verilir. Böylece çizimdeki bir yanlışlık hemen fark edilir.
+//! Feudalism şekillerinin (FFDec'in yazdığı) SVG alt kümesi desteklenir: yollar, düz renk, degradeler,
+//! resim dolgusu desenleri. Desteklenmeyen bir öğe (filtre, maske, kırpma yolu, vektör desen, SVG
+//! içinde yazı, kesikli çizgi) sessizce atlanmaz; açık bir hata verilir.
 
 use std::fmt;
 use std::sync::Arc;

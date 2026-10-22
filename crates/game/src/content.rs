@@ -25,9 +25,9 @@ mod tests {
     fn fonts_and_texts_are_embedded() {
         let names: Vec<&str> = EMBEDDED.iter().map(|(n, _)| *n).collect();
         for wanted in [
-            "fonts/Alegreya-Variable.ttf",
-            "fonts/AlegreyaSC-Bold.ttf",
-            "fonts/OFL-Alegreya.txt",
+            "fonts/LiberationSans-Bold.ttf",
+            "fonts/OFL-Liberation.txt",
+            "feudalism/f2/library.json",
             "text/tr.ron",
         ] {
             assert!(names.contains(&wanted), "{wanted} gömülü değil: {names:?}");

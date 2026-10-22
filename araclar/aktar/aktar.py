@@ -17,7 +17,7 @@ Aktarılmayan (hak sahibinin olmayan ya da lisansı ayrı olan):
 
 Morph uçlarının renkleri ve degrade matrisleri SWF'den yazılır (`apply_animates`).
 
-Kullanım (depo kökünden; önce araclar/olcum/cikar.sh çalıştırılmış olmalı):
+Kullanım (depo kökünden; önce araclar/aktar/cikar.sh çalıştırılmış olmalı):
     python3 araclar/aktar/aktar.py [swf-oyunlar klasörü]
 """
 import json

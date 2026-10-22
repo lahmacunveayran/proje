@@ -25,7 +25,6 @@ Tuşlar: **F11** tam ekran, **Esc** çıkış.
 ## Belgeler
 
 - [Tasarım](docs/TASARIM.md)
-- [Sanat rehberi](docs/SANAT.md)
 - [Motor](docs/MOTOR.md)
 - [Yol haritası](docs/YOL_HARITASI.md)
 - [Geliştirme](GELISTIRME.md)

@@ -150,8 +150,9 @@ Feudalism'in görselleri SWF'deki yapılarıyla aktarılır (`content/feudalism/
 - İçerik (`content/`) derleme sırasında `.exe` dosyasının içine gömülür; oyun tek dosyadan çalışır.
 - `.exe` dosyasının yanında bir `content` klasörü varsa önce oradan okunur (içerik denemek için).
   `--icerik <klasör>` seçeneği de aynı işi yapar.
-- Metinler `content/text/tr.ron`, sahne dizilimleri `content/scenes/*.ron`, çizimler
-  `content/art/**/*.svg`, yazı tipleri `content/fonts/` altındadır.
+- Görseller, sesler ve yazılar yalnız Feudalism 1 ve 2'den gelir (`content/feudalism/`); onların
+  yazılarını çizen açık lisanslı yazı tipleri `content/fonts/`, pencere başlığı `content/text/tr.ron`
+  altındadır. Oyun açılınca Feudalism 2'nin ana menüsü görünür (`crates/game/src/menu.rs`).
 
 ## Sınama
 

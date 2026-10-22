@@ -2,6 +2,6 @@
 
 pub mod args;
 pub mod content;
-pub mod demo;
 pub mod logging;
+pub mod menu;
 pub mod texts;

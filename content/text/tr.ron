@@ -1,15 +1,4 @@
 // Oyunda görünen metinler (Türkçe). Anahtarlar koddan kullanılır; metinler burada değiştirilir.
 {
     "window_title": "Proje — test sürümü",
-    "demo_title": "Aşama 0: örnek çizimler",
-    "demo_subtitle": "Bozkır Beylikleri: bir bey, bir mızrakçı, bir okçu ve demircinin penceresi",
-    "demo_help": "← →: kamerayı kaydır  ·  F11: tam ekran  ·  Esc: çıkış",
-    "demo_fps": "{fps} kare/sn",
-    "shop_title": "Demirci",
-    "item_name": "Şifalı İksir",
-    "item_text": "Yaraları sarar, yorgun bileğe güç verir. Savaşta bir yudumu canın üçte birini geri getirir.",
-    "item_price": "Fiyat: 120 altın",
-    "button_buy": "Al",
-    "button_inventory": "Heybe",
-    "button_back": "Geri",
 }

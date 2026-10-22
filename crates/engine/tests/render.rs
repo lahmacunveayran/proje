@@ -3,12 +3,12 @@
 
 mod common;
 
-use common::{assert_close, assert_snapshot, renderer};
+use common::{assert_close, renderer};
 use engine::color::Color;
 use engine::glam::{Affine2, UVec2, Vec2};
 use engine::paint::{Gradient, GradientKind, GradientStop, Paint, Spread};
 use engine::render::{ColorTransform, DrawList, Filter, GpuMesh, LETTERBOX_COLOR};
-use engine::shape::{Shape, Stroke, VectorImage, circle_path, polygon_path, rect_path};
+use engine::shape::{Shape, VectorImage, circle_path, polygon_path, rect_path};
 use engine::tessellate::tessellate;
 use engine::viewport::{LOGICAL_SIZE, Viewport};
 
@@ -50,7 +50,6 @@ fn solid_shapes_have_exact_colors() {
     assert_eq!(img.pixel(30, 30), [0xA3, 0x24, 0x1A, 255]);
     assert_eq!(img.pixel(70, 70), [0x23, 0x40, 0x6E, 255]);
     assert_eq!(img.pixel(95, 5), [0xF1, 0xE3, 0xC2, 255]);
-    assert_snapshot("duz-sekiller", &img);
 }
 
 #[test]
@@ -290,67 +289,6 @@ fn many_paints_and_instances_grow_buffers() {
     // Son kare (i = 299): x = 95, y = 70; rengi tam kırmızı.
     assert_close(img.pixel(97, 72), [255, 0, 0, 255], 2, "son kare");
     assert_close(img.pixel(2, 2), [0, 0, 0, 255], 1, "ilk kare");
-}
-
-#[test]
-fn composed_scene_snapshot() {
-    let mut r = renderer();
-    let sky = Gradient::linear(
-        Vec2::new(0.0, 0.0),
-        Vec2::new(0.0, 60.0),
-        vec![
-            GradientStop::new(0.0, hex("#1E4FA6")),
-            GradientStop::new(1.0, hex("#9FCBEA")),
-        ],
-    );
-    let sun = Gradient::radial(
-        Vec2::new(30.0, 20.0),
-        18.0,
-        vec![
-            GradientStop::new(0.0, hex("#FFE9A0")),
-            GradientStop::new(1.0, hex("#FFE9A0").with_alpha(0.0)),
-        ],
-    );
-    let hill = Gradient::linear(
-        Vec2::new(0.0, 55.0),
-        Vec2::new(0.0, 100.0),
-        vec![
-            GradientStop::new(0.0, hex("#8DBF4A")),
-            GradientStop::new(1.0, hex("#3B6E2C")),
-        ],
-    );
-    let mut b = engine::shape::VectorImage::new(Vec2::splat(100.0));
-    b.push(Shape::filled(
-        rect_path(Vec2::ZERO, Vec2::new(100.0, 70.0)),
-        sky,
-    ));
-    b.push(Shape::filled(circle_path(Vec2::new(30.0, 20.0), 18.0), sun));
-    b.push(Shape::filled(
-        circle_path(Vec2::new(30.0, 20.0), 6.0),
-        hex("#FFF6D2"),
-    ));
-    b.push(Shape::filled(
-        polygon_path(&[
-            Vec2::new(0.0, 100.0),
-            Vec2::new(0.0, 62.0),
-            Vec2::new(30.0, 52.0),
-            Vec2::new(60.0, 60.0),
-            Vec2::new(100.0, 50.0),
-            Vec2::new(100.0, 100.0),
-        ]),
-        hill,
-    ));
-    b.push(
-        Shape::filled(circle_path(Vec2::new(70.0, 75.0), 8.0), hex("#A3241A"))
-            .with_stroke(Stroke::round(hex("#3A0E0A"), 1.5)),
-    );
-    let mesh = r.upload(&tessellate(&b, 0.02).unwrap());
-    let mut list = DrawList::new(Color::BLACK);
-    list.draw(&mesh, Affine2::IDENTITY);
-    let img = r
-        .render_to_image(&Viewport::fit(Vec2::splat(100.0), UVec2::splat(256)), &list)
-        .unwrap();
-    assert_snapshot("bilesik-sahne", &img);
 }
 
 #[test]

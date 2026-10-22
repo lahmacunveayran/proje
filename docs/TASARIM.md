@@ -160,9 +160,8 @@ Yeni olanlar:
 
 ## Görsel tarz
 
-- **Karar:** Flash döneminin el çizimi vektör tarzı: kontursuz, belirgin şekiller, sıcak toprak renkleri,
-  canlı gök; karakterlerde ince ve koyu renkli bir dış hat. Ayrıntılar: [SANAT.md](SANAT.md).
-  Seriden esinlenilir, bütün çizimler özgündür.
+- **Karar (16 Ekim 2026):** oyunun bütün görselleri Feudalism 1 ve 2'nin kendi görselleridir
+  (`content/feudalism/`); yeni çizim yapılmaz.
 - Görseller vektör olarak saklanır ve çizilir: her çözünürlükte (4K dahil) keskindir.
 - Karakterler parçalı kukla olarak canlandırılır (gövde, kollar, baş, silah ayrı parçalar; kemiklerle
   oynatılır). Böylece aynı iskelet farklı zırh ve silahlarla giydirilebilir: donanım görünüşe yansır.

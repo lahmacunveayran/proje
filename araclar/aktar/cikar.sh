@@ -1,24 +1,20 @@
 #!/usr/bin/env bash
 # Feudalism 1 ve 2'nin içeriğini eksiksiz çıkarır ve oyuna aktarır.
 #
-# Kullanım (depo kökünden):  araclar/olcum/cikar.sh [swf-oyunlar klasörü]
+# Kullanım (depo kökünden):  araclar/aktar/cikar.sh [swf-oyunlar klasörü]
 #
 # Ham dökümler `referans/` klasörüne yazılır ve git'e GİRMEZ (.gitignore): yerel arşiv ve denetimin
 # karşılaştırma kaynağıdır. Oyunun kullandığı içerik (sahibinin izniyle, bkz. docs/LISANSLAR.md)
-# 8. adımda content/feudalism/ altına aktarılır; ölçüm sonuçları olcum/ ve docs/KARAKTER_OLCULERI.md'dir.
+# son adımda content/feudalism/ altına aktarılır.
 #
 # Adımlar:
-#   1. FFDec ile bütün şekiller SVG ve PNG (4×) olarak: referans/<oyun>/svg, referans/<oyun>/png
-#   2. Savaş kuklasının sprite'ları (kukla ve parçaları) SVG olarak: referans/<oyun>/sprite
-#   3. Oyunun kodu (kukla kare formülleri için): referans/<oyun>/kod
-#   4. Birlikler oyunun formülleriyle birleştirilir: referans/<oyun>/birlikler
-#   5. Kukla yapısı ve bütün karelerin eklemleri: olcum/kukla-<oyun>.json, referans/<oyun>/pozlar.json
-#   6. Parça ölçüleri: docs/KARAKTER_OLCULERI.md
-#   7. Tam döküm (her içerik türü, XML dökümü, Flash projesi): referans/<oyun>/tam (git dışı)
-#   8. Oyuna aktarım: content/feudalism/<oyun> (Türkçe çeviri dahil, swf-oyunlar/oyunlar/<oyun>/ceviri),
+#   1. FFDec ile bütün şekiller PNG (4×) olarak: referans/<oyun>/png (denetimin görsel karşılaştırması)
+#   2. Tam döküm (her içerik türü, XML dökümü, Flash projesi): referans/<oyun>/tam
+#   3. Türkçe sürümden resim olarak çizilmiş yazıların Türkçe hâlleri: referans/<oyun>/tr
+#   4. Oyuna aktarım: content/feudalism/<oyun> (Türkçe çeviri dahil, swf-oyunlar/oyunlar/<oyun>/ceviri),
 #      kod ve liste kaynak/feudalism/<oyun>, açık lisanslı yazı tipleri content/fonts
 #      (bkz. araclar/aktar/aktar.py), döküm belgesi docs/FEUDALISM_ICERIK.md
-# Gerekenler: Java 17+, Python 3 + Pillow, curl, unzip, sha256sum, cargo.
+# Gerekenler: Java 17+, Python 3 + Pillow, curl, unzip, sha256sum.
 set -euo pipefail
 
 KOK="$(cd "$(dirname "$0")/../.." && pwd)"
@@ -43,30 +39,16 @@ FF="java -Djava.awt.headless=true -jar $FFDEC/ffdec-cli.jar"
 sessiz() { grep -v -e "JAVA_TOOL_OPTIONS" -e "^Exported" || true; }
 
 cd "$KOK"
-cargo build -q --release -p engine --example svg-png
 for oyun in f1 f2; do
   if [ "$oyun" = f1 ]; then
     swf="$SWF_KOK/oyunlar/feudalism/feudalism-orijinal.swf"
-    kukla="547,205,529,486,495,279,309,478"
   else
     swf="$SWF_KOK/oyunlar/feudalism-2/feudalism-2-orijinal.swf"
-    kukla="1038,432,989,914,927,562,903,849"
   fi
-  echo "$oyun: şekiller (SVG, PNG), kukla sprite'ları ve kod çıkarılıyor..."
-  rm -rf "$REF/$oyun/svg" "$REF/$oyun/png" "$REF/$oyun/sprite"
-  $FF -format shape:svg -export shape "$REF/$oyun/svg" "$swf" 2>&1 | sessiz | tail -1
+  echo "$oyun: şekiller (PNG) çıkarılıyor..."
+  rm -rf "$REF/$oyun/png"
   $FF -format shape:png -zoom 4 -export shape "$REF/$oyun/png" "$swf" 2>&1 | sessiz | tail -1
-  $FF -format sprite:svg -selectid "$kukla" -export sprite "$REF/$oyun/sprite" "$swf" 2>&1 | sessiz | tail -1
-  $FF -export script "$REF/$oyun/kod" "$swf" 2>&1 | sessiz | tail -1
-  echo "$oyun: birlikler birleştiriliyor..."
-  python3 araclar/olcum/birlikler.py "$oyun" "$swf" "$REF/$oyun/svg" "$REF/$oyun/birlikler"
-  mkdir -p "$REF/$oyun/birlikler-png"
-  for f in "$REF/$oyun/birlikler"/*.svg; do
-    ./target/release/examples/svg-png "$f" "$REF/$oyun/birlikler-png/$(basename "$f" .svg).png" 3 >/dev/null
-  done
-  SWF_KOK="$SWF_KOK" python3 araclar/olcum/kukla_yapisi.py "$oyun"
 done
-SWF_KOK="$SWF_KOK" python3 araclar/olcum/olc.py "$REF" docs/KARAKTER_OLCULERI.md
 for oyun in f1 f2; do
   if [ "$oyun" = f1 ]; then swf="$SWF_KOK/oyunlar/feudalism/feudalism-orijinal.swf"; else swf="$SWF_KOK/oyunlar/feudalism-2/feudalism-2-orijinal.swf"; fi
   T="$REF/$oyun/tam"
