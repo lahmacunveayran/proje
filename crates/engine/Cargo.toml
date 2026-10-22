@@ -1,0 +1,27 @@
+[package]
+name = "engine"
+description = "Oyundan bağımsız motor: pencere, çizim, vektör şekiller, yazı, girdi, zaman"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+bytemuck.workspace = true
+glam.workspace = true
+harfrust.workspace = true
+log.workspace = true
+lyon_tessellation.workspace = true
+png.workspace = true
+pollster.workspace = true
+serde_json.workspace = true
+skrifa.workspace = true
+usvg.workspace = true
+wgpu.workspace = true
+winit.workspace = true
+
+[dev-dependencies]
+resvg.workspace = true
+
+[lints]
+workspace = true

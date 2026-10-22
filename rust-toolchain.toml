@@ -1,0 +1,6 @@
+# Rust sürümü sabittir: yerelde ve otomatik derlemede aynı derleyici ve aynı lint kuralları kullanılır.
+# Yükseltmek için sürümü buradan ve .github/workflows/derleme.yml dosyasından birlikte değiştirin.
+[toolchain]
+channel = "1.99.0"
+components = ["rustfmt", "clippy"]
+targets = ["x86_64-pc-windows-msvc"]

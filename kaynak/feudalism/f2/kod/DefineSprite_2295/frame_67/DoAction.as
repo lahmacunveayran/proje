@@ -1,0 +1,1 @@
+backgr_world.play();

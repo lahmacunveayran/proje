@@ -1,0 +1,1842 @@
+{
+  "_aciklama": "Kod içindeki ekranda görünen metinler. Her dosya için [eski, yeni] çiftleri; eski metin o dosyada aynen aranır ve en az bir kez bulunmak zorundadır. Beceri, aura ve rün adları yalnızca `return \"...\";` satırlarında çevrilir; `case \"...\":` anahtarları değişmez.",
+  "frame_1/DoAction_2.as": [
+    [
+      "__com_mochibot__(\"4462953a\",this,10301,true);",
+      "// İnternete istatistik gönderen MochiBot çağrısı kapatıldı: oyun çevrimdışı çalışır."
+    ]
+  ],
+  "frame_1/DoAction.as": [
+    [
+      "MochiAd.showPreGameAd({id:\"688d29a336371bcc\",res:\"800x600\"});",
+      "// Açılıştaki MochiAds reklamı kapatıldı: oyun çevrimdışı çalışır. Reklam modülü oyunu\n// durdurup yüklenince yeniden başlatıyordu; aynısını reklamsız yapan bekleyici:\n_root.stop();\n_root.createEmptyMovieClip(\"__yukleyici\",1048000).onEnterFrame = function()\n{\n   if(_root.getBytesLoaded() >= _root.getBytesTotal())\n   {\n      _root.play();\n      this.removeMovieClip();\n   }\n};"
+    ]
+  ],
+  "DefineSprite_2024/frame_1/DoAction.as": [
+    [
+      "if(_root.isExclusive())",
+      "// Özel karakter oluşturma her yerde açık (bilgisayardan açınca olduğu gibi).\nif(true)"
+    ]
+  ],
+  "__Packages/Skill.as": [
+    [
+      "return 30;\r\n               default:\r\n                  break loop0;",
+      "return 30;\r\n               default:\r\n                  trace(\"Attempt to get SP cost of skill which does not exist: \" + atk_anim + \"-\" + skill_id);\r\n                  return 0;"
+    ],
+    [
+      "break loop0;",
+      "return \"No such skill for \" + skill_name + skill_id;"
+    ],
+    [
+      "loop0:",
+      "// (derleyicinin okuyamadığı etiket kaldırıldı)"
+    ],
+    [
+      "return \"Shield Charge\";",
+      "return \"Kalkan Hücumu\";"
+    ],
+    [
+      "return \"Triple Attack\";",
+      "return \"Üçlü Saldırı\";"
+    ],
+    [
+      "return \"Guarded Attack\";",
+      "return \"Korunaklı Saldırı\";"
+    ],
+    [
+      "return \"Mighty blow\";",
+      "return \"Güçlü Darbe\";"
+    ],
+    [
+      "return \"Blast Wave\";",
+      "return \"Şok Dalgası\";"
+    ],
+    [
+      "return \"Smashing Jump\";",
+      "return \"Ezici Sıçrayış\";"
+    ],
+    [
+      "return \"Stunning Hit\";",
+      "return \"Sersemleten Vuruş\";"
+    ],
+    [
+      "return \"Berserk Smash\";",
+      "return \"Çılgın Ezme\";"
+    ],
+    [
+      "return \"Mad Hit\";",
+      "return \"Delice Vuruş\";"
+    ],
+    [
+      "return \"Bladestorm\";",
+      "return \"Kılıç Fırtınası\";"
+    ],
+    [
+      "return \"Salto\";",
+      "return \"Salto\";"
+    ],
+    [
+      "return \"Double Jump\";",
+      "return \"Çift Sıçrayış\";"
+    ],
+    [
+      "return \"Pierce\";",
+      "return \"Delip Geçme\";"
+    ],
+    [
+      "return \"Fury of Blows\";",
+      "return \"Darbe Yağmuru\";"
+    ],
+    [
+      "return \"Burning Spear\";",
+      "return \"Yanan Mızrak\";"
+    ],
+    [
+      "return \"Backstab\";",
+      "return \"Sırttan Bıçaklama\";"
+    ],
+    [
+      "return \"Double Crit\";",
+      "return \"Çifte Kritik\";"
+    ],
+    [
+      "return \"Dagger Boomerang\";",
+      "return \"Bumerang Hançer\";"
+    ],
+    [
+      "return \"Windy Strike\";",
+      "return \"Rüzgâr Vuruşu\";"
+    ],
+    [
+      "return \"Kick\";",
+      "return \"Tekme\";"
+    ],
+    [
+      "return \"Guillotine Blade\";",
+      "return \"Giyotin Kılıcı\";"
+    ],
+    [
+      "return \"Fast Combo\";",
+      "return \"Hızlı Kombo\";"
+    ],
+    [
+      "return \"Light Pillar\";",
+      "return \"Işık Sütunu\";"
+    ],
+    [
+      "return \"Thunder Assault\";",
+      "return \"Yıldırım Saldırısı\";"
+    ],
+    [
+      "return \"Shadow Strike\";",
+      "return \"Gölge Vuruşu\";"
+    ],
+    [
+      "return \"Crit Combo\";",
+      "return \"Kritik Kombo\";"
+    ],
+    [
+      "return \"Meteor Strike\";",
+      "return \"Meteor Vuruşu\";"
+    ],
+    [
+      "return \"Double Shot\";",
+      "return \"Çift Atış\";"
+    ],
+    [
+      "return \"Quick Shooting\";",
+      "return \"Seri Atış\";"
+    ],
+    [
+      "return \"Arrow Rain\";",
+      "return \"Ok Yağmuru\";"
+    ],
+    [
+      "return \"Stunning Shot\";",
+      "return \"Sersemleten Atış\";"
+    ],
+    [
+      "return \"Headshot\";",
+      "return \"Kafadan Vuruş\";"
+    ],
+    [
+      "return \"Piercing Shot\";",
+      "return \"Delici Atış\";"
+    ],
+    [
+      "return \"Multithrow\";",
+      "return \"Çoklu Fırlatma\";"
+    ],
+    [
+      "return \"Fast Throwing\";",
+      "return \"Hızlı Fırlatma\";"
+    ],
+    [
+      "return \"Ricochette\";",
+      "return \"Seken Atış\";"
+    ],
+    [
+      "return \"Marksmen Training\";",
+      "return \"Nişancı Eğitimi\";"
+    ],
+    [
+      "return \"Eagle Eyes\";",
+      "return \"Kartal Gözü\";"
+    ],
+    [
+      "return \"Sharp Arrows\";",
+      "return \"Keskin Oklar\";"
+    ],
+    [
+      "return \"Infantry Defense Mastery\";",
+      "return \"Piyade Savunma Ustalığı\";"
+    ],
+    [
+      "return \"Infantry Offense Mastery\";",
+      "return \"Piyade Saldırı Ustalığı\";"
+    ],
+    [
+      "return \"Infantry Weapon Mastery\";",
+      "return \"Piyade Silah Ustalığı\";"
+    ],
+    [
+      "return \"Horsemen Riding Mastery\";",
+      "return \"Süvari Binicilik Ustalığı\";"
+    ],
+    [
+      "return \"Horsemen Defense Mastery\";",
+      "return \"Süvari Savunma Ustalığı\";"
+    ],
+    [
+      "return \"Horsemen Battle Mastery\";",
+      "return \"Süvari Savaş Ustalığı\";"
+    ],
+    [
+      "return \"Footmen Defense Mastery\";",
+      "return \"Yaya Savunma Ustalığı\";"
+    ],
+    [
+      "return \"Footmen Offense Mastery\";",
+      "return \"Yaya Saldırı Ustalığı\";"
+    ],
+    [
+      "return \"Footmen Weapon Mastery\";",
+      "return \"Yaya Silah Ustalığı\";"
+    ],
+    [
+      "return \"Meditation\";",
+      "return \"Meditasyon\";"
+    ],
+    [
+      "return \"Far East War Arts\";",
+      "return \"Uzak Doğu Savaş Sanatları\";"
+    ],
+    [
+      "return \"Assassination Mastery\";",
+      "return \"Suikast Ustalığı\";"
+    ],
+    [
+      "return \"Berserkers\\' Fury\";",
+      "return \"Çılgın Savaşçı Öfkesi\";"
+    ],
+    [
+      "return \"Kung-Fu Secrets\";",
+      "return \"Kung-Fu Sırları\";"
+    ],
+    [
+      "return \"Find Weak Point\";",
+      "return \"Zayıf Noktayı Bul\";"
+    ],
+    [
+      "return \"One handed weapon & shield moves\";",
+      "return \"Tek elli silah ve kalkan hareketleri\";"
+    ],
+    [
+      "return \"Two handed sword moves\";",
+      "return \"İki elli kılıç hareketleri\";"
+    ],
+    [
+      "return \"Two handed mace and axe moves\";",
+      "return \"İki elli topuz ve balta hareketleri\";"
+    ],
+    [
+      "return \"Dual weapons moves\";",
+      "return \"Çift silah hareketleri\";"
+    ],
+    [
+      "return \"Spear moves\";",
+      "return \"Mızrak hareketleri\";"
+    ],
+    [
+      "return \"Dagger moves\";",
+      "return \"Hançer hareketleri\";"
+    ],
+    [
+      "return \"Katana moves\";",
+      "return \"Katana hareketleri\";"
+    ],
+    [
+      "return \"Staff moves\";",
+      "return \"Asa hareketleri\";"
+    ],
+    [
+      "return \"Katar moves\";",
+      "return \"Katar hareketleri\";"
+    ],
+    [
+      "return \"Bow moves\";",
+      "return \"Yay hareketleri\";"
+    ],
+    [
+      "return \"Crossbow moves\";",
+      "return \"Arbalet hareketleri\";"
+    ],
+    [
+      "return \"Throwing weapons moves\";",
+      "return \"Fırlatma silahı hareketleri\";"
+    ],
+    [
+      "return \"Hit an enemy with your shield. The damage depends on character’s STR and shield defense and calculated as (STR + defense*2)*SkillLv/2. There’s also a defense+2*SkillLv % chance to stun the target.\";",
+      "return \"Düşmana kalkanınla vur. Hasar karakterin GÜÇ'üne ve kalkanın savunmasına bağlıdır: (GÜÇ + savunma*2)*Sv/2. Ayrıca savunma+2*Sv % ihtimalle hedefi sersemletir.\";"
+    ],
+    [
+      "return \"Hit an enemy with 3 fast attacks. Each attack deals 50+10*SkillLv% damage.\";",
+      "return \"Düşmana 3 hızlı saldırı yap. Her saldırı 50+10*Sv% hasar verir.\";"
+    ],
+    [
+      "return \"Hide behind the shield and strike from a safe position. This attack deals only 40+10*SkillLv% damage, but you’re invincible for opponent’s strikes while attacking.\";",
+      "return \"Kalkanının arkasına saklan ve güvenli bir yerden vur. Bu saldırı yalnızca 40+10*Sv% hasar verir ama saldırırken rakibin vuruşları sana işlemez.\";"
+    ],
+    [
+      "return \"A powerful smash that deals 150+20*SkillLv% damage with your two handed sword.\";",
+      "return \"İki elli kılıcınla 150+20*Sv% hasar veren güçlü bir darbe.\";"
+    ],
+    [
+      "return \"Deals 100+20*SkillLv% damage to all enemies in 3 cells in front of character.\";",
+      "return \"Karakterin önündeki 3 karedeki tüm düşmanlara 100+20*Sv% hasar verir.\";"
+    ],
+    [
+      "return \"Character jumps and blows ground below him, dealing 100+40*SkillLv% damage to all enemies in 3x3 area around him.\";",
+      "return \"Karakter sıçrar ve altındaki yere vurur; çevresindeki 3x3 alandaki tüm düşmanlara 100+40*Sv% hasar verir.\";"
+    ],
+    [
+      "return \"Hit an enemy in the head dealing 50+10*SkillLv% damage and stunning him with 30+3*SkillLv% chance.\";",
+      "return \"Düşmanın kafasına vurarak 50+10*Sv% hasar ver; 30+3*Sv% ihtimalle onu sersemletir.\";"
+    ],
+    [
+      "return \"Hit an enemy with powerful critical attack for 200+40*SkillLv% damage. There’s also a 2*SkillLv% chance of stunning everyone (except you) in 3x3 area around the enemy.\";",
+      "return \"Düşmana 200+40*Sv% hasar veren güçlü bir kritik saldırı yap. Ayrıca düşmanın çevresindeki 3x3 alanda (sen hariç) herkesi 2*Sv% ihtimalle sersemletir.\";"
+    ],
+    [
+      "return \"Deal 100+40*SkillLv% damage to all enemies in 3x3 area around the target.\";",
+      "return \"Hedefin çevresindeki 3x3 alandaki tüm düşmanlara 100+40*Sv% hasar ver.\";"
+    ],
+    [
+      "return \"A combo of 3 hits with each weapon. Each hit deals 40+10*SkillLv% damage.\";",
+      "return \"Her silahla 3 vuruşluk kombo. Her vuruş 40+10*Sv% hasar verir.\";"
+    ],
+    [
+      "return \"Attack that deals 100+20*SkillLv% damage with 10*SkillLv% crit bonus to enemies in front of character and behind him. Character is very hard to be hit while doing this attack.\";",
+      "return \"Karakterin önündeki ve arkasındaki düşmanlara 100+20*Sv% hasar ve 10*Sv% kritik bonusu veren saldırı. Bu saldırı sırasında karaktere isabet ettirmek çok zordur.\";"
+    ],
+    [
+      "return \"Jump and hit an enemy with several strikes. Each strike deals 100+30*SkillLv% damage and has 50% critical chance.\";",
+      "return \"Sıçra ve düşmana birkaç vuruş indir. Her vuruş 100+30*Sv% hasar verir ve kritik şansı %50'dir.\";"
+    ],
+    [
+      "return \"Strike which pierces enemy’s defense dealing100+10*SkillLv% damage. This attack always has 100% critical chance.\";",
+      "return \"Düşmanın savunmasını delen ve 100+10*Sv% hasar veren vuruş. Bu saldırının kritik şansı her zaman %100'dür.\";"
+    ],
+    [
+      "return \"3 fast attacks with spear, each attack deals 75+15*SkillLv% damage, but critrate of these attacks is 3 times lower.\";",
+      "return \"Mızrakla 3 hızlı saldırı; her biri 75+15*Sv% hasar verir ama bu saldırıların kritik oranı 3 kat düşüktür.\";"
+    ],
+    [
+      "return \"Hit all enemies in a cone in front of the character for 200+40*SkillLv% damage, but without critical chance.\";",
+      "return \"Karakterin önündeki koni biçimli alandaki tüm düşmanlara 200+40*Sv% hasar ver; kritik şansı yoktur.\";"
+    ],
+    [
+      "return \"If you hit an enemy from behind, there’s a (0.4+0.1*SkillLv)*WeaponCrit% chance of instantly killing him. If instant kill fails, enemy still receives 300+100*SkillLv% damage. If you attack not from behind, enemy will get only 50% of normal damage.\";",
+      "return \"Düşmana arkadan vurursan (0,4+0,1*Sv)*SilahKritiği% ihtimalle onu anında öldürürsün. Anında öldürme olmazsa düşman yine de 300+100*Sv% hasar alır. Arkadan saldırmazsan düşman normal hasarın yalnızca %50'sini alır.\";"
+    ],
+    [
+      "return \"Two critical strikes, for 75+15*SkillLv% damage each.\";",
+      "return \"Her biri 75+15*Sv% hasar veren iki kritik vuruş.\";"
+    ],
+    [
+      "return \"Character throws his dagger at enemy, then jumps, catches the dagger in the air and hits the ground. Flying dagger hits the enemy 3 times, each hit deals 50+10*SkillLv% damage. The ground hit damages all enemies in 5x5 area around the character for 50+20*SkillLv%.\";",
+      "return \"Karakter hançerini düşmana fırlatır, sıçrar, hançeri havada yakalar ve yere vurur. Uçan hançer düşmana 3 kez çarpar, her çarpış 50+10*Sv% hasar verir. Yere vuruş, karakterin çevresindeki 5x5 alandaki tüm düşmanlara 50+20*Sv% hasar verir.\";"
+    ],
+    [
+      "return \"Character jumps and hits the enemy for 150+20*SkillLv% damage. Critical rate of this attack is also increased in 1+0.2*SkillLv times.\";",
+      "return \"Karakter sıçrar ve düşmana 150+20*Sv% hasar veren bir vuruş indirir. Bu saldırının kritik oranı da 1+0,2*Sv kat artar.\";"
+    ],
+    [
+      "return \"Character kicks an enemy and then hits him with the sword for 100+30*SkillLv% damage. The kick itself deals damage depending on character’s STR and slows enemies’ attacks.\";",
+      "return \"Karakter düşmana tekme atar, sonra kılıçla vurarak 100+30*Sv% hasar verir. Tekmenin hasarı karakterin GÜÇ'üne bağlıdır ve düşmanın saldırılarını yavaşlatır.\";"
+    ],
+    [
+      "return \"A very powerful attack which always deals critical damage depending on target’s defense. The more defense has the target, the more damage it will receive. This skill always consumes all SP. Amount of consumed SP affect the damage too.\";",
+      "return \"Hedefin savunmasına göre her zaman kritik hasar veren çok güçlü bir saldırı. Hedefin savunması ne kadar yüksekse o kadar çok hasar alır. Bu beceri her zaman bütün RP'yi harcar; harcanan RP de hasarı etkiler.\";"
+    ],
+    [
+      "return \"Hit an enemy 3 times, each hit deals 100+20*SkillLv% damage.\";",
+      "return \"Düşmana 3 kez vur; her vuruş 100+20*Sv% hasar verir.\";"
+    ],
+    [
+      "return \"Hits all enemies in 7x7 area around the character for 50+10*SkillLv% damage.\";",
+      "return \"Karakterin çevresindeki 7x7 alandaki tüm düşmanlara 50+10*Sv% hasar verir.\";"
+    ],
+    [
+      "return \"Combo of 10 hits, each hit deals 50+10*SkillLv% damage.\";",
+      "return \"10 vuruşluk kombo; her vuruş 50+10*Sv% hasar verir.\";"
+    ],
+    [
+      "return \"Fast strike that deals 200+30*SkillLv% damage. There’s also a chance to poison the enemy.\";",
+      "return \"200+30*Sv% hasar veren hızlı vuruş. Düşmanı zehirleme ihtimali de vardır.\";"
+    ],
+    [
+      "return \"Combination of 4 critical hits (2 hits per hand). Each hit deals 100+10*SkillLv% damage.\";",
+      "return \"4 kritik vuruşluk kombinasyon (her elle 2 vuruş). Her vuruş 100+10*Sv% hasar verir.\";"
+    ],
+    [
+      "return \"Hit all enemies around the character for 200+40*SkillLv% non-critical damage.\";",
+      "return \"Karakterin çevresindeki tüm düşmanlara 200+40*Sv% kritik olmayan hasar ver.\";"
+    ],
+    [
+      "return \"Shoot two arrows with one shot to deal 120+20*SkillLv% damage.\";",
+      "return \"Tek atışta iki ok fırlatarak 120+20*Sv% hasar ver.\";"
+    ],
+    [
+      "return \"3 shots at different targets, 50+20*SkillLv% damage each.\";",
+      "return \"Farklı hedeflere 3 atış; her biri 50+20*Sv% hasar verir.\";"
+    ],
+    [
+      "return \"Shots nine arrows attacking 3x3 area around the target. Each arrow deals 50+10*SkillLv% damage.\";",
+      "return \"Hedefin çevresindeki 3x3 alana dokuz ok atar. Her ok 50+10*Sv% hasar verir.\";"
+    ],
+    [
+      "return \"Strong shot that deals 150+50*SkillLv% damage (with no crit chance) and has 10*SkillLv% chance to stun the target.\";",
+      "return \"150+50*Sv% hasar veren (kritik şansı olmayan) ve hedefi 10*Sv% ihtimalle sersemleten güçlü atış.\";"
+    ],
+    [
+      "return \"Character hits the enemy right in the head dealing 220+20*SkillLv% damage. This attack is always critical.\";",
+      "return \"Karakter düşmanı tam kafasından vurarak 220+20*Sv% hasar verir. Bu saldırı her zaman kritiktir.\";"
+    ],
+    [
+      "return \"Shot a very powerful arrow that will pierce up to 3 enemies in line. The first enemy will receive 160+20*SkillLv% damage, damage for the next enemies will be reduced for 30%. This attack is always critical.\";",
+      "return \"Aynı sıradaki en fazla 3 düşmanı delip geçen çok güçlü bir ok at. İlk düşman 160+20*Sv% hasar alır, sonrakilerin hasarı %30 azalır. Bu saldırı her zaman kritiktir.\";"
+    ],
+    [
+      "return \"Throw 3 knives, surikens or axes at 3 nearby targets. Each throw deals 90+10*SkillLv% damage.\";",
+      "return \"Yakındaki 3 hedefe 3 bıçak, şuriken ya da balta fırlat. Her atış 90+10*Sv% hasar verir.\";"
+    ],
+    [
+      "return \"3 throws at one target 50+10*SkillLv% damage each.\";",
+      "return \"Tek hedefe 3 atış; her biri 50+10*Sv% hasar verir.\";"
+    ],
+    [
+      "return \"Throw a ricocheting knife, axe or suriken which will hit multiple enemies. The knife will ricochet up to SkillLv times.\";",
+      "return \"Birden çok düşmana çarpan seken bir bıçak, balta ya da şuriken fırlat. Bıçak en fazla Sv kez seker.\";"
+    ],
+    [
+      "return \"Increases ranged units’ hit chance by 3*SkillLv%.\";",
+      "return \"Menzilli birliklerin isabet şansını 3*Sv% artırır.\";"
+    ],
+    [
+      "return \"Increases ranged units’ critical hit chance by 2*SkillLv% and range by SkillLv tiles.\";",
+      "return \"Menzilli birliklerin kritik vuruş şansını 2*Sv%, menzilini Sv kare artırır.\";"
+    ],
+    [
+      "return \"Increases ranged units’ damage by 4*SkillLv%.\";",
+      "return \"Menzilli birliklerin hasarını 4*Sv% artırır.\";"
+    ],
+    [
+      "return \"Increases all infantry units’ HP by 5*SkillLv points and defense by SkillLv points.\";",
+      "return \"Tüm piyade birliklerinin canını 5*Sv puan, savunmasını Sv puan artırır.\";"
+    ],
+    [
+      "return \"Increases all infantry units’ damage by 2*SkillLv%.\";",
+      "return \"Tüm piyade birliklerinin hasarını 2*Sv% artırır.\";"
+    ],
+    [
+      "return \"Increases all infantry units’ hit and dodge chances by SkillLv%.\";",
+      "return \"Tüm piyade birliklerinin isabet ve kaçınma şansını Sv% artırır.\";"
+    ],
+    [
+      "return \"Increases all mounted units’ dodge chance by 2*SkillLv% and greatly increases their movement speed depending on SkillLv.\";",
+      "return \"Tüm atlı birliklerin kaçınma şansını 2*Sv% artırır ve hareket hızlarını Sv'ye göre çok artırır.\";"
+    ],
+    [
+      "return \"Increases all mounted units’ HP by 10*SkillLv points, defense by 3*SkillLv points and chance to block attack with the shield (if unit have one) by SkillLv%.\";",
+      "return \"Tüm atlı birliklerin canını 10*Sv puan, savunmasını 3*Sv puan ve (kalkanları varsa) kalkanla engelleme şansını Sv% artırır.\";"
+    ],
+    [
+      "return \"Increases all mounted units’ hit chance and damage by 3*SkillLv%.\";",
+      "return \"Tüm atlı birliklerin isabet şansını ve hasarını 3*Sv% artırır.\";"
+    ],
+    [
+      "return \"Increases HP by 10*SkillLv points and chance to block attack with the shield by SkillLv% of all units armed with one handed swords, axes or maces. If unit doesn’t have a shield his block chance still will be increased. Does NOT work for units armed with dual weapons.\";",
+      "return \"Tek elli kılıç, balta ya da topuz taşıyan tüm birliklerin canını 10*Sv puan, kalkanla engelleme şansını Sv% artırır. Kalkanı olmayan birliğin de engelleme şansı artar. Çift silah taşıyan birliklerde işe YARAMAZ.\";"
+    ],
+    [
+      "return \"Increases damage by 4*SkillLv% of all units armed with one handed swords, axes or maces. Does NOT work for units armed with dual weapons.\";",
+      "return \"Tek elli kılıç, balta ya da topuz taşıyan tüm birliklerin hasarını 4*Sv% artırır. Çift silah taşıyan birliklerde işe YARAMAZ.\";"
+    ],
+    [
+      "return \"Increases hit chance by 2*SkillLv% and dodge chance by 3*SkillLv% of all units armed with one handed swords, axes or maces. Does NOT work for units armed with dual weapons.\";",
+      "return \"Tek elli kılıç, balta ya da topuz taşıyan tüm birliklerin isabet şansını 2*Sv%, kaçınma şansını 3*Sv% artırır. Çift silah taşıyan birliklerde işe YARAMAZ.\";"
+    ],
+    [
+      "return \"Increases SP by 10*SkillLv points and SP regeneration rate by 20*SkillLv% of all East Empire’s (e.g. Japanese-like) units.\";",
+      "return \"Tüm Doğu İmparatorluğu birliklerinin (Japon tarzı birlikler) RP'sini 10*Sv puan, RP yenilenme hızını 20*Sv% artırır.\";"
+    ],
+    [
+      "return \"Increases hit chance by 2*SkillLv% and damage by 3*SkillLv% of all units armed with katana, staffs or ninja-to. Does NOT work for units armed with dual ninja-to.\";",
+      "return \"Katana, asa ya da ninja-to taşıyan tüm birliklerin isabet şansını 2*Sv%, hasarını 3*Sv% artırır. Çift ninja-to taşıyan birliklerde işe YARAMAZ.\";"
+    ],
+    [
+      "return \"Increases dodge chance by 4*SkillLv% and damage by 2*SkillLv% of all units armed with daggers or katars. Also greatly increases their movement speed depending on SkillLv.\";",
+      "return \"Hançer ya da katar taşıyan tüm birliklerin kaçınma şansını 4*Sv%, hasarını 2*Sv% artırır. Hareket hızlarını da Sv'ye göre çok artırır.\";"
+    ],
+    [
+      "return \"Increases dodge chance by SkillLv% and damage by 2*SkillLv% of all units armed with two handed axes or maces. Also increases their movement speed depending on SkillLv.\";",
+      "return \"İki elli balta ya da topuz taşıyan tüm birliklerin kaçınma şansını Sv%, hasarını 2*Sv% artırır. Hareket hızlarını da Sv'ye göre artırır.\";"
+    ],
+    [
+      "return \"Increases damage by 10*SkillLv points, hit chance by 6*SkillLv%, critical strike chance by 10*SkillLv%, dodge chance by 5*SkillLv% and HP by 30*SkillLv points of all unarmed units.\";",
+      "return \"Silahsız tüm birliklerin hasarını 10*Sv puan, isabet şansını 6*Sv%, kritik vuruş şansını 10*Sv%, kaçınma şansını 5*Sv% ve canını 30*Sv puan artırır.\";"
+    ],
+    [
+      "return \"Increases hit chance by 4*SkillLv% and critical strike chance by 6*SkillLv% of all units armed with katars.\";",
+      "return \"Katar taşıyan tüm birliklerin isabet şansını 4*Sv%, kritik vuruş şansını 6*Sv% artırır.\";"
+    ]
+  ],
+  "__Packages/Aura.as": [
+    [
+      "return \"Devotion\";",
+      "return \"Adanmışlık\";"
+    ],
+    [
+      "return \"Divine Help\";",
+      "return \"İlahi Yardım\";"
+    ],
+    [
+      "return \"Barrier\";",
+      "return \"Bariyer\";"
+    ],
+    [
+      "return \"Sacrifice\";",
+      "return \"Fedakârlık\";"
+    ],
+    [
+      "return \"Balance of Force\";",
+      "return \"Güç Dengesi\";"
+    ],
+    [
+      "return \"Venom Cloud\";",
+      "return \"Zehir Bulutu\";"
+    ],
+    [
+      "return \"Holy Tribunal\";",
+      "return \"Kutsal Divan\";"
+    ],
+    [
+      "return \"Unholy Breath\";",
+      "return \"Şeytani Nefes\";"
+    ],
+    [
+      "return \"Life Leech\";",
+      "return \"Can Emici\";"
+    ],
+    [
+      "return \"Soul Drain\";",
+      "return \"Ruh Emici\";"
+    ],
+    [
+      "return \"Healing\";",
+      "return \"İyileştirme\";"
+    ],
+    [
+      "return \"Banshee Cry\";",
+      "return \"Banşi Çığlığı\";"
+    ],
+    [
+      "return \"Sign of Trade Republic\";",
+      "return \"Ticaret Cumhuriyeti'nin İşareti\";"
+    ],
+    [
+      "return \"Sign of Holy Order\";",
+      "return \"Kutsal Tarikat'ın İşareti\";"
+    ],
+    [
+      "return \"Sign of Forest Lands\";",
+      "return \"Orman Diyarı'nın İşareti\";"
+    ],
+    [
+      "return \"Sign of East Empire\";",
+      "return \"Doğu İmparatorluğu'nun İşareti\";"
+    ],
+    [
+      "return \"Sign of Black Horde\";",
+      "return \"Kara Orda'nın İşareti\";"
+    ],
+    [
+      "return \"Sign of South Desert\";",
+      "return \"Güney Çölü'nün İşareti\";"
+    ],
+    [
+      "return \"Heals all friendly units for 7*SkillLv HP every second.\";",
+      "return \"Her saniye tüm dost birlikleri 7*Sv can iyileştirir.\";"
+    ],
+    [
+      "return \"Heals random injured unit for 50*SkillLv HP every second.\";",
+      "return \"Her saniye rastgele bir yaralı birliği 50*Sv can iyileştirir.\";"
+    ],
+    [
+      "return \"Adds 30*SkillLv HP to random friendly unit every second. This bonus HP can even go higher than unit’s max HP.\";",
+      "return \"Her saniye rastgele bir dost birliğe 30*Sv can ekler. Bu ek can, birliğin en yüksek canını bile aşabilir.\";"
+    ],
+    [
+      "return \"Caster looses 20% of his max HP every second and heals all friendly units for 100*SkillLv HP every second. Warning: this aura CAN kill the caster.\";",
+      "return \"Aurayı kullanan her saniye en yüksek canının %20'sini kaybeder ve tüm dost birlikleri her saniye 100*Sv can iyileştirir. Dikkat: bu aura kullananı ÖLDÜREBİLİR.\";"
+    ],
+    [
+      "return \"All friendly units recover SkillLv% of their max HP every second and all enemy units loose SkillLv% of their max HP every second. This aura cannot kill enemy units: they will have at least 1 HP.\";",
+      "return \"Her saniye tüm dost birlikler en yüksek canlarının Sv%'sini geri kazanır, tüm düşmanlar da Sv%'sini kaybeder. Bu aura düşmanları öldüremez: canları en az 1 kalır.\";"
+    ],
+    [
+      "return \"Poison SkillLv enemies every second. Poison status lasts 5 seconds. Poisoned unit looses 5% of max HP every second, but cannot die from poison.\";",
+      "return \"Her saniye Sv düşmanı zehirler. Zehir 5 saniye sürer. Zehirlenen birlik her saniye en yüksek canının %5'ini kaybeder ama zehirden ölmez.\";"
+    ],
+    [
+      "return \"Deals 50*SkillLv damage to random enemy every second. This damage is always critical and cannot be avoided.\";",
+      "return \"Her saniye rastgele bir düşmana 50*Sv hasar verir. Bu hasar her zaman kritiktir ve kaçınılamaz.\";"
+    ],
+    [
+      "return \"Gives 2*SkillLv% chance of poisoning, stunning or making mad all enemy units every second. All statuses last 5 seconds. Mad unit attacks nearest character, friend or foe, and is attacked by his own allies. There’s also a 3% chance to instantly kill a unit.\";",
+      "return \"Her saniye tüm düşmanları 2*Sv% ihtimalle zehirler, sersemletir ya da çıldırtır. Bu durumlar 5 saniye sürer. Çıldıran birlik dost düşman demeden en yakındakine saldırır, kendi müttefikleri de ona saldırır. Bir birliği anında öldürme ihtimali de %3'tür.\";"
+    ],
+    [
+      "return \"All FRIENDLY units loose 20% of their max HP and caster recovers 5*SkillLv% of his/her max HP every second. This aura cannot kill friendly units, but doesn’t work when there’re no friendly units anymore.\";",
+      "return \"Her saniye tüm DOST birlikler en yüksek canlarının %20'sini kaybeder, aurayı kullanan da en yüksek canının 5*Sv%'sini geri kazanır. Bu aura dost birlikleri öldüremez ama dost birlik kalmayınca çalışmaz.\";"
+    ],
+    [
+      "return \"All FRIENDLY units loose 20% of their max HP and caster recovers 4*SkillLv% of his/her max SP every second. This aura cannot kill friendly units, but doesn’t work when there’re no friendly units anymore.\";",
+      "return \"Her saniye tüm DOST birlikler en yüksek canlarının %20'sini kaybeder, aurayı kullanan da en yüksek RP'sinin 4*Sv%'sini geri kazanır. Bu aura dost birlikleri öldüremez ama dost birlik kalmayınca çalışmaz.\";"
+    ],
+    [
+      "return \"Heals caster for 15*SkillLv HP every second.\";",
+      "return \"Her saniye aurayı kullananı 15*Sv can iyileştirir.\";"
+    ],
+    [
+      "return \"Every second caster sacrifices 20% of his max HP to deal 15*SkillLv damage to every of his enemies. Neither enemies nor caster can avoid this damage and it’s always critical. Warning: this aura CAN kill the caster.\";",
+      "return \"Aurayı kullanan her saniye en yüksek canının %20'sini feda ederek her düşmanına 15*Sv hasar verir. Ne düşmanlar ne de kullanan bu hasardan kaçabilir ve hasar her zaman kritiktir. Dikkat: bu aura kullananı ÖLDÜREBİLİR.\";"
+    ],
+    [
+      "return \"Heals all Trade Republic’s units for 2*SkillLv% of their max HP, but other units suffer damage of 2*SkillLv% of their max HP (but this damage cannot kill them). This aura works only for friendly units.\";",
+      "return \"Tüm Ticaret Cumhuriyeti birliklerini en yüksek canlarının 2*Sv%'si kadar iyileştirir, diğer birlikler ise en yüksek canlarının 2*Sv%'si kadar hasar alır (bu hasar onları öldüremez). Bu aura yalnızca dost birliklerde çalışır.\";"
+    ],
+    [
+      "return \"Heals all Holy Order’s units for 2*SkillLv% of their max HP, but other units suffer damage of 2*SkillLv% of their max HP (but this damage cannot kill them). This aura works only for friendly units.\";",
+      "return \"Tüm Kutsal Tarikat birliklerini en yüksek canlarının 2*Sv%'si kadar iyileştirir, diğer birlikler ise en yüksek canlarının 2*Sv%'si kadar hasar alır (bu hasar onları öldüremez). Bu aura yalnızca dost birliklerde çalışır.\";"
+    ],
+    [
+      "return \"Heals all Forest Lands’ units for 2*SkillLv% of their max HP, but other units suffer damage of 2*SkillLv% of their max HP (but this damage cannot kill them). This aura works only for friendly units.\";",
+      "return \"Tüm Orman Diyarı birliklerini en yüksek canlarının 2*Sv%'si kadar iyileştirir, diğer birlikler ise en yüksek canlarının 2*Sv%'si kadar hasar alır (bu hasar onları öldüremez). Bu aura yalnızca dost birliklerde çalışır.\";"
+    ],
+    [
+      "return \"Heals all East Empire’s units for 2*SkillLv% of their max HP, but other units suffer damage of 2*SkillLv% of their max HP (but this damage cannot kill them). This aura works only for friendly units.\";",
+      "return \"Tüm Doğu İmparatorluğu birliklerini en yüksek canlarının 2*Sv%'si kadar iyileştirir, diğer birlikler ise en yüksek canlarının 2*Sv%'si kadar hasar alır (bu hasar onları öldüremez). Bu aura yalnızca dost birliklerde çalışır.\";"
+    ],
+    [
+      "return \"Heals all Black Horde’s units for 2*SkillLv% of their max HP, but other units suffer damage of 2*SkillLv% of their max HP (but this damage cannot kill them). This aura works only for friendly units.\";",
+      "return \"Tüm Kara Orda birliklerini en yüksek canlarının 2*Sv%'si kadar iyileştirir, diğer birlikler ise en yüksek canlarının 2*Sv%'si kadar hasar alır (bu hasar onları öldüremez). Bu aura yalnızca dost birliklerde çalışır.\";"
+    ],
+    [
+      "return \"Heals all South Desert Clan’s units for 2*SkillLv% of their max HP, but other units suffer damage of 2*SkillLv% of their max HP (but this damage cannot kill them). This aura works only for friendly units.\";",
+      "return \"Tüm Güney Çölü Klanı birliklerini en yüksek canlarının 2*Sv%'si kadar iyileştirir, diğer birlikler ise en yüksek canlarının 2*Sv%'si kadar hasar alır (bu hasar onları öldüremez). Bu aura yalnızca dost birliklerde çalışır.\";"
+    ]
+  ],
+  "__Packages/Rune.as": [
+    [
+      "return \"Infantry Rune\";",
+      "return \"Piyade Rünü\";"
+    ],
+    [
+      "return \"Chivalry Rune\";",
+      "return \"Süvari Rünü\";"
+    ],
+    [
+      "return \"Critical Rune\";",
+      "return \"Kritik Rünü\";"
+    ],
+    [
+      "return \"Bloody Rune\";",
+      "return \"Kanlı Rün\";"
+    ],
+    [
+      "return \"Ghost Rune\";",
+      "return \"Hayalet Rünü\";"
+    ],
+    [
+      "return \"Occult Rune\";",
+      "return \"Okült Rün\";"
+    ],
+    [
+      "return \"Wolf Rune\";",
+      "return \"Kurt Rünü\";"
+    ],
+    [
+      "return \"Weak Rune\";",
+      "return \"Zayıflık Rünü\";"
+    ],
+    [
+      "return \"Poisoned Rune\";",
+      "return \"Zehirli Rün\";"
+    ],
+    [
+      "return \"Stunning Rune\";",
+      "return \"Sersemletme Rünü\";"
+    ],
+    [
+      "return \"Mad Rune\";",
+      "return \"Çılgınlık Rünü\";"
+    ],
+    [
+      "return \"Charming Rune\";",
+      "return \"Büyüleme Rünü\";"
+    ],
+    [
+      "return \"Increase damage on horsemen by 30%\";",
+      "return \"Atlılara verilen hasarı %30 artırır\";"
+    ],
+    [
+      "return \"Increase damage on all units without horses by 30%\";",
+      "return \"Atı olmayan birliklere verilen hasarı %30 artırır\";"
+    ],
+    [
+      "return \"Increase critical strike chance by 10%\";",
+      "return \"Kritik vuruş şansını %10 artırır\";"
+    ],
+    [
+      "return \"Attacks ignore enemy’s armor defense.\";",
+      "return \"Saldırılar düşmanın zırh savunmasını yok sayar.\";"
+    ],
+    [
+      "return \"Attacks ignore enemy’s armor defense. But damage decreased by 30%\";",
+      "return \"Saldırılar düşmanın zırh savunmasını yok sayar ama hasar %30 azalır\";"
+    ],
+    [
+      "return \"Very rare and powerful rune. It allows to deal more damage depending on target’s armor defense. Te more defense has target, the more damage it will receive.\";",
+      "return \"Çok nadir ve güçlü bir rün. Hedefin zırh savunmasına göre daha fazla hasar verdirir: hedefin savunması ne kadar yüksekse o kadar çok hasar alır.\";"
+    ],
+    [
+      "return \"Damage +15\";",
+      "return \"Hasar +15\";"
+    ],
+    [
+      "return \"If target has less than 50% of its max HP then damage + 50%, else damage -50%\";",
+      "return \"Hedefin canı en yüksek canının %50'sinden azsa hasar +%50, değilse hasar -%50\";"
+    ],
+    [
+      "return \"Adds 5% chance to poison enemy when attacking\";",
+      "return \"Saldırırken düşmanı %5 ihtimalle zehirler\";"
+    ],
+    [
+      "return \"Adds 5% chance to stun enemy when attacking\";",
+      "return \"Saldırırken düşmanı %5 ihtimalle sersemletir\";"
+    ],
+    [
+      "return \"Adds 5% chance to make mad enemy when attacking\";",
+      "return \"Saldırırken düşmanı %5 ihtimalle çıldırtır\";"
+    ],
+    [
+      "return \"Adds 5% chance to charm enemy when attacking. Charmed enemies fight on your side and cannot be attacked by your teammates. Does not work on mad enemies. Charm status lasts 5 seconds.\";",
+      "return \"Saldırırken düşmanı %5 ihtimalle büyüler. Büyülenen düşman senin tarafında dövüşür ve takım arkadaşların ona saldırmaz. Çıldırmış düşmanlarda işe yaramaz. Büyü 5 saniye sürer.\";"
+    ]
+  ],
+  "frame_114/DoAction.as": [
+    [
+      "\"Occult Rune\"",
+      "\"Okült Rün\""
+    ]
+  ],
+  "frame_114/PlaceObject2_3124_65/CLIPACTIONRECORD onClipEvent(enterFrame).as": [["\" gp.\"", "\" altın\""]],
+  "__Packages/Unit.as": [
+    [
+      "this.NAME !== \"Shogun Ghost\"",
+      "this.NAME !== \"Şogun Hayaleti\""
+    ]
+  ],
+  "__Packages/Enchant.as": [
+    [
+      "return \"Footman\\'s \";",
+      "return \"Yaya \";"
+    ],
+    [
+      "return \"Rider\\'s \";",
+      "return \"Atlı \";"
+    ],
+    [
+      "return \"Critical \";",
+      "return \"Kritik \";"
+    ],
+    [
+      "return \"Bloody \";",
+      "return \"Kanlı \";"
+    ],
+    [
+      "return \"Ghost \";",
+      "return \"Hayalet \";"
+    ],
+    [
+      "return \"Wolverine \";",
+      "return \"Porsuk \";"
+    ],
+    [
+      "return \"Stunning \";",
+      "return \"Sersemleten \";"
+    ],
+    [
+      "return \"Mad \";",
+      "return \"Çılgın \";"
+    ],
+    [
+      "return \"Charming \";",
+      "return \"Büyüleyici \";"
+    ],
+    [
+      "return \" of Thanatos\";",
+      "return \" (Thanatos)\";"
+    ],
+    [
+      "return \" of Weaking\";",
+      "return \" (Zayıflık)\";"
+    ],
+    [
+      "return \" of Poison\";",
+      "return \" (Zehir)\";"
+    ]
+  ],
+  "__Packages/Town.as": [
+    [
+      "return \"Glorious city of Caesarea, capital of Great Trade Republic\";",
+      "return \"Görkemli Caesarea şehri, Büyük Ticaret Cumhuriyeti'nin başkenti\";"
+    ],
+    [
+      "return \"Amazing city of Veii, Republic\\'s culture center\";",
+      "return \"Muhteşem Veii şehri, Cumhuriyet'in kültür merkezi\";"
+    ],
+    [
+      "return \"Great town of Palmyra, the Republic\\'s east port\";",
+      "return \"Büyük Palmyra kasabası, Cumhuriyet'in doğu limanı\";"
+    ],
+    [
+      "return \"Town of Tyrus, Republic\\'s north outpost\";",
+      "return \"Tyrus kasabası, Cumhuriyet'in kuzey karakolu\";"
+    ],
+    [
+      "return \"Big trade camp of Artaxata\";",
+      "return \"Büyük Artaxata ticaret kampı\";"
+    ],
+    [
+      "return \"Trade camp of Seleucia\";",
+      "return \"Seleucia ticaret kampı\";"
+    ],
+    [
+      "return \"Small harbor of Treveri\";",
+      "return \"Küçük Treveri limanı\";"
+    ],
+    [
+      "return \"Tiny camp of Curia\";",
+      "return \"Ufak Curia kampı\";"
+    ],
+    [
+      "return \"Glorious city of Grobben, capital of the Order\";",
+      "return \"Görkemli Grobben şehri, Tarikat'ın başkenti\";"
+    ],
+    [
+      "return \"Great city of Torburg, Order\\'s trade center\";",
+      "return \"Büyük Torburg şehri, Tarikat'ın ticaret merkezi\";"
+    ],
+    [
+      "return \"Nothen town of Dortmund, Order\\'s keep\";",
+      "return \"Kuzeydeki Dortmund kasabası, Tarikat'ın kalesi\";"
+    ],
+    [
+      "return \"Trade town of Odense\";",
+      "return \"Ticaret kasabası Odense\";"
+    ],
+    [
+      "return \"Town of Holmgard, mountain guard post\";",
+      "return \"Holmgard kasabası, dağ karakolu\";"
+    ],
+    [
+      "return \"Village of Skara, east guard post\";",
+      "return \"Skara köyü, doğu karakolu\";"
+    ],
+    [
+      "return \"Small village of Lunde, south guard post\";",
+      "return \"Küçük Lunde köyü, güney karakolu\";"
+    ],
+    [
+      "return \"Tiny village of Risby\";",
+      "return \"Ufak Risby köyü\";"
+    ],
+    [
+      "return \"Glorious city of RaGorod, capital of Forest Lands\";",
+      "return \"Görkemli RaGorod şehri, Orman Diyarı'nın başkenti\";"
+    ],
+    [
+      "return \"Great city of Zlatograd, Lands\\' trade center\";",
+      "return \"Büyük Zlatograd şehri, Diyar'ın ticaret merkezi\";"
+    ],
+    [
+      "return \"Town of Dobrov, Lands\\' west keep\";",
+      "return \"Dobrov kasabası, Diyar'ın batı kalesi\";"
+    ],
+    [
+      "return \"Huge Village of Grouzeno, Lands\\' east keep\";",
+      "return \"Kocaman Grouzeno köyü, Diyar'ın doğu kalesi\";"
+    ],
+    [
+      "return \"Big village of Krasnodolye\";",
+      "return \"Büyük Krasnodolye köyü\";"
+    ],
+    [
+      "return \"Village of Svetlolesye, Lands\\' east harbor\";",
+      "return \"Svetlolesye köyü, Diyar'ın doğu limanı\";"
+    ],
+    [
+      "return \"Small village of Staroe\";",
+      "return \"Küçük Staroe köyü\";"
+    ],
+    [
+      "return \"Tiny fisher village of Elki\";",
+      "return \"Ufak balıkçı köyü Elki\";"
+    ],
+    [
+      "return \"Glorious city of Nagoya, capital of East Empire\";",
+      "return \"Görkemli Nagoya şehri, Doğu İmparatorluğu'nun başkenti\";"
+    ],
+    [
+      "return \"Great City of Izumo, Empire trade center\";",
+      "return \"Büyük Izumo şehri, İmparatorluğun ticaret merkezi\";"
+    ],
+    [
+      "return \"City of Matsuyama, ninja training center\";",
+      "return \"Matsuyama şehri, ninja eğitim merkezi\";"
+    ],
+    [
+      "return \"Small town of Omi, Empire\\'s martial arts center\";",
+      "return \"Küçük Omi kasabası, İmparatorluğun dövüş sanatları merkezi\";"
+    ],
+    [
+      "return \"Big Village of Echigo, Empire\\'s soth harbor\";",
+      "return \"Büyük Echigo köyü, İmparatorluğun güney limanı\";"
+    ],
+    [
+      "return \"Village of Sapporo, Empire\\'s north harbor\";",
+      "return \"Sapporo köyü, İmparatorluğun kuzey limanı\";"
+    ],
+    [
+      "return \"Small village of Suo\";",
+      "return \"Küçük Suo köyü\";"
+    ],
+    [
+      "return \"Tiny fisher village of Nara\";",
+      "return \"Ufak balıkçı köyü Nara\";"
+    ],
+    [
+      "return \"Glorious camp of Cardiff, capital of Black Horde\";",
+      "return \"Görkemli Cardiff kampı, Kara Orda'nın başkenti\";"
+    ],
+    [
+      "return \"Large camp of Armagh, Horde\\'s main harbor\";",
+      "return \"Büyük Armagh kampı, Orda'nın ana limanı\";"
+    ],
+    [
+      "return \"Large trading camp of Kells\";",
+      "return \"Büyük Kells ticaret kampı\";"
+    ],
+    [
+      "return \"Camp of Iona, Horde\\'s east keep\";",
+      "return \"Iona kampı, Orda'nın doğu kalesi\";"
+    ],
+    [
+      "return \"Camp of Tara, Horde\\'s training center\";",
+      "return \"Tara kampı, Orda'nın eğitim merkezi\";"
+    ],
+    [
+      "return \"Camp of Swansea, Horde\\'s harbor\";",
+      "return \"Swansea kampı, Orda'nın limanı\";"
+    ],
+    [
+      "return \"Small fisher village of Llanelli\";",
+      "return \"Küçük balıkçı köyü Llanelli\";"
+    ],
+    [
+      "return \"Tiny camp of Neath, Horde\\'s north outpost\";",
+      "return \"Ufak Neath kampı, Orda'nın kuzey karakolu\";"
+    ],
+    [
+      "return \"Glorious city of Tiflis, capital of South Desert\";",
+      "return \"Görkemli Tiflis şehri, Güney Çölü'nün başkenti\";"
+    ],
+    [
+      "return \"Amazing city of Medina, South Desert\\'s culture center\";",
+      "return \"Muhteşem Medina şehri, Güney Çölü'nün kültür merkezi\";"
+    ],
+    [
+      "return \"Great town of Mosul, assassin\\'s academy\";",
+      "return \"Büyük Mosul kasabası, suikastçı akademisi\";"
+    ],
+    [
+      "return \"Harbor town of Samarra\";",
+      "return \"Liman kasabası Samarra\";"
+    ],
+    [
+      "return \"Oasis of Mahdia, South Desert\\'s trading outpost\";",
+      "return \"Mahdia vahası, Güney Çölü'nün ticaret karakolu\";"
+    ],
+    [
+      "return \"Village of Shiraz, small oasis lost in sands\";",
+      "return \"Shiraz köyü, kumlarda kaybolmuş küçük vaha\";"
+    ],
+    [
+      "return \"Small harbor of Rabat\";",
+      "return \"Küçük Rabat limanı\";"
+    ],
+    [
+      "return \"Tiny desert village of Aden\";",
+      "return \"Ufak çöl köyü Aden\";"
+    ]
+  ],
+  "__Packages/Tutorial.as": [
+    [
+      "\"Move your hero with WASD or arrow keys. Come to this spot.\"",
+      "\"Kahramanını WASD ya da yön tuşlarıyla yürüt. Bu noktaya gel.\""
+    ],
+    [
+      "\"Attack with space. Come closer to enemy and shoot him with your bow.\"",
+      "\"Boşluk ile saldır. Düşmana yaklaş ve onu yayla vur.\""
+    ],
+    [
+      "\"Switch weapons with Shift. Press Shift to switch to take sword.\"",
+      "\"Shift ile silah değiştir. Kılıcını almak için Shift'e bas.\""
+    ],
+    [
+      "\"You also can use skills instead of normal attack if you\\'ve mastered them. To switch to skill, click on its icon at the bottom of screen. Or press hotkey - 1.\"",
+      "\"Öğrendiysen normal saldırı yerine beceri de kullanabilirsin. Beceriye geçmek için ekranın altındaki simgesine tıkla ya da 1 tuşuna bas.\""
+    ],
+    [
+      "\"To use chosen skill press space. Now come close to enemy and hit him with the skill attack. You\\'ll see that the damage is increased greately.\"",
+      "\"Seçtiğin beceriyi kullanmak için Boşluk'a bas. Şimdi düşmana yaklaş ve beceriyle vur. Hasarın ne kadar arttığını göreceksin.\""
+    ],
+    [
+      "\"If you have some men with bows or crossbows in your reserve, it\\'s possblie to order them to shoot at enemy position. Now Click on Arrow Shower icon and then click on ground.\"",
+      "\"Yedeğinde yaylı ya da arbaletli askerler varsa düşmanın bulunduğu yere ok atmalarını emredebilirsin. Şimdi Ok Yağmuru simgesine, sonra yere tıkla.\""
+    ],
+    [
+      "\"You will not fight alone - your army is a great help in battle. But you\\'d better help them a little too.\"",
+      "\"Yalnız dövüşmeyeceksin; ordun savaşta büyük yardımdır. Ama sen de onlara biraz yardım etsen iyi olur.\""
+    ],
+    [
+      "\"Great, you\\'ve finished with tutorial. Good luck on your journey!\"",
+      "\"Harika, eğitimi bitirdin. Yolculuğunda bol şans!\""
+    ]
+  ],
+  "__Packages/Hero.as": [
+    [
+      "return \"Cant\\'t eqiup runes! Have to combine them with a weapon first!\";",
+      "return \"Rünler kuşanılamaz! Önce bir silahla birleştirmelisin!\";"
+    ],
+    [
+      "return \"Cant\\'t eqiup armor into this slot!\";",
+      "return \"Bu zırh bu yuvaya giyilemez!\";"
+    ],
+    [
+      "return \"Cant\\'t eqiup weapon or shield into this slot!\";",
+      "return \"Bu yuvaya silah ya da kalkan takılamaz!\";"
+    ],
+    [
+      "return \"This weapon isn\\'t designed for fighting from a horse!\";",
+      "return \"Bu silah at üstünde kullanılamaz!\";"
+    ],
+    [
+      "return \"Can\\'t use dual weapon from a horse!\";",
+      "return \"At üstünde çift silah kullanılamaz!\";"
+    ],
+    [
+      "return \"Can\\'t equip shield into right hand!\";",
+      "return \"Kalkan sağ ele takılamaz!\";"
+    ],
+    [
+      "return \"It\\'s impossible to wear a shield and fight with bare hands!\";",
+      "return \"Kalkanla çıplak elle dövüşülemez!\";"
+    ],
+    [
+      "return \"It\\'s impossible to use shield with a twohanded weapon!\";",
+      "return \"İki elli silahla kalkan kullanılamaz!\";"
+    ],
+    [
+      "return \"It\\'s impossible to use a twohanded weapon with shield!\";",
+      "return \"Kalkanla iki elli silah kullanılamaz!\";"
+    ],
+    [
+      "return \"Can\\'t equip both ranged weapons\";",
+      "return \"İki menzilli silah birlikte kuşanılamaz\";"
+    ],
+    [
+      "return \"Can\\'t equip two melee weapons, if one of them is twohanded\";",
+      "return \"Biri iki elliyse iki yakın dövüş silahı birlikte kuşanılamaz\";"
+    ],
+    [
+      "return \"My weapon isn\\'t designed for fighting from a horse!\";",
+      "return \"Silahım at üstünde kullanılamaz!\";"
+    ],
+    [
+      "return \"I can\\'t fight with dual weapons from a horse!\";",
+      "return \"At üstünde çift silahla dövüşemem!\";"
+    ],
+    [
+      "\"You have not enough \" + _loc2_.require_param + \" to equip this item.\"",
+      "\"Bu eşya için yeterli \" + {STR:\"GÜÇ\",DEX:\"ÇEV\",CON:\"DAY\",SPR:\"RUH\",INT:\"ZEK\"}[_loc2_.require_param] + \" puanın yok.\""
+    ],
+    [
+      "NAME = \"Republic King\";",
+      "NAME = \"Cumhuriyet Kralı\";"
+    ],
+    [
+      "NAME = \"Order King\";",
+      "NAME = \"Tarikat Kralı\";"
+    ],
+    [
+      "NAME = \"Forest King\";",
+      "NAME = \"Orman Kralı\";"
+    ],
+    [
+      "NAME = \"Empire King\";",
+      "NAME = \"İmparatorluk Kralı\";"
+    ],
+    [
+      "NAME = \"Horde King\";",
+      "NAME = \"Orda Kralı\";"
+    ],
+    [
+      "NAME = \"Desert King\";",
+      "NAME = \"Çöl Kralı\";"
+    ],
+    [
+      "NAME = \"Republic Champion\";",
+      "NAME = \"Cumhuriyet Şampiyonu\";"
+    ],
+    [
+      "NAME = \"Order Champion\";",
+      "NAME = \"Tarikat Şampiyonu\";"
+    ],
+    [
+      "NAME = \"Forest Champion\";",
+      "NAME = \"Orman Şampiyonu\";"
+    ],
+    [
+      "NAME = \"Empire Champion\";",
+      "NAME = \"İmparatorluk Şampiyonu\";"
+    ],
+    [
+      "NAME = \"Horde Champion\";",
+      "NAME = \"Orda Şampiyonu\";"
+    ],
+    [
+      "NAME = \"Desert Champion\";",
+      "NAME = \"Çöl Şampiyonu\";"
+    ],
+    [
+      "NAME = \"Tutorial Player\";",
+      "NAME = \"Çırak\";"
+    ],
+    [
+      "NAME = \"Tutorial Enemy\";",
+      "NAME = \"Talim Düşmanı\";"
+    ]
+  ],
+  "__Packages/Quest.as": [
+    [
+      "NAME = \"Quest Melee Rogue\";",
+      "NAME = \"Görev Haydudu\";"
+    ],
+    [
+      "NAME = \"Quest Ranged Rogue\";",
+      "NAME = \"Görev Okçu Haydudu\";"
+    ]
+  ],
+  "__Packages/MouseHint.as": [
+    [
+      "\"STR: \"",
+      "\"GÜÇ: \""
+    ],
+    [
+      "\"\\nDEX: \"",
+      "\"\\nÇEV: \""
+    ],
+    [
+      "\"\\nCON: \"",
+      "\"\\nDAY: \""
+    ],
+    [
+      "\"\\nSPR: \"",
+      "\"\\nRUH: \""
+    ],
+    [
+      "\"\\n\\nPrice: \"",
+      "\"\\n\\nFiyat: \""
+    ],
+    [
+      "\"HP: \"",
+      "\"Can: \""
+    ],
+    [
+      "\" SP: \"",
+      "\" RP: \""
+    ],
+    [
+      "\"Defense: \"",
+      "\"Savunma: \""
+    ],
+    [
+      "\" Dodge: \"",
+      "\" Kaçınma: \""
+    ],
+    [
+      "\"Damage: \"",
+      "\"Hasar: \""
+    ],
+    [
+      "\"% crit)\\n\"",
+      "\"% kritik)\\n\""
+    ],
+    [
+      "\"Attack speed: \"",
+      "\"Saldırı hızı: \""
+    ],
+    [
+      "_loc3_.primary_skill + \" mastery: \"",
+      "({Sword:\"Kılıç\",Axe:\"Balta\",Mace:\"Topuz\",Spear:\"Mızrak\",Dagger:\"Hançer\",Staff:\"Asa\",FarEast:\"Uzak Doğu\",Dual:\"Çift silah\",Bow:\"Yay\",Crossbow:\"Arbalet\",Throwing:\"Fırlatma\",Katar:\"Katar\",Fists:\"Yumruk\"}[_loc3_.primary_skill] || _loc3_.primary_skill) + \" ustalığı: \""
+    ],
+    [
+      "type_txt.text = \"Armor\"",
+      "type_txt.text = \"Zırh\""
+    ],
+    [
+      "\"HP \" + (",
+      "\"Can \" + ("
+    ],
+    [
+      "\"SP \" + (",
+      "\"RP \" + ("
+    ],
+    [
+      "\"Enchant Rune\"",
+      "\"Büyü Rünü\""
+    ],
+    [
+      "\"Block chance: \"",
+      "\"Engelleme şansı: \""
+    ],
+    [
+      "\"Critical rate: \"",
+      "\"Kritik oran: \""
+    ],
+    [
+      "\"Attack speed +\"",
+      "\"Saldırı hızı +\""
+    ],
+    [
+      "\"Requires \" + _loc2_.require_value + \" \" + _loc2_.require_param",
+      "\"Gereken: \" + _loc2_.require_value + \" \" + {STR:\"GÜÇ\",DEX:\"ÇEV\",CON:\"DAY\",SPR:\"RUH\",INT:\"ZEK\"}[_loc2_.require_param]"
+    ],
+    [
+      "\"\\nPrice: \"",
+      "\"\\nFiyat: \""
+    ],
+    [
+      "\"SP cost: \"",
+      "\"RP bedeli: \""
+    ],
+    [
+      "\" per second\"",
+      "\" / saniye\""
+    ],
+    [
+      "\"Passive skill\"",
+      "\"Pasif beceri\""
+    ],
+    [
+      "\"Active skill\"",
+      "\"Aktif beceri\""
+    ],
+    [
+      "this.type_txt.text = _loc2_.TYPE;",
+      "var __tur = {OnehandedSword:\"Tek elli kılıç\",TwohandedSword:\"İki elli kılıç\",OnehandedAxe:\"Tek elli balta\",TwohandedAxe:\"İki elli balta\",OnehandedMace:\"Tek elli topuz\",TwohandedMace:\"İki elli topuz\",Spear:\"Mızrak\",Dagger:\"Hançer\",Staff:\"Asa\",Katana:\"Katana\",NinjaTo:\"Ninja-to\",Katar:\"Katar\",Bow:\"Yay\",Crossbow:\"Arbalet\",Throwing:\"Fırlatma silahı\",Shield:\"Kalkan\",Fists:\"Yumruk\"}[_loc2_.TYPE];\n            this.type_txt.text = __tur != undefined ? __tur : _loc2_.TYPE;"
+    ],
+    ["\" (\" + unit_mc.wpnPri.CRIT + \"% kritik)\\n\"", "\" (%\" + unit_mc.wpnPri.CRIT + \" kritik)\\n\""],
+    ["\"Saldırı hızı +\" + _loc2_.aspd_bonus + \"%\\n\"", "\"Saldırı hızı +%\" + _loc2_.aspd_bonus + \"\\n\""],
+    ["\"Saldırı hızı: \" + Math.round(12000 / unit_mc.aspd_delay) / 100 + \"\\n\"", "\"Saldırı hızı: \" + String(Math.round(12000 / unit_mc.aspd_delay) / 100).split(\".\").join(\",\") + \"\\n\""]
+  ],
+  "__Packages/Cities.as": [
+    [
+      "\"You have no ship at this time. Would you like to by it? \\n\\nShips\\'s price is \"",
+      "\"Şu an bir gemin yok. Satın almak ister misin?\\n\\nGeminin fiyatı: \""
+    ],
+    [
+      "\"Hi, captain! Would you like to board your ship?\"",
+      "\"Merhaba kaptan! Gemine binmek ister misin?\""
+    ],
+    [
+      "\"Okay, wanderer. Hope you can deal with some rogues, right? \\n\\nWe\\'ll pay you \"",
+      "\"Pekâlâ yolcu. Birkaç haydutla başa çıkabilirsin, değil mi?\\n\\nÖdülün: \""
+    ],
+    [
+      "\"We need to deliver a package to the city of \"",
+      "\"Bir paketi \""
+    ],
+    [
+      "\". Will you go there?\\nYou\\'ll be paid for \"",
+      "\" şehrine götürmemiz gerekiyor. Gider misin?\\nŞehre vardığında sana \""
+    ],
+    [
+      "\" gp. once you get to the city.\"",
+      "\" altın ödenecek.\""
+    ],
+    [
+      "\"Nice job, wanderer. You\\'ve done it well!\\n\\nHere\\'s your reward: \"",
+      "\"Aferin yolcu, işini iyi yaptın!\\n\\nİşte ödülün: \""
+    ],
+    [
+      "\"Can\\'t refine to that high level!\"",
+      "\"Bu kadar yüksek seviyeye geliştirilemez!\""
+    ],
+    [
+      "\"Not enough gold!\"",
+      "\"Altının yetmiyor!\""
+    ],
+    [
+      "\"The item is already refined!\"",
+      "\"Bu eşya zaten geliştirilmiş!\""
+    ],
+    [
+      "\"Success chance: \"",
+      "\"Başarı şansı: \""
+    ],
+    [
+      "\"Price: \"",
+      "\"Fiyat: \""
+    ],
+    [
+      "\"Money: \"",
+      "\"Para: \""
+    ],
+    [
+      "\" gp.\"",
+      "\" altın\""
+    ],
+    [
+      "\" gold\"",
+      "\" altın\""
+    ],
+    [
+      "\"Lv. \"",
+      "\"Sv. \""
+    ],
+    ["\"Başarı şansı: \" + _loc4_ + \"%\\n\"", "\"Başarı şansı: %\" + _loc4_ + \"\\n\""]
+  ],
+  "__Packages/StoreIcon.as": [
+    [
+      "\"Not enough gold!\"",
+      "\"Altının yetmiyor!\""
+    ],
+    [
+      "\"Money: \"",
+      "\"Para: \""
+    ],
+    [
+      "\" gold\"",
+      "\" altın\""
+    ]
+  ],
+  "__Packages/BarracksIcon.as": [
+    [
+      "\"Not enough gold!\"",
+      "\"Altının yetmiyor!\""
+    ],
+    [
+      "\"Your army is too big!\"",
+      "\"Ordun çok büyük!\""
+    ],
+    [
+      "\" gold\"",
+      "\" altın\""
+    ]
+  ],
+  "__Packages/BarnIcon.as": [
+    [
+      "\"Hit Points bonus: \"",
+      "\"Can bonusu: \""
+    ],
+    [
+      "\"Defence bonus: \"",
+      "\"Savunma bonusu: \""
+    ],
+    [
+      "\"Speed bonus: \"",
+      "\"Hız bonusu: \""
+    ],
+    [
+      "\"Cost \"",
+      "\"Fiyat: \""
+    ],
+    [
+      "\" gp.\"",
+      "\" altın\""
+    ]
+  ],
+  "DefineButton2_2823/BUTTONCONDACTION on(release).as": [
+    [
+      "\"Not enough money!\\n\\nShips\\'s price is \"",
+      "\"Paran yetmiyor!\\n\\nGeminin fiyatı: \""
+    ],
+    [
+      "\" gp.\"",
+      "\" altın\""
+    ]
+  ],
+  "DefineButton2_3106/BUTTONCONDACTION on(release).as": [
+    [
+      "\" gp.\"",
+      "\" altın\""
+    ]
+  ],
+  "DefineButton2_2015/BUTTONCONDACTION on(release).as": [
+    [
+      "\"Choose a hero first!\"",
+      "\"Önce bir kahraman seç!\""
+    ]
+  ],
+  "DefineButton2_1466/BUTTONCONDACTION on(release, keyPress Enter).as": [
+    [
+      "\" gold\"",
+      "\" altın\""
+    ]
+  ],
+  "DefineButton2_2604/BUTTONCONDACTION on(press).as": [
+    [
+      "\" gold\"",
+      "\" altın\""
+    ],
+    [
+      "\"Not enough money!\"",
+      "\"Paran yetmiyor!\""
+    ]
+  ],
+  "DefineButton2_2605/BUTTONCONDACTION on(press).as": [
+    [
+      "\" gold\"",
+      "\" altın\""
+    ],
+    [
+      "\"Not enough money!\"",
+      "\"Paran yetmiyor!\""
+    ]
+  ],
+  "DefineButton2_2604/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Small heal potion\"",
+      "\"Küçük şifa iksiri\""
+    ],
+    [
+      "\"Heals 40 HP\\n\\nCost 100 gp.\"",
+      "\"40 can yeniler.\\n\\nFiyat: 100 altın\""
+    ]
+  ],
+  "DefineButton2_2605/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Medium heal potion\"",
+      "\"Orta şifa iksiri\""
+    ],
+    [
+      "\"Heals 300 HP\\n\\nCost 1000 gp.\"",
+      "\"300 can yeniler.\\n\\nFiyat: 1000 altın\""
+    ]
+  ],
+  "DefineButton2_2766/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\" Level \"",
+      "\" Seviye \""
+    ],
+    [
+      "\"Hit Pionts: \"",
+      "\"Can: \""
+    ],
+    [
+      "\"Defence: \"",
+      "\"Savunma: \""
+    ],
+    [
+      "\"Dodge: \"",
+      "\"Kaçınma: \""
+    ],
+    [
+      "\"% (Shield)\"",
+      "\"% (kalkan)\""
+    ],
+    [
+      "\"Damage: \"",
+      "\"Hasar: \""
+    ],
+    [
+      "\"Attack Speed: \"",
+      "\"Saldırı hızı: \""
+    ],
+    [
+      "\"Range: \"",
+      "\"Menzil: \""
+    ],
+    [
+      "\"Hit rate: \"",
+      "\"İsabet: \""
+    ],
+    [
+      "\"Crit Rate: \"",
+      "\"Kritik: \""
+    ],
+    ["\"Kaçınma: \" + hero_ico.anim.FLEE + \"%\" + (hero_ico.anim.SHIELD_FLEE <= 0 ? \"\" : \"+\" + hero_ico.anim.SHIELD_FLEE + \"% (kalkan)\")", "\"Kaçınma: %\" + hero_ico.anim.FLEE + (hero_ico.anim.SHIELD_FLEE <= 0 ? \"\" : \" +%\" + hero_ico.anim.SHIELD_FLEE + \" (kalkan)\")"],
+    ["\"İsabet: \" + hero_ico.anim.wpn.HIT + \"%\\n\"", "\"İsabet: %\" + hero_ico.anim.wpn.HIT + \"\\n\""],
+    ["\"Kritik: \" + hero_ico.anim.wpn.CRIT + \"%\\n\"", "\"Kritik: %\" + hero_ico.anim.wpn.CRIT + \"\\n\""],
+    ["\"Saldırı hızı: \" + Math.round(100 / (hero_ico.anim.wpn.t_bef + hero_ico.anim.wpn.t_aft) * 100) / 100 + \"\\n\"", "\"Saldırı hızı: \" + String(Math.round(100 / (hero_ico.anim.wpn.t_bef + hero_ico.anim.wpn.t_aft) * 100) / 100).split(\".\").join(\",\") + \"\\n\""]
+  ],
+  "DefineButton2_2819/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Hit Pionts bonus: \"",
+      "\"Can bonusu: \""
+    ],
+    [
+      "\"Defence bonus: \"",
+      "\"Savunma bonusu: \""
+    ],
+    [
+      "\"Speed bonus: \"",
+      "\"Hız bonusu: \""
+    ],
+    [
+      "\"Cost \"",
+      "\"Fiyat: \""
+    ],
+    [
+      "\" gp.\"",
+      "\" altın\""
+    ]
+  ],
+  "DefineSprite_2939/frame_6/DoAction.as": [
+    [
+      "\"\\nLevel \"",
+      "\"\\nSeviye \""
+    ],
+    [
+      "\"\\nexp: \"",
+      "\"\\ndeneyim: \""
+    ]
+  ],
+  "DefineSprite_2939/frame_10/DoAction.as": [
+    [
+      "\" lv. \"",
+      "\" sv. \""
+    ]
+  ],
+  "DefineSprite_2300/frame_1/DoAction.as": [
+    [
+      "\"Down\"",
+      "\"Aşağı\""
+    ],
+    [
+      "\"Left\"",
+      "\"Sol\""
+    ],
+    [
+      "\"Right\"",
+      "\"Sağ\""
+    ],
+    [
+      "\"Up\"",
+      "\"Yukarı\""
+    ],
+    [
+      "\"Space\"",
+      "\"Boşluk\""
+    ]
+  ],
+  "DefineButton2_1992/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Karl, Bishop of The Order of Holy Cross\"",
+      "\"Karl, Kutsal Haç Tarikatı Piskoposu\""
+    ],
+    [
+      "\"Great squad commander and supporter; Can learn special moves with One handed Weapons, Heavy Two handed Weapons and Throwing Knives. Specializes on strengthen infantry and squad support.\"",
+      "\"Büyük bir bölük komutanı ve destekçi. Tek elli silahlar, ağır iki elli silahlar ve atma bıçaklarıyla özel hareketler öğrenebilir. Piyadeyi güçlendirmede ve bölüğe destekte uzmandır.\""
+    ],
+    [
+      "\"\\nOrder\\'s warriors depend on their armor and constitution, so some of them are just walking castles, but they also shouldn\\'t forget about strength and spirit powers.\\nNote: Order produces the best maces and armor in the world.\"",
+      "\"\\nTarikat savaşçıları zırhlarına ve dayanıklılıklarına güvenir; bazıları adeta yürüyen kaledir. Ama güç ve ruh gücünü de unutmamalıdırlar.\\nNot: Dünyanın en iyi topuzlarını ve zırhlarını Tarikat üretir.\""
+    ]
+  ],
+  "DefineButton2_1994/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Olga, the major Druid of Forest Lands\"",
+      "\"Olga, Orman Diyarı'nın Baş Druidi\""
+    ],
+    [
+      "\"Very good ranged fighter and suppressor; Can learn special moves with Bow, Two handed Sword and Spear. Specializes on strengthen ranged units and enemy suppression.\"",
+      "\"Çok iyi bir menzilli dövüşçü ve düşmanı bastırır. Yay, iki elli kılıç ve mızrakla özel hareketler öğrenebilir. Menzilli birlikleri güçlendirmede ve düşmanı bastırmada uzmandır.\""
+    ],
+    [
+      "\"\\nForest Lands\\' warrioirs depend only on their strength. DEX and CON are important for them too, but only strength allow them to use better axes deal more damage, and even wear better armor made in forest lands.\\nNote:Forest Lands produce the best axes in the world. Their bows are one of the best too.\"",
+      "\"\\nOrman Diyarı savaşçıları yalnızca güçlerine güvenir. ÇEV ve DAY de önemlidir ama daha iyi baltaları kullanmayı, daha çok hasar vermeyi ve Orman Diyarı'nda yapılan daha iyi zırhları giymeyi yalnızca güç sağlar.\\nNot: Dünyanın en iyi baltaları Orman Diyarı'nda yapılır. Yayları da en iyilerdendir.\""
+    ]
+  ],
+  "DefineButton2_1996/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Vseslav, Chieftain of The Forest Lands\"",
+      "\"Vseslav, Orman Diyarı'nın Reisi\""
+    ],
+    [
+      "\"Very strong melee fighter and squad supporter; Can learn special moves with Heavy Twohanded Weapons, One handed Weapons and Throwing Axes. Specializes on infantry power-ups, squad support and enemy suppression.\"",
+      "\"Çok güçlü bir yakın dövüşçü ve bölük destekçisi. Ağır iki elli silahlar, tek elli silahlar ve atma baltalarıyla özel hareketler öğrenebilir. Piyadeyi güçlendirmede, bölüğe destekte ve düşmanı bastırmada uzmandır.\""
+    ],
+    [
+      "\"\\nForest Lands\\' warrioirs depend only on their strength. DEX and CON are important for them too, but only strength allow them to use better axes deal more damage, and even wear better armor made in forest lands.\\nNote:Forest Lands produce the best axes in the world. Their bows are one of the best too.\"",
+      "\"\\nOrman Diyarı savaşçıları yalnızca güçlerine güvenir. ÇEV ve DAY de önemlidir ama daha iyi baltaları kullanmayı, daha çok hasar vermeyi ve Orman Diyarı'nda yapılan daha iyi zırhları giymeyi yalnızca güç sağlar.\\nNot: Dünyanın en iyi baltaları Orman Diyarı'nda yapılır. Yayları da en iyilerdendir.\""
+    ]
+  ],
+  "DefineButton2_1998/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Edgar, Lord of the Great Trade Republic\"",
+      "\"Edgar, Büyük Ticaret Cumhuriyeti'nin Lordu\""
+    ],
+    [
+      "\"Proficient melee fighter and squad leader; Can learn special moves with Two handed Sword, Spear and Crossbow. Specializes on strengthen and supporting any types of units.\"",
+      "\"Usta bir yakın dövüşçü ve bölük önderi. İki elli kılıç, mızrak ve arbaletle özel hareketler öğrenebilir. Her tür birliği güçlendirmede ve desteklemede uzmandır.\""
+    ],
+    [
+      "\"\\nRepublic warriors depend on both strength and constitution, sometimes they try to evade enemy attacks.\\nNote: Republic produces the best swords and crossbows on the continent.  They also make good armor and bows.\"",
+      "\"\\nCumhuriyet savaşçıları hem güce hem dayanıklılığa güvenir, bazen düşman saldırılarından kaçmaya çalışırlar.\\nNot: Kıtanın en iyi kılıçlarını ve arbaletlerini Cumhuriyet üretir. İyi zırh ve yay da yaparlar.\""
+    ]
+  ],
+  "DefineButton2_2000/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Elizabeth, Priest of Order of Holy Cross\"",
+      "\"Elizabeth, Kutsal Haç Tarikatı Rahibesi\""
+    ],
+    [
+      "\"Talented commander and universal fighter; Can learn special moves with Spear, Crossbow and One handed Weapons. Specializes on strengthen all types of units and enemy suppression.\"",
+      "\"Yetenekli bir komutan ve her işe yarayan bir dövüşçü. Mızrak, arbalet ve tek elli silahlarla özel hareketler öğrenebilir. Her tür birliği güçlendirmede ve düşmanı bastırmada uzmandır.\""
+    ],
+    [
+      "\"\\nOrder\\'s warriors depend on their armor and constitution, so some of them are just walking castles, but they also shouldn\\'t forget about strength and spirit powers.\\nNote: Order produces the best maces and armor in the world.\"",
+      "\"\\nTarikat savaşçıları zırhlarına ve dayanıklılıklarına güvenir; bazıları adeta yürüyen kaledir. Ama güç ve ruh gücünü de unutmamalıdırlar.\\nNot: Dünyanın en iyi topuzlarını ve zırhlarını Tarikat üretir.\""
+    ]
+  ],
+  "DefineButton2_2002/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Selena, Princess of the Great Trade Republic\"",
+      "\"Selena, Büyük Ticaret Cumhuriyeti'nin Prensesi\""
+    ],
+    [
+      "\"Proficient sharpshooter and medic; Can learn special moves with Crossbow,Dagger and Two handed Sword. Specializes on squad support and infantry power-ups.\"",
+      "\"Usta bir nişancı ve şifacı. Arbalet, hançer ve iki elli kılıçla özel hareketler öğrenebilir. Bölüğe destekte ve piyadeyi güçlendirmede uzmandır.\""
+    ],
+    [
+      "\"\\nRepublic warriors depend on both strength and constitution, sometimes they try to evade enemy attacks.\\nNote: Republic produces the best swords and crossbows on the continent.  They also make good armor and bows.\"",
+      "\"\\nCumhuriyet savaşçıları hem güce hem dayanıklılığa güvenir, bazen düşman saldırılarından kaçmaya çalışırlar.\\nNot: Kıtanın en iyi kılıçlarını ve arbaletlerini Cumhuriyet üretir. İyi zırh ve yay da yaparlar.\""
+    ]
+  ],
+  "DefineButton2_2004/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Sieg, Shogun of the Far East Empire\"",
+      "\"Sieg, Uzak Doğu İmparatorluğu'nun Şogunu\""
+    ],
+    [
+      "\"Master of melee fights and good commander; Can learn special moves with Dual Weapons, Katana and Bow. Specializes on strengthen infantry and enemy suppression.\"",
+      "\"Yakın dövüş ustası ve iyi bir komutan. Çift silah, katana ve yayla özel hareketler öğrenebilir. Piyadeyi güçlendirmede ve düşmanı bastırmada uzmandır.\""
+    ],
+    [
+      "\"\\nEmpire\\'s warriors depend on their dexterity, trying to evade enemy attacks. Strength is important for them too for dealing damage.\\nNote: Empire produces only its national weapons. You will not find any swords, axes, maces or spears in their cities.\"",
+      "\"\\nİmparatorluk savaşçıları çevikliklerine güvenir, düşman saldırılarından kaçmaya çalışırlar. Hasar vermek için güç de önemlidir.\\nNot: İmparatorluk yalnızca kendi ulusal silahlarını üretir. Şehirlerinde kılıç, balta, topuz ya da mızrak bulamazsın.\""
+    ]
+  ],
+  "DefineButton2_2006/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Inga, Major Shaman of the Black Horde\"",
+      "\"Inga, Kara Orda'nın Baş Şamanı\""
+    ],
+    [
+      "\"Great bow master and effective lone warrior; Can learn special moves with Bow, Dagger and One handed Weapons. Specializes on strengthen bowmen and chivalry. Also can suppress enemy and heal herself.\"",
+      "\"Büyük bir yay ustası ve tek başına da etkili bir savaşçı. Yay, hançer ve tek elli silahlarla özel hareketler öğrenebilir. Okçuları ve süvariyi güçlendirmede uzmandır. Düşmanı bastırabilir ve kendini iyileştirebilir.\""
+    ],
+    [
+      "\"\\nHorde\\'s warriors depend on their dexterity, strength and spirit powers. They prefer to shoot enemies from long range and then kill survivors in melee combat.\\nNote: Horde produces swords, daggers and bows. Their bows are one of the best in the world.\"",
+      "\"\\nOrda savaşçıları çevikliklerine, güçlerine ve ruh güçlerine güvenir. Düşmanı uzaktan okla vurmayı, sağ kalanları da yakın dövüşte öldürmeyi severler.\\nNot: Orda kılıç, hançer ve yay üretir. Yayları dünyanın en iyilerindendir.\""
+    ]
+  ],
+  "DefineButton2_2008/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Chingis, Khan of the Black Horde\"",
+      "\"Cengiz, Kara Orda'nın Hanı\""
+    ],
+    [
+      "\"Effectively combines melee and ranged weapons; Can learn special moves with One handed Weapons, Bows and Two handed Swords. Specializes on strengthen bowmen, swordsmen and chivalry. Also can suppress enemy and support his troops.\"",
+      "\"Yakın dövüş ve menzilli silahları ustalıkla birleştirir. Tek elli silahlar, yaylar ve iki elli kılıçlarla özel hareketler öğrenebilir. Okçuları, kılıççıları ve süvariyi güçlendirmede uzmandır. Düşmanı bastırabilir ve askerlerini destekleyebilir.\""
+    ],
+    [
+      "\"\\nHorde\\'s warriors depend on their dexterity, strength and spirit powers. They prefer to shoot enemies from long range and then kill survivors in melee combat.\\nNote: Horde produces swords, daggers and bows. Their bows are one of the best in the world.\"",
+      "\"\\nOrda savaşçıları çevikliklerine, güçlerine ve ruh güçlerine güvenir. Düşmanı uzaktan okla vurmayı, sağ kalanları da yakın dövüşte öldürmeyi severler.\\nNot: Orda kılıç, hançer ve yay üretir. Yayları dünyanın en iyilerindendir.\""
+    ]
+  ],
+  "DefineButton2_2010/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Ismael, Ruler of the South Desert \"",
+      "\"İsmail, Güney Çölü'nün Hükümdarı\""
+    ],
+    [
+      "\"Powerful melee fighter and good commander; Can learn special moves with Dual Weapons, Two handed Sword and Crossbow. Specializes on strengthen melee infantry and enemy suppression.\"",
+      "\"Güçlü bir yakın dövüşçü ve iyi bir komutan. Çift silah, iki elli kılıç ve arbaletle özel hareketler öğrenebilir. Yakın dövüş piyadesini güçlendirmede ve düşmanı bastırmada uzmandır.\""
+    ],
+    [
+      "\"\\nDesert warriors depend on their strength, dexterity and constitution. They prefer face-to-face fight much more than ranged combat.\\nNote: Horde produces only swords and their secret national weapon - Katar. Their swords a have good damage and a faster attack speed.\"",
+      "\"\\nÇöl savaşçıları güçlerine, çevikliklerine ve dayanıklılıklarına güvenir. Yüz yüze dövüşü menzilli dövüşe çok tercih ederler.\\nNot: Çöl yalnızca kılıç ve gizli ulusal silahı katarı üretir. Kılıçlarının hasarı iyi, saldırı hızları yüksektir.\""
+    ]
+  ],
+  "DefineButton2_2012/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Diana, Secret Assassin of the South Desert\"",
+      "\"Diana, Güney Çölü'nün Gizli Suikastçısı\""
+    ],
+    [
+      "\"Talented assassin and good lone warrior; Can learn special moves with Katar, Crossbow and Dagger. Specializes on assassin and chivalry training. Also has good enemy suppression skills.\"",
+      "\"Yetenekli bir suikastçı ve tek başına da iyi bir savaşçı. Katar, arbalet ve hançerle özel hareketler öğrenebilir. Suikastçı ve süvari eğitiminde uzmandır. Düşmanı bastırma becerileri de iyidir.\""
+    ],
+    [
+      "\"\\nDesert warriors depend on their strength, dexterity and constitution. They prefer face-to-face fight much more than ranged combat.\\nNote: Horde produces only swords and their secret national weapon - Katar. Their swords a have good damage and a faster attack speed.\"",
+      "\"\\nÇöl savaşçıları güçlerine, çevikliklerine ve dayanıklılıklarına güvenir. Yüz yüze dövüşü menzilli dövüşe çok tercih ederler.\\nNot: Çöl yalnızca kılıç ve gizli ulusal silahı katarı üretir. Kılıçlarının hasarı iyi, saldırı hızları yüksektir.\""
+    ]
+  ],
+  "DefineButton2_2014/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Niora, Mistress of The East Empire\"",
+      "\"Niora, Doğu İmparatorluğu'nun Hanımı\""
+    ],
+    [
+      "\"Master of national fighting styles and good commander; Can learn special moves with Staff, Katana and Surikens. Specializes on strengthen ranged units, war arts and enemy suppression.\"",
+      "\"Ulusal dövüş tarzlarının ustası ve iyi bir komutan. Asa, katana ve şurikenle özel hareketler öğrenebilir. Menzilli birlikleri güçlendirmede, savaş sanatlarında ve düşmanı bastırmada uzmandır.\""
+    ],
+    [
+      "\"\\nEmpire\\'s warriors depend on their dexterity, trying to evade enemy attacks. Strength is important for them too for dealing damage.\\nNote: Empire produces only its national weapons. You will not find any swords, axes, maces or spears in their cities.\"",
+      "\"\\nİmparatorluk savaşçıları çevikliklerine güvenir, düşman saldırılarından kaçmaya çalışırlar. Hasar vermek için güç de önemlidir.\\nNot: İmparatorluk yalnızca kendi ulusal silahlarını üretir. Şehirlerinde kılıç, balta, topuz ya da mızrak bulamazsın.\""
+    ]
+  ],
+  "DefineButton2_2923/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Strength affects damage with melee weapons. It is required for using almost all swords, axes, spears and some throwing weapons and armor\"",
+      "\"Güç, yakın dövüş silahlarının hasarını etkiler. Neredeyse bütün kılıçlar, baltalar, mızraklar ve bazı fırlatma silahları ile zırhlar için gerekir.\""
+    ]
+  ],
+  "DefineButton2_2924/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Dexterity affects damage with ranged weapons, dodge chance and attack speed. It is required for using lots weapons and even armor\"",
+      "\"Çeviklik, menzilli silahların hasarını, kaçınma şansını ve saldırı hızını etkiler. Birçok silah ve hatta zırh için gerekir.\""
+    ]
+  ],
+  "DefineButton2_2925/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Constitution affects character\\'s hit points (HP). It is required for using maces and the best types of armor\"",
+      "\"Dayanıklılık, karakterin canını etkiler. Topuzlar ve en iyi zırhlar için gerekir.\""
+    ]
+  ],
+  "DefineButton2_2926/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Spirit affects character\\'s spirit points (e.g SP or Mana). It isn\\'t required for using any equipment, but high Spirit allows to use skills more often.\"",
+      "\"Ruh, karakterin ruh puanını (RP) etkiler. Hiçbir eşya için gerekmez ama yüksek ruh, becerileri daha sık kullanmanı sağlar.\""
+    ]
+  ],
+  "DefineButton2_2927/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Grants higher chance to hit an enemy with second weapon when fighting with weapons in both hands.\"",
+      "\"İki elinde silahla dövüşürken ikinci silahla düşmana isabet şansını artırır.\""
+    ]
+  ],
+  "DefineButton2_2928/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Affects hit chance when fighting with one- and two handed swords.\"",
+      "\"Tek ve iki elli kılıçlarla isabet şansını etkiler.\""
+    ]
+  ],
+  "DefineButton2_2929/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Affects hit chance when fighting with one- and two handed axes.\"",
+      "\"Tek ve iki elli baltalarla isabet şansını etkiler.\""
+    ]
+  ],
+  "DefineButton2_2930/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Affects hit chance when fighting with one- and two handed maces.\"",
+      "\"Tek ve iki elli topuzlarla isabet şansını etkiler.\""
+    ]
+  ],
+  "DefineButton2_2931/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Affects hit chance when fighting with spears.\"",
+      "\"Mızraklarla isabet şansını etkiler.\""
+    ]
+  ],
+  "DefineButton2_2932/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Affects hit chance when fighting with daggers.\"",
+      "\"Hançerlerle isabet şansını etkiler.\""
+    ]
+  ],
+  "DefineButton2_2933/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Affects hit chance when fighting with katars.\"",
+      "\"Katarlarla isabet şansını etkiler.\""
+    ]
+  ],
+  "DefineButton2_2934/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Affects hit chance when fighting with staffs.\"",
+      "\"Asalarla isabet şansını etkiler.\""
+    ]
+  ],
+  "DefineButton2_2935/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Affects hit chance when fighting with katanas and ninja-to.\"",
+      "\"Katana ve ninja-to ile isabet şansını etkiler.\""
+    ]
+  ],
+  "DefineButton2_2936/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Affects hit chance when fighting with bows.\"",
+      "\"Yaylarla isabet şansını etkiler.\""
+    ]
+  ],
+  "DefineButton2_2937/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Affects hit chance when fighting with crossbows.\"",
+      "\"Arbaletlerle isabet şansını etkiler.\""
+    ]
+  ],
+  "DefineButton2_2938/BUTTONCONDACTION on(rollOver).as": [
+    [
+      "\"Affects hit chance when fighting with throwing weapons.\"",
+      "\"Fırlatma silahlarıyla isabet şansını etkiler.\""
+    ]
+  ]
+}

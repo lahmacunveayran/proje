@@ -1,0 +1,31 @@
+// Aşama 0 deneme sahnesi: örnek çizimlerin dizilimi.
+// Konumlar mantıksal piksel (1920×1080). Paralaks: kamera kayınca katmanın ne kadar kaydığı.
+(
+    layers: [
+        (art: "art/samples/landscape/1-gok.svg", parallax: 0.05),
+        (art: "art/samples/landscape/2-uzak.svg", parallax: 0.15),
+        (art: "art/samples/landscape/3-orta.svg", parallax: 0.35),
+        (art: "art/samples/landscape/4-yakin.svg", parallax: 0.65),
+        (art: "art/samples/landscape/5-zemin.svg", parallax: 1.0),
+    ],
+    // Katmanların sol kenarı, kamera sıfırdayken (katmanlar ekrandan geniştir).
+    layer_origin: (-320, 0),
+    actors: [
+        (art: "art/samples/characters/soldier-2.svg", anchor: (119, 491), position: (250, 925), scale: 0.62),
+        (art: "art/samples/characters/hero.svg", anchor: (100, 503), position: (560, 1000), scale: 0.62),
+        (art: "art/samples/characters/soldier-1.svg", anchor: (161, 378), position: (800, 935), scale: 0.62),
+    ],
+    shadow: "art/samples/shadow.svg",
+    foreground: (art: "art/samples/landscape/6-on.svg", parallax: 1.3),
+    window: (art: "art/samples/ui/window.svg", position: (1150, 290), scale: 0.88),
+    // Yazı renkleri paletten: parşömen-açık #EBE1D8, parşömen-mürekkep #453621.
+    window_texts: [
+        (key: "shop_title", font: Title, size: 42, color: "#EBE1D8", position: (190, 12), width: 420, align: Center),
+        (key: "item_name", font: Heading, size: 36, color: "#453621", position: (440, 112), width: 300, align: Left),
+        (key: "item_text", font: Body, size: 23, color: "#453621", position: (440, 190), width: 300, align: Left),
+        (key: "item_price", font: Small, size: 24, color: "#453621", position: (486, 410), width: 240, align: Left),
+        (key: "button_inventory", font: Heading, size: 24, color: "#453621", position: (114, 456), width: 104, align: Left),
+        (key: "button_back", font: Heading, size: 24, color: "#453621", position: (302, 456), width: 104, align: Left),
+        (key: "button_buy", font: Title, size: 34, color: "#EBE1D8", position: (636, 442), width: 80, align: Center),
+    ],
+)

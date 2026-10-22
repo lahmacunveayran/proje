@@ -1,0 +1,11 @@
+{
+  "_aciklama": "Oyuna gömülü yazı tiplerinde olmayan harfler (ç, ğ, ı, İ, ö, ş, ü ...) hangi ücretsiz benzer yazı tipinden alınsın. Anahtar: oyundaki yazı tipinin kimlik numarası.",
+  "45": { "ad": "Arial Kalın", "kaynak": "yazitipleri/LiberationSans-Bold.ttf" },
+  "159": { "ad": "Times New Roman", "kaynak": "yazitipleri/LiberationSerif-Regular.ttf" },
+  "1038": { "ad": "Book Antiqua Kalın", "kaynak": "araclar/yazitipleri/texgyrepagella-bold.otf" },
+  "1483": { "ad": "Book Antiqua Kalın İtalik", "kaynak": "araclar/yazitipleri/texgyrepagella-bolditalic.otf" },
+  "1153": { "ad": "Bookman Old Style Kalın", "kaynak": "araclar/yazitipleri/texgyrebonum-bold.otf" },
+  "1758": { "ad": "Bookman Old Style İtalik", "kaynak": "araclar/yazitipleri/texgyrebonum-italic.otf" },
+  "1983": { "ad": "Monotype Corsiva", "kaynak": "araclar/yazitipleri/texgyrechorus-mediumitalic.otf" },
+  "2008": { "ad": "Century Gothic Kalın", "kaynak": "araclar/yazitipleri/texgyreadventor-bold.otf" }
+}

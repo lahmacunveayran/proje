@@ -1,0 +1,270 @@
+{
+  "_aciklama": "Kod içindeki ekranda görünen metinler. Her dosya için [eski, yeni] çiftleri; eski metin o dosyada aynen (tırnaklarıyla) aranır ve her biri en az bir kez bulunmak zorundadır. Yalnızca adı geçen dosyalar değişir.",
+  "frame_1/DoAction_2.as": [
+    ["__com_mochibot__(\"7cde74e8\",this,10301,true);", "// İnternete istatistik gönderen MochiBot çağrısı kapatıldı: oyun çevrimdışı çalışır."]
+  ],
+  "__Packages/Quest.as": [
+    ["NAME = \"Quest Melee Rogue\";", "NAME = \"Görev Haydudu\";"],
+    ["NAME = \"Quest Ranged Rogue\";", "NAME = \"Görev Okçu Haydudu\";"]
+  ],
+  "__Packages/Enchant.as": [
+    ["\"Piercing \"", "\"Delici \""],
+    ["\"Bloody \"", "\"Kanlı \""],
+    ["\"Bleeding \"", "\"Kanatan \""],
+    ["\" of Massacre\"", "\" (Katliam)\""],
+    ["\"Creeping \"", "\"Sinsi \""],
+    ["\"Strong \"", "\"Güçlü \""],
+    ["\"Cursed \"", "\"Lanetli \""],
+    ["\"Undead \"", "\"Hortlak \""],
+    ["\"Unholy \"", "\"Şeytani \""],
+    ["\"Great \"", "\"Yüce \""],
+    ["\"Glorious \"", "\"Şanlı \""],
+    ["\" of Sacrifice\"", "\" (Fedakârlık)\""],
+    ["\" of Comassion\"", "\" (Merhamet)\""],
+    ["\" of Valor\"", "\" (Yiğitlik)\""],
+    ["\"Immortal \"", "\"Ölümsüz \""],
+    ["\"Mysterious \"", "\"Gizemli \""],
+    ["\" of Death\"", "\" (Ölüm)\""],
+    ["\"Marksman\\'s \"", "\"Nişancı \""],
+    ["\"Lucky \"", "\"Şanslı \""],
+    ["\"Sleeping \"", "\"Uyuyan \""],
+    ["\"Suffering \"", "\"Acı Çeken \""],
+    ["\"Blind \"", "\"Kör \""],
+    ["\"Breaking \"", "\"Kıran \""],
+    ["\"Crushing \"", "\"Ezen \""],
+    ["\"Saint \"", "\"Aziz \""],
+    ["\" of Rage\"", "\" (Öfke)\""],
+    ["\" of Divine Light\"", "\" (İlahi Işık)\""]
+  ],
+  "__Packages/Hero.as": [
+    ["\"Cant\\'t eqiup armor into this slot!\"", "\"Bu zırh bu yuvaya giyilemez!\""],
+    ["\"You have not enough \" + _loc2_.require_param + \" to equip this item\"", "\"Bu eşya için yeterli \" + {STR:\"GÜÇ\",DEX:\"ÇEV\",CON:\"DAY\",INT:\"ZEK\"}[_loc2_.require_param] + \" puanın yok\""],
+    ["\"This weapon isn\\'t designed for fighting from a horse!\"", "\"Bu silah at üstünde kullanılamaz!\""],
+    ["\"Can\\'t use dual weapon from a horse!\"", "\"At üstünde çift silah kullanılamaz!\""],
+    ["\"Can\\'t equip shield into right hand!\"", "\"Kalkan sağ ele takılamaz!\""],
+    ["\"It\\'s impossible to wear a shield and fight with bare hands!\"", "\"Kalkanla çıplak elle dövüşülemez!\""],
+    ["\"It\\'s impossible to use shield with a twohanded weapon!\"", "\"İki elli silahla kalkan kullanılamaz!\""],
+    ["\"Can\\'t equip both ranged weapons\"", "\"İki menzilli silah birlikte kuşanılamaz\""],
+    ["\"Can\\'t equip two melee weapons, if one of them is twohanded\"", "\"Biri iki elliyse iki yakın dövüş silahı birlikte kuşanılamaz\""],
+    ["\"My weapon isn\\'t designed for fighting from a horse!\"", "\"Silahım at üstünde kullanılamaz!\""],
+    ["\"I can\\'t fight with dual weapons from a horse!\"", "\"At üstünde çift silahla dövüşemem!\""]
+  ],
+  "__Packages/StoreIcon.as": [
+    ["\"Damage: \"", "\"Hasar: \""],
+    ["\"Attack Speed: \"", "\"Saldırı hızı: \""],
+    ["\"Range: \"", "\"Menzil: \""],
+    ["\"Crit Rate: \"", "\"Kritik: \""],
+    ["\"Onehanded\"", "\"Tek elli\""],
+    ["\"Twohanded\"", "\"İki elli\""],
+    ["\"Dodge chance: \"", "\"Kaçınma şansı: \""],
+    ["\"Defence: \"", "\"Savunma: \""],
+    ["\"Requires: \" + _loc2_.require_value + \" \" + _loc2_.require_param", "\"Gereken: \" + _loc2_.require_value + \" \" + {STR:\"GÜÇ\",DEX:\"ÇEV\",CON:\"DAY\",INT:\"ZEK\"}[_loc2_.require_param]"],
+    ["\"Cost \"", "\"Fiyat: \""],
+    ["\" gp.\"", "\" altın\""],
+    ["\"Not enough gold!\"", "\"Altının yetmiyor!\""],
+    ["\" gold\"", "\" altın\""],
+    ["\"Kritik: \" + _loc2_.crit + \"%\\n\"", "\"Kritik: %\" + _loc2_.crit + \"\\n\""],
+    ["\"Kaçınma şansı: \" + _loc2_.crit + \"%\\n\"", "\"Kaçınma şansı: %\" + _loc2_.crit + \"\\n\""],
+    ["\"Saldırı hızı: \" + Math.round(100 / (_loc2_.t_bef + _loc2_.t_aft) * 100) / 100 + \"\\n\"", "\"Saldırı hızı: \" + String(Math.round(100 / (_loc2_.t_bef + _loc2_.t_aft) * 100) / 100).split(\".\").join(\",\") + \"\\n\""]
+  ],
+  "__Packages/BarracksIcon.as": [
+    ["\"Hit Pionts: \"", "\"Can: \""],
+    ["\"Defence: \"", "\"Savunma: \""],
+    ["\"Dodge: \"", "\"Kaçınma: \""],
+    ["\"% (Shield)\"", "\"% (kalkan)\""],
+    ["\"Damage: \"", "\"Hasar: \""],
+    ["\"Attack Speed: \"", "\"Saldırı hızı: \""],
+    ["\"Range: \"", "\"Menzil: \""],
+    ["\"Hit rate: \"", "\"İsabet: \""],
+    ["\"Crit Rate: \"", "\"Kritik: \""],
+    ["\"Cost \"", "\"Fiyat: \""],
+    ["\" gp.\"", "\" altın\""],
+    ["\"Not enough gold!\"", "\"Altının yetmiyor!\""],
+    ["\" gold\"", "\" altın\""],
+    ["\"Kaçınma: \" + this.anim.FLEE + \"%\" + (this.anim.SHIELD_FLEE <= 0 ? \"\" : \"+\" + this.anim.SHIELD_FLEE + \"% (kalkan)\")", "\"Kaçınma: %\" + this.anim.FLEE + (this.anim.SHIELD_FLEE <= 0 ? \"\" : \" +%\" + this.anim.SHIELD_FLEE + \" (kalkan)\")"],
+    ["\"İsabet: \" + this.anim.wpn.HIT + \"%\\n\"", "\"İsabet: %\" + this.anim.wpn.HIT + \"\\n\""],
+    ["\"Kritik: \" + this.anim.wpn.CRIT + \"%\\n\\n\"", "\"Kritik: %\" + this.anim.wpn.CRIT + \"\\n\\n\""],
+    ["\"Saldırı hızı: \" + Math.round(100 / (this.anim.wpn.t_bef + this.anim.wpn.t_aft) * 100) / 100 + \"\\n\"", "\"Saldırı hızı: \" + String(Math.round(100 / (this.anim.wpn.t_bef + this.anim.wpn.t_aft) * 100) / 100).split(\".\").join(\",\") + \"\\n\""]
+  ],
+  "__Packages/BarnIcon.as": [
+    ["\"Hit Pionts bonus: \"", "\"Can bonusu: \""],
+    ["\"Defence bonus: \"", "\"Savunma bonusu: \""],
+    ["\"Speed bonus: \"", "\"Hız bonusu: \""],
+    ["\"Cost \"", "\"Fiyat: \""],
+    ["\" gp.\"", "\" altın\""]
+  ],
+  "__Packages/Cities.as": [
+    ["\"You have not enough gold to rent a ship.\\n\\nOne sail price is \"", "\"Gemi kiralamaya altının yetmiyor.\\n\\nBir seferin ücreti: \""],
+    ["\"One sail price is \"", "\"Bir seferin ücreti: \""],
+    ["\" gp.\\nWould you like to board a ship?\"", "\" altın.\\nGemiye binmek ister misin?\""],
+    ["\"Okay, wanderer. Hope you can deal with some rogues, right? \\n\\nWe\\'ll pay you \"", "\"Pekâlâ yolcu. Birkaç haydutla başa çıkabilirsin, değil mi?\\n\\nÖdülün: \""],
+    ["\"We need to deliver a package to the city of \"", "\"Bir paketi \""],
+    ["\". Will you go there?\\nYou\\'ll be paid for \"", "\" şehrine götürmemiz gerekiyor. Gider misin?\\nŞehre vardığında sana \""],
+    ["\" gp. once you get to the city.\"", "\" altın ödenecek.\""],
+    ["\"Nice job, wanderer. You\\'ve done it well!\\n\\nHere\\'s your reward: \"", "\"Aferin yolcu, işini iyi yaptın!\\n\\nİşte ödülün: \""],
+    ["\" gp.\"", "\" altın\""],
+    ["\" gold\"", "\" altın\""],
+    ["\"\\nLevel \"", "\"\\nSeviye \""]
+  ],
+  "DefineButton2_801/BUTTONCONDACTION on(release, keyPress Enter).as": [
+    ["\" gold\"", "\" altın\""]
+  ],
+  "DefineButton2_1754/BUTTONCONDACTION on(rollOver).as": [
+    ["\" Level \"", "\" Seviye \""],
+    ["\"Hit Pionts: \"", "\"Can: \""],
+    ["\"Defence: \"", "\"Savunma: \""],
+    ["\"Dodge: \"", "\"Kaçınma: \""],
+    ["\"% (Shield)\"", "\"% (kalkan)\""],
+    ["\"Damage: \"", "\"Hasar: \""],
+    ["\"Attack Speed: \"", "\"Saldırı hızı: \""],
+    ["\"Range: \"", "\"Menzil: \""],
+    ["\"Hit rate: \"", "\"İsabet: \""],
+    ["\"Crit Rate: \"", "\"Kritik: \""],
+    ["\"Kaçınma: \" + hero_ico.anim.FLEE + \"%\" + (hero_ico.anim.SHIELD_FLEE <= 0 ? \"\" : \"+\" + hero_ico.anim.SHIELD_FLEE + \"% (kalkan)\")", "\"Kaçınma: %\" + hero_ico.anim.FLEE + (hero_ico.anim.SHIELD_FLEE <= 0 ? \"\" : \" +%\" + hero_ico.anim.SHIELD_FLEE + \" (kalkan)\")"],
+    ["\"İsabet: \" + hero_ico.anim.wpn.HIT + \"%\\n\"", "\"İsabet: %\" + hero_ico.anim.wpn.HIT + \"\\n\""],
+    ["\"Kritik: \" + hero_ico.anim.wpn.CRIT + \"%\\n\"", "\"Kritik: %\" + hero_ico.anim.wpn.CRIT + \"\\n\""],
+    ["\"Saldırı hızı: \" + Math.round(100 / (hero_ico.anim.wpn.t_bef + hero_ico.anim.wpn.t_aft) * 100) / 100 + \"\\n\"", "\"Saldırı hızı: \" + String(Math.round(100 / (hero_ico.anim.wpn.t_bef + hero_ico.anim.wpn.t_aft) * 100) / 100).split(\".\").join(\",\") + \"\\n\""]
+  ],
+  "DefineSprite_1898/frame_5/DoAction.as": [["\" lv. \"", "\" sv. \""]],
+  "DefineSprite_1898/frame_9/DoAction.as": [["\" lv. \"", "\" sv. \""]],
+  "DefineSprite_1494/frame_1/DoAction.as": [["\"\\nLevel \"", "\"\\nSeviye \""]],
+  "DefineSprite_1485/frame_1/DoAction.as": [
+    ["\"Down\"", "\"Aşağı\""],
+    ["\"Left\"", "\"Sol\""],
+    ["\"Right\"", "\"Sağ\""],
+    ["\"Up\"", "\"Yukarı\""],
+    ["\"Space\"", "\"Boşluk\""]
+  ],
+  "DefineButton2_1613/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Small heal potion\"", "\"Küçük şifa iksiri\""],
+    ["\"Heals 40 HP\\n\\nCost 10 gp.\"", "\"40 can yeniler.\\n\\nFiyat: 10 altın\""]
+  ],
+  "DefineButton2_1614/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Medium heal potion\"", "\"Orta şifa iksiri\""],
+    ["\"Heals 300 HP\\n\\nCost 100 gp.\"", "\"300 can yeniler.\\n\\nFiyat: 100 altın\""]
+  ],
+  "DefineButton2_1615/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Large heal potion\"", "\"Büyük şifa iksiri\""],
+    ["\"Completely restores HP\\n\\nCost 900 gp.\"", "\"Canı tamamen yeniler.\\n\\nFiyat: 900 altın\""]
+  ],
+  "DefineButton2_1616/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Scroll of Small Healing\"", "\"Küçük Şifa Parşömeni\""],
+    ["\"Restores 1/3 HP to all friendly units\\n\\nCost 50 gp.\"", "\"Tüm dost birliklerin canının 1/3'ünü yeniler.\\n\\nFiyat: 50 altın\""]
+  ],
+  "DefineButton2_1617/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Scroll of Healing\"", "\"Şifa Parşömeni\""],
+    ["\"Restores 2/3 HP to all friendly units\\n\\nCost 200 gp.\"", "\"Tüm dost birliklerin canının 2/3'ünü yeniler.\\n\\nFiyat: 200 altın\""]
+  ],
+  "DefineButton2_1618/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Scroll of Bloody Rage\"", "\"Kanlı Öfke Parşömeni\""],
+    ["\"Makes your units attack much faster. Units with low attack speed gain a huge bunus, perhaps fast attacking units get a very small bonus.\\n\\nCost 1000 gp.\"", "\"Birliklerin çok daha hızlı saldırır. Yavaş saldıran birlikler büyük bonus alır, hızlı saldıranlar ise çok küçük bir bonus alır.\\n\\nFiyat: 1000 altın\""]
+  ],
+  "DefineButton2_1613/BUTTONCONDACTION on(press).as": [["\"Not enough money!\"", "\"Paran yetmiyor!\""], ["\" gp.\"", "\" altın\""]],
+  "DefineButton2_1614/BUTTONCONDACTION on(press).as": [["\"Not enough money!\"", "\"Paran yetmiyor!\""], ["\" gp.\"", "\" altın\""]],
+  "DefineButton2_1615/BUTTONCONDACTION on(press).as": [["\"Not enough money!\"", "\"Paran yetmiyor!\""], ["\" gp.\"", "\" altın\""]],
+  "DefineButton2_1616/BUTTONCONDACTION on(press).as": [["\"Not enough money!\"", "\"Paran yetmiyor!\""], ["\" gp.\"", "\" altın\""]],
+  "DefineButton2_1617/BUTTONCONDACTION on(press).as": [["\"Not enough money!\"", "\"Paran yetmiyor!\""], ["\" gp.\"", "\" altın\""]],
+  "DefineButton2_1618/BUTTONCONDACTION on(press).as": [["\"Not enough money!\"", "\"Paran yetmiyor!\""], ["\" gp.\"", "\" altın\""]],
+  "DefineButton2_2032/BUTTONCONDACTION on(release).as": [["\" gp.\"", "\" altın\""]],
+  "frame_90/PlaceObject2_2050_65/CLIPACTIONRECORD onClipEvent(enterFrame).as": [["\" gp.\"", "\" altın\""]],
+  "DefineButton2_1105/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Karl, Bishop of The Order of Holy Cross\"", "\"Karl, Kutsal Haç Tarikatı Piskoposu\""],
+    ["\"Prefers blunt weapons in melee combat, also know how to throw knifes, but his dexterity doesn\\'t allow him to use other ranged weapons.  Order\\'s warriors depend on their armor and constitution, so some of them are just walking castles!\\nNote: Order produces the best maces and armor in the world.\"", "\"Yakın dövüşte gürz gibi künt silahları sever, bıçak fırlatmayı da bilir ama çevikliği başka menzilli silah kullanmasına yetmez. Tarikat savaşçıları zırhlarına ve dayanıklılıklarına güvenir; bazıları adeta yürüyen kaledir!\\nNot: Dünyanın en iyi gürzlerini ve zırhlarını Tarikat üretir.\""]
+  ],
+  "DefineButton2_1107/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Niora, Mistress of The East Eampire\"", "\"Niora, Doğu İmparatorluğu'nun Hanımı\""],
+    ["\"Prefers staffs a little more than katanas and shuriken, but likes bows too. She\\'s a good melee fighter, but could be a good archer as well.  Empire\\'s warriors depend on their dexterity, trying to evade enemy attacks. Strength is important for them too for dealing damage.\\nNote: Empire produces only its national weapons. You will not find any swords, axes, maces or spears in their cities.\"", "\"Asaları katana ve şurikenden biraz daha çok sever, yayları da sever. İyi bir yakın dövüşçüdür ama iyi bir okçu da olabilir. İmparatorluk savaşçıları çevikliklerine güvenir, düşman saldırılarından kaçmaya çalışırlar. Hasar vermek için güç de önemlidir.\\nNot: İmparatorluk yalnızca kendi ulusal silahlarını üretir. Şehirlerinde kılıç, balta, gürz ya da mızrak bulamazsın.\""]
+  ],
+  "DefineButton2_1109/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Olga, the major Druid of Forest Lands\"", "\"Olga, Orman Diyarı'nın Baş Druidi\""],
+    ["\"Prefers bows and crossbows, but can fight with a sword too.  Forest Lands\\' warriors depend only on their strength, but DEX and CON are important for them too. Strength allows them to use better axes deal more damage, and even wear better armor made in forest lands.\\nNote: Forest Lands produce the best axes and bows in the world.\"", "\"Yay ve arbaleti sever ama kılıçla da dövüşebilir. Orman Diyarı savaşçıları yalnızca güçlerine güvenir; yine de ÇEV ve DAY onlar için önemlidir. Güç; daha iyi balta kullanmayı, daha çok hasar vermeyi ve Orman Diyarı'nda yapılan daha iyi zırhları giymeyi sağlar.\\nNot: Dünyanın en iyi baltaları ve yayları Orman Diyarı'nda yapılır.\""]
+  ],
+  "DefineButton2_1111/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Vseslav, Chieftain of The Forest Lands\"", "\"Vseslav, Orman Diyarı'nın Reisi\""],
+    ["\"Likes powerful weapons, like mace and axe. His incredible strength also allow him to use throwing axes. \\nForest Lands\\' warrioirs depend only on their strength. DEX and CON are important for them too, but only strength allow them to use better axes deal more damage, and even wear better armor made in forest lands.\\nNote:Forest Lands produce the best axes and bows in the world.\"", "\"Gürz ve balta gibi güçlü silahları sever. İnanılmaz gücü sayesinde atma baltası da kullanabilir.\\nOrman Diyarı savaşçıları yalnızca güçlerine güvenir. ÇEV ve DAY de önemlidir ama daha iyi baltaları kullanmayı, daha çok hasar vermeyi ve Orman Diyarı'nda yapılan daha iyi zırhları giymeyi yalnızca güç sağlar.\\nNot: Dünyanın en iyi baltaları ve yayları Orman Diyarı'nda yapılır.\""]
+  ],
+  "DefineButton2_1113/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Edgar, Lord of the Great Trade Republic\"", "\"Edgar, Büyük Ticaret Cumhuriyeti'nin Lordu\""],
+    ["\"Prefers melee weapons and is a very good swordsman, also likes daggers and throwing weapons.  Republic warriors depend on both strength and constitution, sometimes they try to evade enemy attacks.\\nNote: Republic produces the best swords and crossbows on the continent.  They also make good armor and bows. They are the only nation who produces daggers.\"", "\"Yakın dövüş silahlarını sever ve çok iyi bir kılıç ustasıdır; hançerleri ve fırlatma silahlarını da sever. Cumhuriyet savaşçıları hem güce hem dayanıklılığa güvenir, bazen düşman saldırılarından kaçmaya çalışırlar.\\nNot: Kıtanın en iyi kılıçlarını ve arbaletlerini Cumhuriyet üretir. İyi zırh ve yay da yaparlar. Hançer üreten tek ulus onlardır.\""]
+  ],
+  "DefineButton2_1115/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Elizabeth, Priest of Order of Holy Cross\"", "\"Elizabeth, Kutsal Haç Tarikatı Rahibesi\""],
+    ["\"Prefers different types of weapons: maces, spears, throwing knifes and crossbows. She can fight well in both melee and ranged combat.  Order\\'s warriors depend on their armor and constitution, so some of them are just walking castles!\\nNote: Order produces the best maces and armor in the world.\"", "\"Farklı silahları sever: gürz, mızrak, atma bıçağı ve arbalet. Hem yakın hem menzilli dövüşte iyidir. Tarikat savaşçıları zırhlarına ve dayanıklılıklarına güvenir; bazıları adeta yürüyen kaledir!\\nNot: Dünyanın en iyi gürzlerini ve zırhlarını Tarikat üretir.\""]
+  ],
+  "DefineButton2_1117/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Selena, Princess of the Great Trade Republic\"", "\"Selena, Büyük Ticaret Cumhuriyeti'nin Prensesi\""],
+    ["\"Prefers ranged combat. Usually uses a crossbow, but can fight with a dagger if enemy comes too close.  Republic crossbowmen depend on both strength and dexterity, trying to defeat enemy, who comes too close with two-handed swords or daggers.\\nNote: Republic produces the best swords and crossbows at the continent.  They also make good armor and bows. They are the only nation who produces daggers.\"", "\"Menzilli dövüşü sever. Genellikle arbalet kullanır ama düşman çok yaklaşırsa hançerle de dövüşebilir. Cumhuriyet arbaletçileri hem güce hem çevikliğe güvenir; çok yaklaşan düşmanı iki elli kılıçlarla ya da hançerlerle yenmeye çalışırlar.\\nNot: Kıtanın en iyi kılıçlarını ve arbaletlerini Cumhuriyet üretir. İyi zırh ve yay da yaparlar. Hançer üreten tek ulus onlardır.\""]
+  ],
+  "DefineButton2_1119/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Sieg, Shogun of the Far East Empire\"", "\"Sieg, Uzak Doğu İmparatorluğu'nun Şogunu\""],
+    ["\"Prefers his national weapons: Ninja-to, Katanas and shurikens. Likes to fight with weapons in both hands.  Empire\\'s warriors depend on their dexterity, trying to evade enemy attacks. Strength is important for them too for dealing damage.\\nNote: Empire produces only its national weapons. You will not find any swords, axes, maces or spears in their cities.\"", "\"Ulusal silahlarını sever: ninja-to, katana ve şuriken. İki elinde silahla dövüşmeyi sever. İmparatorluk savaşçıları çevikliklerine güvenir, düşman saldırılarından kaçmaya çalışırlar. Hasar vermek için güç de önemlidir.\\nNot: İmparatorluk yalnızca kendi ulusal silahlarını üretir. Şehirlerinde kılıç, balta, gürz ya da mızrak bulamazsın.\""]
+  ],
+  "DefineButton2_1123/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Strength (STR)\"", "\"Güç (GÜÇ)\""],
+    ["\"Strength is the primary attribute for swords and axes (even throwing), and it\\'s important for any melee fighter as it improves melee damage. Armor made in Forest Lands also requires high STR (not CON).\"", "\"Güç, kılıçlar ve baltalar (fırlatılanlar dahil) için temel özelliktir ve yakın dövüş hasarını artırdığı için her yakın dövüşçü için önemlidir. Orman Diyarı'nda yapılan zırhlar da yüksek GÜÇ ister (DAY değil).\""]
+  ],
+  "DefineButton2_1124/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Dexterity (DEX)\"", "\"Çeviklik (ÇEV)\""],
+    ["\"Dexterity is the most important attribute of all ranged characters. All bows, crossbows, throwing knifes and shuriken require high DEX to use. It also greatly increases character\\'s dodge, allowing him to evade enemy attacks. Armor made in East Empire also requires high DEX (not CON).\"", "\"Çeviklik, menzilli dövüşen herkes için en önemli özelliktir. Tüm yaylar, arbaletler, atma bıçakları ve şurikenler yüksek ÇEV ister. Ayrıca kaçınmayı çok artırır ve düşman saldırılarından sıyrılmanı sağlar. Doğu İmparatorluğu'nda yapılan zırhlar da yüksek ÇEV ister (DAY değil).\""]
+  ],
+  "DefineButton2_1125/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Constitution (CON)\"", "\"Dayanıklılık (DAY)\""],
+    ["\"Constitution is a very important attribute for everybody. It increases hero\\'s hit points and allows him to wear the best armor and shields. It is also needed for using better maces.\"", "\"Dayanıklılık herkes için çok önemli bir özelliktir. Kahramanın canını artırır, en iyi zırhları ve kalkanları giymesini sağlar. Daha iyi gürzleri kullanmak için de gerekir.\""]
+  ],
+  "DefineButton2_1126/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Intelligence (INT)\"", "\"Zekâ (ZEK)\""],
+    ["\"Intelligence is the most important attribute for any commander. It is required to master skills \\\"Patriotism\\\" and \\\"Art Of War\\\". Also, every 2 points of INT increase your unit\\'s HP and damage by 1%\"", "\"Zekâ her komutan için en önemli özelliktir. \\\"Vatanseverlik\\\" ve \\\"Savaş Sanatı\\\" becerilerinde ustalaşmak için gerekir. Ayrıca her 2 ZEK puanı birliklerinin canını ve hasarını %1 artırır.\""]
+  ],
+  "DefineButton2_1127/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Dual weapons\"", "\"Çift silah\""],
+    ["\"This skill increases your chance to hit an enemy when you\\'re fighting with weapons in both hands.\"", "\"Bu beceri, iki elinde silahla dövüşürken düşmana isabet şansını artırır.\""]
+  ],
+  "DefineButton2_1128/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Swords\"", "\"Kılıç\""],
+    ["\"This skill increases your chance to hit an enemy with one-handed and two-handed swords. \\nSwords deal medium damage and have rather good attack speed but low crit rates.\"", "\"Bu beceri, tek elli ve iki elli kılıçlarla düşmana isabet şansını artırır.\\nKılıçlar orta hasar verir, saldırı hızları oldukça iyidir ama kritik oranları düşüktür.\""]
+  ],
+  "DefineButton2_1129/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Axe\"", "\"Balta\""],
+    ["\"This skill increases your chance to hit an enemy with one-handed and two-handed axes.\\nAxes deal high damage, but they have lower attack speeds and crit rates than swords.\"", "\"Bu beceri, tek elli ve iki elli baltalarla düşmana isabet şansını artırır.\\nBaltalar yüksek hasar verir ama saldırı hızları ve kritik oranları kılıçlardan düşüktür.\""]
+  ],
+  "DefineButton2_1130/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Mace\"", "\"Gürz\""],
+    ["\"This skill increases your chance to hit an enemy with one-handed and two-handed maces.\\nMaces deal low damage, have rather good attack speed, and very high crit rates.\"", "\"Bu beceri, tek elli ve iki elli gürzlerle düşmana isabet şansını artırır.\\nGürzler düşük hasar verir, saldırı hızları oldukça iyidir ve kritik oranları çok yüksektir.\""]
+  ],
+  "DefineButton2_1131/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Spear\"", "\"Mızrak\""],
+    ["\"This skill increases your chance to hit an enemy with a spear.\\nSpears deal high damage with the highest crit rate, but they have the lowest attack speed.\"", "\"Bu beceri, mızrakla düşmana isabet şansını artırır.\\nMızraklar yüksek hasar verir ve kritik oranları en yüksektir ama saldırı hızları en düşüktür.\""]
+  ],
+  "DefineButton2_1132/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Dagger\"", "\"Hançer\""],
+    ["\"This skill increases your chance to hit an enemy with a dagger.\\nDaggers are fast weapons with low damage and high crit rate.\"", "\"Bu beceri, hançerle düşmana isabet şansını artırır.\\nHançerler düşük hasarlı ama kritik oranı yüksek, hızlı silahlardır.\""]
+  ],
+  "DefineButton2_1133/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Staff\"", "\"Asa\""],
+    ["\"This skill increases your chance to hit an enemy with a staff.\\nStaffs deal low damage, have average crit rates and attack speeds and hit enemy TWICE per attack.\"", "\"Bu beceri, asayla düşmana isabet şansını artırır.\\nAsalar düşük hasar verir, kritik oranları ve saldırı hızları ortalamadır; her saldırıda düşmana İKİ KEZ vurur.\""]
+  ],
+  "DefineButton2_1134/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Far east weapons\"", "\"Uzak Doğu silahları\""],
+    ["\"This skill increases your chance to hit an enemy with a katana, ninja-to and shuriken.\\nKatanas and ninja-to are faster than sword, deal a little less damage, and have better crit rate.\"", "\"Bu beceri, katana, ninja-to ve şurikenle düşmana isabet şansını artırır.\\nKatanalar ve ninja-to'lar kılıçtan hızlıdır, biraz daha az hasar verir ve kritik oranları daha iyidir.\""]
+  ],
+  "DefineButton2_1135/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Bow\"", "\"Yay\""],
+    ["\"This skill increases your chance to hit an enemy with a bow.\\nBows deal less damage than crossbows, but attack much faster.\"", "\"Bu beceri, yayla düşmana isabet şansını artırır.\\nYaylar arbaletlerden az hasar verir ama çok daha hızlı atış yapar.\""]
+  ],
+  "DefineButton2_1136/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Crossbow\"", "\"Arbalet\""],
+    ["\"This skill increases your chance to hit an enemy with a crossbow.\\nCrossbow is a very slow weapon, but its damage and crit rates are just great.\"", "\"Bu beceri, arbaletle düşmana isabet şansını artırır.\\nArbalet çok yavaş bir silahtır ama hasarı ve kritik oranları harikadır.\""]
+  ],
+  "DefineButton2_1137/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Throwing weapons\"", "\"Fırlatma silahları\""],
+    ["\"This skill increases your chance to hit an enemy with all throwing weapons, excluding shuriken.\\nThrowing weapons have higher damage than bows, but lower range.\"", "\"Bu beceri, şuriken dışındaki tüm fırlatma silahlarıyla düşmana isabet şansını artırır.\\nFırlatma silahları yaylardan çok hasar verir ama menzilleri daha kısadır.\""]
+  ],
+  "DefineButton2_1138/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Art of war\"", "\"Savaş sanatı\""],
+    ["\"This skill increases HP and damage of all your units by 0.5% per skill point.\"", "\"Bu beceri, her beceri puanı için tüm birliklerinin canını ve hasarını %0,5 artırır.\""]
+  ],
+  "DefineButton2_1139/BUTTONCONDACTION on(rollOver).as": [
+    ["\"Patriotism\"", "\"Vatanseverlik\""],
+    ["\"This skill increases HP and damage of your units, which are the same nation as you, by 1% per skill point.\"", "\"Bu beceri, her beceri puanı için seninle aynı ulustan olan birliklerinin canını ve hasarını %1 artırır.\""]
+  ]
+}

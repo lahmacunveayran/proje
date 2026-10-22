@@ -1,0 +1,293 @@
+{
+ "ad": "bozkır mızrakçısı",
+ "aciklama": "tools/art/ciz_mizrakci.py üretir. Birim: baş = 64; gövde koordinatı (baş tepesi y = 0). SVG'de bütün çizim 'kaydirma' kadar kaydırılır. 'gruplar' çizim sırasıyladır (arkadan öne); her grubun 'eklem'i dönme noktasıdır. 'isaret' ölçüm aracının okuduğu işaretlerdir.",
+ "kaydirma": [
+  227.71,
+  25.01
+ ],
+ "eklemler": {
+  "bas_tepesi": [
+   -14,
+   0
+  ],
+  "cene": [
+   -26,
+   64
+  ],
+  "boyun": [
+   -20,
+   80
+  ],
+  "omuz_uzak": [
+   -48,
+   100
+  ],
+  "omuz_yakin": [
+   42,
+   108
+  ],
+  "dirsek_uzak": [
+   -84,
+   140
+  ],
+  "dirsek_yakin": [
+   74,
+   166
+  ],
+  "el_uzak": [
+   -46,
+   160
+  ],
+  "el_yakin": [
+   30,
+   232
+  ],
+  "bel": [
+   -8,
+   202
+  ],
+  "kasik": [
+   0,
+   286
+  ],
+  "kalca_uzak": [
+   -18,
+   278
+  ],
+  "kalca_yakin": [
+   16,
+   274
+  ],
+  "diz_uzak": [
+   -62,
+   340
+  ],
+  "diz_yakin": [
+   24,
+   366
+  ],
+  "bilek_uzak": [
+   -74,
+   448
+  ],
+  "bilek_yakin": [
+   34,
+   462
+  ],
+  "ayak_uzak": [
+   -96,
+   474
+  ],
+  "ayak_yakin": [
+   46,
+   490
+  ]
+ },
+ "gruplar": [
+  {
+   "kimlik": "upper-arm-back",
+   "eklem": [
+    -48,
+    100
+   ]
+  },
+  {
+   "kimlik": "thigh-back",
+   "eklem": [
+    -18,
+    278
+   ]
+  },
+  {
+   "kimlik": "shin-back",
+   "eklem": [
+    -62,
+    340
+   ]
+  },
+  {
+   "kimlik": "foot-back",
+   "eklem": [
+    -74,
+    448
+   ]
+  },
+  {
+   "kimlik": "thigh-front",
+   "eklem": [
+    16,
+    274
+   ]
+  },
+  {
+   "kimlik": "shin-front",
+   "eklem": [
+    24,
+    366
+   ]
+  },
+  {
+   "kimlik": "foot-front",
+   "eklem": [
+    34,
+    462
+   ]
+  },
+  {
+   "kimlik": "torso",
+   "eklem": [
+    0,
+    286
+   ]
+  },
+  {
+   "kimlik": "head",
+   "eklem": [
+    -20,
+    80
+   ]
+  },
+  {
+   "kimlik": "forearm-back",
+   "eklem": [
+    -84,
+    140
+   ]
+  },
+  {
+   "kimlik": "hand-back-palm",
+   "eklem": [
+    -46,
+    160
+   ]
+  },
+  {
+   "kimlik": "upper-arm-front",
+   "eklem": [
+    42,
+    108
+   ]
+  },
+  {
+   "kimlik": "forearm-front",
+   "eklem": [
+    74,
+    166
+   ]
+  },
+  {
+   "kimlik": "hand-front-palm",
+   "eklem": [
+    30,
+    232
+   ]
+  },
+  {
+   "kimlik": "spear",
+   "eklem": [
+    30,
+    232
+   ]
+  },
+  {
+   "kimlik": "hand-back-fingers",
+   "eklem": [
+    -46,
+    160
+   ]
+  },
+  {
+   "kimlik": "hand-front-fingers",
+   "eklem": [
+    30,
+    232
+   ]
+  }
+ ],
+ "isaret": {
+  "tam_boy": true,
+  "bas_tepesi": [
+   -14,
+   0
+  ],
+  "cene": [
+   -26,
+   64
+  ],
+  "omuz_sol": [
+   -62,
+   94
+  ],
+  "omuz_sag": [
+   54,
+   104
+  ],
+  "dirsekler": [
+   [
+    -84,
+    140
+   ],
+   [
+    74,
+    166
+   ]
+  ],
+  "bel": [
+   -8,
+   202
+  ],
+  "kasik": [
+   0,
+   286
+  ],
+  "dizler": [
+   [
+    -62,
+    340
+   ],
+   [
+    24,
+    366
+   ]
+  ],
+  "ayaklar": [
+   [
+    -96,
+    474
+   ],
+   [
+    46,
+    490
+   ]
+  ],
+  "taban": [
+   0,
+   491.4
+  ],
+  "el_kutulari": [
+   [
+    -64.9,
+    137.7,
+    -27.8,
+    177.2
+   ],
+   [
+    11.1,
+    209.7,
+    48.2,
+    249.2
+   ]
+  ],
+  "silah_turu": "mızrak",
+  "silah_ekseni": [
+   [
+    -223.7,
+    -8.4
+   ],
+   [
+    171.2,
+    365.8
+   ]
+  ]
+ }
+}

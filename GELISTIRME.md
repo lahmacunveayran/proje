@@ -3,6 +3,7 @@
 ## Belgeler
 
 - [docs/TASARIM.md](docs/TASARIM.md): oyunun tasarımı
+- [docs/SANAT.md](docs/SANAT.md): sanat rehberi; her yeni çizimden önce okunur
 - [docs/MOTOR.md](docs/MOTOR.md): motorun kararları ve yapısı
 - [docs/YOL_HARITASI.md](docs/YOL_HARITASI.md): aşamalar ve yapılacaklar
 - [docs/gunluk/](docs/gunluk/): geliştirme günlüğü; her çalışma gününün sonunda ne yapıldığı,
@@ -10,7 +11,7 @@
 
 ## Gerekenler
 
-- Rust (kararlı sürüm): https://rustup.rs
+- Rust: https://rustup.rs (sürüm `rust-toolchain.toml` dosyasında sabittir; rustup doğru sürümü kendisi kurar)
 - Linux'ta derlemek için: `libx11-dev libxkbcommon-dev libwayland-dev` ve bir Vulkan sürücüsü.
   Ekransız görüntü testleri için grafik kartı gerekmez: `mesa-vulkan-drivers` (lavapipe) yeterlidir.
 
@@ -18,14 +19,41 @@
 
 Hepsi depo kökünde çalıştırılır.
 
-| İş                   | Komut                                              |
-| -------------------- | -------------------------------------------------- |
-| Oyunu çalıştır       | `cargo run -p game`                                |
-| Testler              | `cargo test --workspace`                           |
-| Biçim                | `cargo fmt --all` (denetim: `cargo fmt --all --check`) |
-| Lint                 | `cargo clippy --workspace --all-targets -- -D warnings` |
-| Lisans denetimi      | `cargo deny check licenses bans sources`           |
-| Sürüm derlemesi      | `cargo build --release -p game`                    |
+| İş                          | Komut                                                     |
+| --------------------------- | --------------------------------------------------------- |
+| Oyunu çalıştır              | `cargo run -p game`                                       |
+| Testler                     | `cargo test --workspace`                                  |
+| Beklenen resimleri yenile   | `UPDATE_SNAPSHOTS=1 cargo test --workspace`               |
+| Biçim                       | `cargo fmt --all` (denetim: `cargo fmt --all --check`)    |
+| Lint                        | `cargo clippy --workspace --all-targets -- -D warnings`   |
+| Lisans denetimi             | `cargo deny check licenses bans sources`                  |
+| Sürüm derlemesi             | `cargo build --release -p game`                           |
+| Sahneyi resme çiz           | `cargo run -p game -- --goruntu cikti.png --boyut 3840x2160` |
+| Bir SVG'yi resme çiz        | `cargo run -p engine --example svg-png -- girdi.svg cikti.png 2` |
+| Örnek çizimleri yeniden üret | `python3 tools/art/ciz_birlikler.py` (ayrıca `ciz_manzara.py`, `ciz_pencere.py`) |
+| Karakter ölçülerini karşılaştır | `python3 tools/art/kukla_olc.py` (önce `araclar/olcum/cikar.sh`) |
+| Oyunları eksiksiz çıkar ve aktar | `araclar/olcum/cikar.sh` → `referans/` (git dışı yerel arşiv) ve `content/feudalism/` |
+| Referans ölçüm raporu       | `python3 araclar/olcum/olcum.py rapor` → `olcum/sonuclar.md` |
+| Bir çizimi referansla karşılaştır | `python3 araclar/olcum/olcum.py karsilastir cizim.svg kahraman iskelet.json` |
+| Pozun özgünlüğü (ve üst üste çizimi) | `python3 araclar/olcum/olcum.py ortusme iskelet.json [cizim.png]` |
+| Yan yana levha (aynı boy, %5 cetvel) | `python3 araclar/olcum/olcum.py levha cikti.png f1/1112 f1/1110 cizim.svg:iskelet.json` |
+| Feudalism içeriğini ve Türkçe çeviriyi aktar | `python3 araclar/aktar/aktar.py` → `content/feudalism/`, `content/fonts/` (önce `araclar/olcum/cikar.sh`) |
+| Aktarım aracının testleri   | `python3 -m unittest discover -s araclar/aktar -p 'test_*.py'` |
+| Oyunların içerik dökümü     | `python3 araclar/aktar/envanter.py` → `docs/FEUDALISM_ICERIK.md` |
+| Ayıklama denetimi           | `python3 araclar/aktar/denetim.py --gorsel` → `docs/AYIKLAMA_DENETIMI.md` (önce `cargo build --release -p engine --example svg-batch`) |
+| Çok sayıda SVG'yi resme çiz | `cargo run --release -p engine --example svg-batch -- liste.txt` (satır: `girdi.svg<TAB>cikti.png<TAB>ölçek`) |
+| Ölçüm aracının testleri     | `python3 -m unittest discover -s araclar/olcum -p 'test_*.py'` |
+| Sanat kurallarını denetle   | `cargo test -p game --test art_rules`                     |
+| Feudalism'in bir ekranını çiz | `cargo run --release -p engine --example movie-png -- content feudalism/f1 4 menu.png` (kök filmin 4. karesi; kare yerine `sprite:1480:1` bir sprite'ı çizer; sona `800 0 orijinal` eklenirse yazılar İngilizce) |
+
+Çizimler elle değil, `tools/art/` içindeki betiklerle üretilir; betikler renkleri yalnızca
+`tools/art/palet.txt` paletinden adıyla alır. Üretilen SVG'ler `content/art/` altına yazılır ve
+commit edilir. `art_rules` testi her çizimi sanat rehberindeki kurallara göre denetler (palet,
+kontur, degrade, eğri oranı, saydamlık); kurala aykırı çizim CI'ı kırmızıya düşürür.
+
+Görüntü testleri: çizilen ve fark resimleri `target/goruntu-testleri/` altına yazılır. Bir test
+"beklenen resim yok" ya da "farklı" derse önce bu resimlere bakılır; değişiklik bilerek yapıldıysa
+beklenen resimler `UPDATE_SNAPSHOTS=1` ile yenilenir ve değişiklikle birlikte commit edilir.
 
 ## Kurallar
 
@@ -35,6 +63,8 @@ Dil:
   oyunda görünen metinler Türkçe.
 - Commit mesajlarının ilk satırı kısa ve emir kipinde ("Savaşa moral ekle"). Mesajın sonuna ek imza
   ya da etiket satırı eklenmez.
+- Commit'ler `gozlemesevdalisi <333462860+gozlemesevdalisi@users.noreply.github.com>` adıyla atılır
+  (depoda `git config user.name` ve `user.email` ile ayarlıdır).
 
 Kod:
 
@@ -47,8 +77,20 @@ Kod:
 
 Görseller ve lisanslar:
 
-- Bütün görseller, adlar ve metinler özgündür. Feudalism serisinin ya da başka bir oyunun dosyaları,
-  adları ve çizimleri kullanılmaz.
+- Oyunun bütün görselleri Feudalism 1 ve 2'nin kendi görselleridir; hak sahibinin izniyle kullanılır
+  (bkz. `docs/LISANSLAR.md`). Yeni çizim yapılmaz (sahibin kararı, 16 Ekim 2026).
+- Görseller `araclar/aktar/aktar.py` ile orijinal SWF dosyalarından `content/feudalism/` altına
+  aktarılır; elle değiştirilmez. Oyunun yazarına ait olmayanlar aktarılmaz: sponsor logoları,
+  Macromedia/Adobe arayüz bileşenleri, gömülü yazı tipleri.
+- Türkçe metinler oyunların sahibinin çevirisinden gelir (`swf-oyunlar/oyunlar/<oyun>/ceviri/`). Tablolar
+  orada durur; aktarım aracı onları değiştirmeden `content/feudalism/<oyun>/ceviri/` altına kopyalar ve
+  her girdinin hedefini doğrular (tutmayan girdi aktarımı durdurur). Bu depodan `swf-oyunlar`'a hiçbir
+  şey yazılmaz; çeviride değişiklik gerekirse sahibine sorulur.
+- Oyunların gömülü yazı tipleri aktarılmaz; yazılar açık lisanslı karşılıklarıyla çizilir (Liberation,
+  TeX Gyre; eşleme `texts.json` → `fonts.<kimlik>.file`, ayrıntı `docs/LISANSLAR.md`).
+- Aktarım aracı ya da motorun çizimi değiştiğinde `python3 araclar/aktar/denetim.py --gorsel`
+  çalıştırılır ve "Toplam sorun: 0" ile bitmelidir. Denetim her kaydı FFDec'in bağımsız XML dökümüyle,
+  her şekli FFDec'in çizimiyle piksel piksel karşılaştırır (rapor: `docs/AYIKLAMA_DENETIMI.md`).
 - Dışarıdan alınan her varlık (yazı tipi, ses, müzik) eklenmeden önce lisansı doğrulanır ve kaynağıyla
   birlikte `docs/LISANSLAR.md` içine yazılır. AGPL ve ticari kullanımı yasaklayan lisanslar kabul edilmez.
 
@@ -58,5 +100,9 @@ Görsel güvenlik:
 
 ## Yayın
 
-- `main` dalı her güncellendiğinde Windows sürümü otomatik derlenir ve "Test sürümü" Release'i yenilenir.
-- Sürüm numarası `crates/game/Cargo.toml` içindedir.
+- Her gönderimde (hangi dal olursa olsun) GitHub Actions çalışır (`.github/workflows/derleme.yml`):
+  Linux'ta biçim, lint ve testler; lisans denetimi; ardından Windows'ta testler ve sürüm derlemesi.
+  Hepsi geçerse `oyun.exe` "test-surumu" Release'ine konur. İndirme linki sabittir:
+  https://github.com/lahmacunveayran/proje/releases/download/test-surumu/oyun.exe
+- Rust sürümü `rust-toolchain.toml` ve iş akışında birlikte sabittir; yükseltirken ikisi birlikte değişir.
+- Sürüm numarası `Cargo.toml` (çalışma alanı) içindedir.

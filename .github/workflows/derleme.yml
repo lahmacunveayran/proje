@@ -1,0 +1,117 @@
+# Her gönderimde: biçim, lint ve testler (Linux), lisans denetimi, Windows derlemesi.
+# Gönderimlerde Windows .exe dosyası "test-surumu" Release'ine konur; indirme linki sabittir:
+# https://github.com/lahmacunveayran/proje/releases/download/test-surumu/oyun.exe
+name: Derleme
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: derleme-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  denetim:
+    name: Biçim, lint ve testler (Linux)
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sistem paketlerini kur (yazılımla çalışan Vulkan sürücüsü dahil)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mesa-vulkan-drivers libvulkan1 libx11-dev libxkbcommon-dev libwayland-dev python3-pil python3-numpy
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: "1.99.0"
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: Biçim
+        run: cargo fmt --all --check
+      - name: Lint
+        run: cargo clippy --workspace --all-targets -- -D warnings
+      - name: Testler
+        run: cargo test --workspace
+      - name: Ölçüm ve aktarım araçlarının testleri
+        run: |
+          python3 -m unittest discover -s araclar/olcum -p 'test_*.py'
+          python3 -m unittest discover -s araclar/aktar -p 'test_*.py'
+      - name: Görüntü testlerinin çıktıları
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: goruntu-testleri-linux
+          path: target/goruntu-testleri
+          if-no-files-found: ignore
+
+  lisans:
+    name: Lisans denetimi
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: EmbarkStudios/cargo-deny-action@v2
+        with:
+          command: check licenses bans sources
+
+  windows:
+    name: Windows derlemesi
+    runs-on: windows-latest
+    needs: [denetim, lisans]
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: "1.99.0"
+          targets: x86_64-pc-windows-msvc
+      - uses: Swatinem/rust-cache@v2
+      - name: Testler (yazılımla çalışan grafik kartıyla)
+        run: cargo test --workspace
+      - name: Sürüm derlemesi
+        run: cargo build --release -p game
+      - name: Ekransız ekran görüntüsü
+        shell: bash
+        run: |
+          ./target/release/oyun.exe --goruntu ekran-goruntusu.png --boyut 1920x1080
+          test -s ekran-goruntusu.png
+      - name: Derlenen dosyaları sakla
+        uses: actions/upload-artifact@v4
+        with:
+          name: oyun-windows
+          path: |
+            target/release/oyun.exe
+            ekran-goruntusu.png
+      - name: Görüntü testlerinin çıktıları
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: goruntu-testleri-windows
+          path: target/goruntu-testleri
+          if-no-files-found: ignore
+      - name: test-surumu Release'ini güncelle
+        if: github.event_name == 'push'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp target/release/oyun.exe oyun.exe
+          SHA=$(git rev-parse --short HEAD)
+          DATE=$(date -u +"%Y-%m-%d %H:%M UTC")
+          NOTES="Her güncellemede otomatik derlenen deneme sürümü. Son derleme: ${SHA}, ${DATE}.
+
+          İndir: oyun.exe dosyasına tıklayın, sonra indirilen dosyayı çift tıklayarak açın. Windows
+          \"bilgisayarınızı korudu\" uyarısı verirse \"Ek bilgi\" ve \"Yine de çalıştır\" düğmelerine basın."
+          git tag -f test-surumu
+          git push -f origin refs/tags/test-surumu
+          if gh release view test-surumu > /dev/null 2>&1; then
+            gh release edit test-surumu --title "Test sürümü" --notes "$NOTES" --prerelease
+          else
+            gh release create test-surumu --title "Test sürümü" --notes "$NOTES" --prerelease
+          fi
+          gh release upload test-surumu oyun.exe ekran-goruntusu.png --clobber

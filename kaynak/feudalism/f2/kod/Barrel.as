@@ -1,0 +1,1 @@
+Object.registerClass("Barrel",Tree);

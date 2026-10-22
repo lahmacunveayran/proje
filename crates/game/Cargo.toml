@@ -1,0 +1,25 @@
+[package]
+name = "game"
+description = "Oyunun kendisi: motoru ve kuralları birleştirir"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+build = "build.rs"
+
+[[bin]]
+name = "oyun"
+path = "src/main.rs"
+
+[dependencies]
+engine.workspace = true
+log.workspace = true
+ron.workspace = true
+serde.workspace = true
+sim.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true
+
+[lints]
+workspace = true

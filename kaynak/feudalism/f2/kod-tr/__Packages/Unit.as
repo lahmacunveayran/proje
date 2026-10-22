@@ -1,0 +1,3389 @@
+class Unit extends Hero
+{
+   var ACTIVE_SKILLS;
+   var ARMOR;
+   var AURA_SKILLS;
+   var CON;
+   var DEX;
+   var GENDER;
+   var HELMET;
+   var HORSE;
+   var ID;
+   var LEVEL;
+   var NAME;
+   var NATION;
+   var SKILL;
+   var SPR;
+   var STR;
+   var TYPE;
+   var WEAPON_PRI;
+   var WEAPON_SEC;
+   var price;
+   var primary_skill;
+   var secondary_skill;
+   function Unit(nt, tp, lv)
+   {
+      super();
+      this.ID = lv;
+      this.TYPE = tp;
+      var _loc4_;
+      if(nt != "Rog")
+      {
+         this.NATION = nt;
+         this.GENDER = !_root.percent(70) ? "f" : "m";
+      }
+      else
+      {
+         _loc4_ = ["Viz","Ger","Rus","Jap","Mon","Ara"];
+         this.NATION = String(_loc4_[_root.dice(4)]);
+         this.GENDER = "m";
+      }
+      this.LEVEL = (this.ID + 1) * 3;
+      this["Unit" + nt + "_" + tp + lv]();
+      this.price = this.getPrice();
+   }
+   function getUnitInfo()
+   {
+      return new UnitInfo(this.NATION,this.TYPE,this.ID);
+   }
+   function setActiveSkills(atk_anim, lv1, lv2, lv3)
+   {
+      this.ACTIVE_SKILLS[atk_anim] = [lv1,lv2,lv3];
+   }
+   function getPrice()
+   {
+      var _loc2_;
+      if(this.NAME !== "Şogun Hayaleti")
+      {
+         _loc2_ = 0;
+         _loc2_ += this.STR * 5;
+         _loc2_ += this.CON * 5;
+         _loc2_ += this.DEX * 5;
+         _loc2_ += this.SPR * 5;
+         if(this.WEAPON_PRI != null)
+         {
+            _loc2_ += this.WEAPON_PRI.price / 10;
+         }
+         if(this.WEAPON_SEC != null)
+         {
+            _loc2_ += this.WEAPON_SEC.price / 10;
+         }
+         if(this.ARMOR != null)
+         {
+            _loc2_ += this.ARMOR.price / 10;
+         }
+         if(this.HELMET != null)
+         {
+            _loc2_ += this.HELMET.price / 10;
+         }
+         _loc2_ += this.LEVEL * 50;
+         if(this.TYPE == "caster")
+         {
+            _loc2_ += 1000 * this.ID * this.ID;
+         }
+         return Math.round(_loc2_);
+      }
+      return 100000;
+   }
+   function UnitViz_shield0()
+   {
+      this.NAME = "Kervan Muhafızı";
+      this.STR = 15;
+      this.DEX = 4;
+      this.CON = 9;
+      this.SPR = 4;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Viz",1);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 55;
+      this.WEAPON_SEC = new WeaponClass("Shield","Viz",1);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 45;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("shield",0,1,0);
+   }
+   function UnitViz_shield3()
+   {
+      this.NAME = "Lejyoner";
+      this.STR = 32;
+      this.DEX = 10;
+      this.CON = 19;
+      this.SPR = 10;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Viz",3);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("Shield","Viz",2);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Viz",3);
+      this.HELMET = new Armor("Helmet","Viz",3);
+      this.HORSE = null;
+      this.setActiveSkills("shield",2,0,0);
+   }
+   function UnitViz_shield4()
+   {
+      this.NAME = "Hafif Süvari";
+      this.STR = 44;
+      this.DEX = 13;
+      this.CON = 26;
+      this.SPR = 13;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Viz",4);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("Shield","Viz",3);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Viz",4);
+      this.HELMET = new Armor("Helmet","Viz",4);
+      this.HORSE = new Horse("any",15,1,5);
+   }
+   function UnitViz_shield7()
+   {
+      this.NAME = "Ağır Süvari";
+      this.STR = 85;
+      this.DEX = 26;
+      this.CON = 51;
+      this.SPR = 26;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Viz",6);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 97;
+      this.WEAPON_SEC = new WeaponClass("Shield","Viz",4);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 94;
+      this.ARMOR = new Armor("Clothes","Viz",7);
+      this.HELMET = new Armor("Helmet","Viz",7);
+      this.HORSE = new Horse("white",220,12,1);
+   }
+   function UnitViz_2H_sword5()
+   {
+      this.NAME = "Ay Savaşçısı";
+      this.STR = 50;
+      this.DEX = 10;
+      this.CON = 30;
+      this.SPR = 20;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Viz",4);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("Crossbow","Viz",3);
+      this.secondary_skill = "Crossbow";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Viz",5);
+      this.HELMET = new Armor("Helmet","Viz",5);
+      this.HORSE = null;
+      this.setActiveSkills("2H_sword",0,3,0);
+   }
+   function UnitViz_2H_sword6()
+   {
+      this.NAME = "Altın Süvari";
+      this.STR = 65;
+      this.DEX = 13;
+      this.CON = 39;
+      this.SPR = 26;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Viz",5);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("Crossbow","Viz",3);
+      this.secondary_skill = "Crossbow";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Viz",6);
+      this.HELMET = new Armor("Helmet","Viz",6);
+      this.HORSE = new Horse("white",200,10,2);
+   }
+   function UnitViz_2H_sword7()
+   {
+      this.NAME = "Seçkin Süvari";
+      this.STR = 85;
+      this.DEX = 17;
+      this.CON = 51;
+      this.SPR = 34;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Viz",6);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 97;
+      this.WEAPON_SEC = new WeaponClass("Crossbow","Viz",4);
+      this.secondary_skill = "Crossbow";
+      this.SKILL[this.secondary_skill] = 94;
+      this.ARMOR = new Armor("Clothes","Viz",7);
+      this.HELMET = new Armor("Helmet","Viz",7);
+      this.HORSE = new Horse("white",250,10,2);
+   }
+   function UnitViz_2H_axe2()
+   {
+      this.NAME = "Kasaba Muhafızı";
+      this.STR = 25;
+      this.DEX = 8;
+      this.CON = 12;
+      this.SPR = 10;
+      this.WEAPON_PRI = new WeaponClass("TwohandedAxe","Viz",2);
+      this.primary_skill = "Axe";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("Bow","Viz",1);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Viz",2);
+      this.HELMET = new Armor("Helmet","Viz",1);
+      this.HORSE = null;
+      this.setActiveSkills("2H_axe",0,1,0);
+   }
+   function UnitViz_spear1()
+   {
+      this.NAME = "Hafif Mızrakçı";
+      this.STR = 25;
+      this.DEX = 10;
+      this.CON = 10;
+      this.SPR = 10;
+      this.WEAPON_PRI = new WeaponClass("Spear","Viz",2);
+      this.primary_skill = "Spear";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = new WeaponClass("Bow","Viz",1);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 52;
+      this.ARMOR = new Armor("Clothes","Viz",1);
+      this.HELMET = new Armor("Helmet","Viz",1);
+      this.HORSE = null;
+      this.setActiveSkills("spear",0,1,0);
+   }
+   function UnitViz_spear3()
+   {
+      this.NAME = "Hat Piyadesi";
+      this.STR = 37;
+      this.DEX = 15;
+      this.CON = 15;
+      this.SPR = 15;
+      this.WEAPON_PRI = new WeaponClass("Spear","Viz",3);
+      this.primary_skill = "Spear";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("Bow","Viz",2);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Viz",3);
+      this.HELMET = new Armor("Helmet","Viz",3);
+      this.HORSE = null;
+      this.setActiveSkills("spear",2,0,0);
+   }
+   function UnitViz_spear4()
+   {
+      this.NAME = "Seçkin Falanks";
+      this.STR = 40;
+      this.DEX = 16;
+      this.CON = 16;
+      this.SPR = 16;
+      this.WEAPON_PRI = new WeaponClass("Spear","Viz",3);
+      this.primary_skill = "Spear";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("Bow","Viz",2);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Viz",4);
+      this.HELMET = new Armor("Helmet","Viz",4);
+      this.HORSE = null;
+      this.setActiveSkills("spear",1,2,0);
+   }
+   function UnitViz_spear5()
+   {
+      this.NAME = "Saha Komutanı";
+      this.STR = 58;
+      this.DEX = 23;
+      this.CON = 23;
+      this.SPR = 23;
+      this.WEAPON_PRI = new WeaponClass("Spear","Viz",4);
+      this.primary_skill = "Spear";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("Bow","Viz",3);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Viz",5);
+      this.HELMET = new Armor("Helmet","Viz",5);
+      this.HORSE = new Horse("any",60,5,3);
+   }
+   function UnitViz_dual2()
+   {
+      this.NAME = "Paralı Asker";
+      this.STR = 25;
+      this.DEX = 10;
+      this.CON = 12;
+      this.SPR = 8;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Viz",2);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Viz",2);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Viz",2);
+      this.HELMET = new Armor("Helmet","Viz",1);
+      this.HORSE = null;
+      this.setActiveSkills("dual",1,0,0);
+   }
+   function UnitViz_dual5()
+   {
+      this.NAME = "Kılıç Ustası";
+      this.STR = 50;
+      this.DEX = 20;
+      this.CON = 25;
+      this.SPR = 15;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Viz",4);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Viz",4);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Viz",5);
+      this.HELMET = new Armor("Helmet","Viz",4);
+      this.HORSE = null;
+      this.setActiveSkills("dual",2,2,0);
+   }
+   function UnitViz_dagger3()
+   {
+      this.NAME = "Haydut";
+      this.STR = 13;
+      this.DEX = 32;
+      this.CON = 10;
+      this.SPR = 16;
+      this.WEAPON_PRI = new WeaponClass("Dagger","Viz",3);
+      this.primary_skill = "Dagger";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("Crossbow","Viz",2);
+      this.secondary_skill = "Crossbow";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Viz",2);
+      this.HELMET = new Armor("Helmet","Viz",2);
+      this.HORSE = null;
+   }
+   function UnitViz_dagger6()
+   {
+      this.NAME = "Kara Haydut";
+      this.STR = 27;
+      this.DEX = 68;
+      this.CON = 20;
+      this.SPR = 34;
+      this.WEAPON_PRI = new WeaponClass("Dagger","Viz",6);
+      this.primary_skill = "Dagger";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("Crossbow","Viz",4);
+      this.secondary_skill = "Crossbow";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Viz",4);
+      this.HELMET = new Armor("Helmet","Viz",5);
+      this.HORSE = null;
+      this.setActiveSkills("dagger",1,3,0);
+   }
+   function UnitViz_bow0()
+   {
+      this.NAME = "Okçu";
+      this.STR = 4;
+      this.DEX = 15;
+      this.CON = 6;
+      this.SPR = 8;
+      this.WEAPON_PRI = new WeaponClass("Bow","Viz",1);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 55;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Viz",1);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 45;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("bow",1,0,0);
+   }
+   function UnitViz_bow2()
+   {
+      this.NAME = "Usta Okçu";
+      this.STR = 8;
+      this.DEX = 28;
+      this.CON = 11;
+      this.SPR = 14;
+      this.WEAPON_PRI = new WeaponClass("Bow","Viz",2);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Viz",2);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Viz",1);
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("bow",0,2,0);
+   }
+   function UnitViz_bow4()
+   {
+      this.NAME = "Atlı Okçu";
+      this.STR = 15;
+      this.DEX = 50;
+      this.CON = 20;
+      this.SPR = 25;
+      this.WEAPON_PRI = new WeaponClass("Bow","Viz",3);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Viz",3);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Viz",3);
+      this.HELMET = new Armor("Helmet","Viz",2);
+      this.HORSE = new Horse("any",5,5,5);
+      this.setActiveSkills("bow",1,2,0);
+   }
+   function UnitViz_bow6()
+   {
+      this.NAME = "Seçkin Okçu";
+      this.STR = 27;
+      this.DEX = 90;
+      this.CON = 36;
+      this.SPR = 45;
+      this.WEAPON_PRI = new WeaponClass("Bow","Viz",4);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Viz",4);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Viz",4);
+      this.HELMET = new Armor("Helmet","Viz",3);
+      this.HORSE = new Horse("any",20,5,4);
+      this.setActiveSkills("bow",0,4,0);
+   }
+   function UnitViz_crossbow0()
+   {
+      this.NAME = "Arbaletçi";
+      this.STR = 9;
+      this.DEX = 15;
+      this.CON = 3;
+      this.SPR = 6;
+      this.WEAPON_PRI = new WeaponClass("Crossbow","Viz",1);
+      this.primary_skill = "Crossbow";
+      this.SKILL[this.primary_skill] = 55;
+      this.WEAPON_SEC = new WeaponClass("TwohandedAxe","Viz",1);
+      this.secondary_skill = "Axe";
+      this.SKILL[this.secondary_skill] = 45;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("crossbow",1,0,0);
+   }
+   function UnitViz_crossbow2()
+   {
+      this.NAME = "Usta Nişancı";
+      this.STR = 17;
+      this.DEX = 28;
+      this.CON = 6;
+      this.SPR = 11;
+      this.WEAPON_PRI = new WeaponClass("Crossbow","Viz",2);
+      this.primary_skill = "Crossbow";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("TwohandedAxe","Viz",2);
+      this.secondary_skill = "Axe";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Viz",1);
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("crossbow",0,1,0);
+   }
+   function UnitViz_crossbow4()
+   {
+      this.NAME = "Keskin Nişancı";
+      this.STR = 30;
+      this.DEX = 50;
+      this.CON = 10;
+      this.SPR = 20;
+      this.WEAPON_PRI = new WeaponClass("Crossbow","Viz",3);
+      this.primary_skill = "Crossbow";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("TwohandedAxe","Viz",3);
+      this.secondary_skill = "Axe";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Viz",3);
+      this.HELMET = new Armor("Helmet","Viz",2);
+      this.HORSE = null;
+      this.setActiveSkills("crossbow",0,2,1);
+   }
+   function UnitViz_crossbow6()
+   {
+      this.NAME = "Seçkin Nişancı";
+      this.STR = 54;
+      this.DEX = 90;
+      this.CON = 18;
+      this.SPR = 36;
+      this.WEAPON_PRI = new WeaponClass("Crossbow","Viz",4);
+      this.primary_skill = "Crossbow";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("TwohandedAxe","Viz",4);
+      this.secondary_skill = "Axe";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Viz",4);
+      this.HELMET = new Armor("Helmet","Viz",3);
+      this.HORSE = new Horse("any",20,5,4);
+      this.setActiveSkills("crossbow",1,4,0);
+   }
+   function UnitViz_throwing0()
+   {
+      this.NAME = "Ateş Atıcı";
+      this.STR = 18;
+      this.DEX = 30;
+      this.CON = 12;
+      this.SPR = 2;
+      this.WEAPON_PRI = new WeaponClass("Throwing","Viz",1);
+      this.primary_skill = "Throwing";
+      this.SKILL[this.primary_skill] = 55;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Viz",1);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 45;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+   }
+   function UnitViz_throwing2()
+   {
+      this.NAME = "Yıkıcı";
+      this.STR = 30;
+      this.DEX = 50;
+      this.CON = 20;
+      this.SPR = 2;
+      this.WEAPON_PRI = new WeaponClass("Throwing","Viz",2);
+      this.primary_skill = "Throwing";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Viz",2);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Viz",1);
+      this.HELMET = null;
+      this.HORSE = null;
+   }
+   function UnitGer_shield1()
+   {
+      this.NAME = "Topuzcu";
+      this.STR = 16;
+      this.DEX = 2;
+      this.CON = 20;
+      this.SPR = 6;
+      this.WEAPON_PRI = new WeaponClass("OnehandedMace","Ger",1);
+      this.primary_skill = "Mace";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = new WeaponClass("Shield","Ger",1);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 52;
+      this.ARMOR = new Armor("Clothes","Ger",1);
+      this.HELMET = new Armor("Helmet","Ger",1);
+      this.HORSE = null;
+      this.setActiveSkills("shield",1,0,0);
+   }
+   function UnitGer_shield2()
+   {
+      this.NAME = "Yaya Asker";
+      this.STR = 20;
+      this.DEX = 2;
+      this.CON = 25;
+      this.SPR = 8;
+      this.WEAPON_PRI = new WeaponClass("OnehandedMace","Ger",2);
+      this.primary_skill = "Mace";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("Shield","Ger",2);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Ger",2);
+      this.HELMET = new Armor("Helmet","Ger",2);
+      this.HORSE = null;
+      this.setActiveSkills("shield",1,1,0);
+   }
+   function UnitGer_shield3()
+   {
+      this.NAME = "Ağır Topuzcu";
+      this.STR = 26;
+      this.DEX = 3;
+      this.CON = 32;
+      this.SPR = 10;
+      this.WEAPON_PRI = new WeaponClass("OnehandedMace","Ger",3);
+      this.primary_skill = "Mace";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("Shield","Ger",2);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Ger",3);
+      this.HELMET = new Armor("Helmet","Ger",3);
+      this.HORSE = null;
+      this.setActiveSkills("shield",2,0,0);
+   }
+   function UnitGer_shield5()
+   {
+      this.NAME = "Şövalye";
+      this.STR = 40;
+      this.DEX = 5;
+      this.CON = 50;
+      this.SPR = 15;
+      this.WEAPON_PRI = new WeaponClass("OnehandedMace","Ger",4);
+      this.primary_skill = "Mace";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("Shield","Ger",3);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Ger",5);
+      this.HELMET = new Armor("Helmet","Ger",5);
+      this.HORSE = new Horse("white",70,7,2);
+   }
+   function UnitGer_shield6()
+   {
+      this.NAME = "Haçlı";
+      this.STR = 52;
+      this.DEX = 6;
+      this.CON = 65;
+      this.SPR = 20;
+      this.WEAPON_PRI = new WeaponClass("OnehandedMace","Ger",5);
+      this.primary_skill = "Mace";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("Shield","Ger",4);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Ger",6);
+      this.HELMET = new Armor("Helmet","Ger",6);
+      this.HORSE = new Horse("black",100,15,0);
+   }
+   function UnitGer_2H_sword0()
+   {
+      this.NAME = "Hafif Dövüşçü";
+      this.STR = 15;
+      this.DEX = 2;
+      this.CON = 12;
+      this.SPR = 4;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Ger",1);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 55;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+   }
+   function UnitGer_2H_sword4()
+   {
+      this.NAME = "Paladin";
+      this.STR = 44;
+      this.DEX = 4;
+      this.CON = 35;
+      this.SPR = 13;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Ger",4);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("Crossbow","Ger",2);
+      this.secondary_skill = "Crossbow";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Ger",4);
+      this.HELMET = new Armor("Helmet","Ger",3);
+      this.HORSE = null;
+      this.setActiveSkills("2H_sword",0,3,0);
+   }
+   function UnitGer_2H_sword7()
+   {
+      this.NAME = "Serafim";
+      this.STR = 85;
+      this.DEX = 8;
+      this.CON = 68;
+      this.SPR = 26;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Ger",6);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 97;
+      this.WEAPON_SEC = new WeaponClass("Crossbow","Ger",4);
+      this.secondary_skill = "Crossbow";
+      this.SKILL[this.secondary_skill] = 94;
+      this.ARMOR = new Armor("Clothes","Ger",7);
+      this.HELMET = new Armor("Helmet","Ger",7);
+      this.HORSE = new Horse("white",300,5,3);
+   }
+   function UnitGer_2H_axe1()
+   {
+      this.NAME = "Keşiş";
+      this.STR = 22;
+      this.DEX = 2;
+      this.CON = 22;
+      this.SPR = 2;
+      this.WEAPON_PRI = new WeaponClass("TwohandedMace","Ger",1);
+      this.primary_skill = "Mace";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Ger",1);
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("2H_axe",2,0,0);
+   }
+   function UnitGer_2H_axe2()
+   {
+      this.NAME = "Kasaba Muhafızı";
+      this.STR = 25;
+      this.DEX = 2;
+      this.CON = 25;
+      this.SPR = 2;
+      this.WEAPON_PRI = new WeaponClass("TwohandedMace","Ger",2);
+      this.primary_skill = "Mace";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("Bow","Ger",1);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Ger",2);
+      this.HELMET = new Armor("Helmet","Ger",1);
+      this.HORSE = null;
+      this.setActiveSkills("2H_axe",0,0,1);
+   }
+   function UnitGer_2H_axe6()
+   {
+      this.NAME = "Kara Rahip";
+      this.STR = 65;
+      this.DEX = 6;
+      this.CON = 65;
+      this.SPR = 6;
+      this.WEAPON_PRI = new WeaponClass("TwohandedMace","Ger",5);
+      this.primary_skill = "Mace";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("Bow","Ger",3);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Ger",6);
+      this.HELMET = new Armor("Helmet","Ger",6);
+      this.HORSE = null;
+      this.setActiveSkills("2H_axe",0,0,4);
+   }
+   function UnitGer_spear2()
+   {
+      this.NAME = "Muhafız Piyade";
+      this.STR = 28;
+      this.DEX = 6;
+      this.CON = 17;
+      this.SPR = 11;
+      this.WEAPON_PRI = new WeaponClass("Spear","Ger",2);
+      this.primary_skill = "Spear";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("Bow","Ger",1);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Ger",2);
+      this.HELMET = new Armor("Helmet","Ger",2);
+      this.HORSE = null;
+      this.setActiveSkills("spear",0,1,0);
+   }
+   function UnitGer_spear3()
+   {
+      this.NAME = "Gri Piyade";
+      this.STR = 37;
+      this.DEX = 7;
+      this.CON = 22;
+      this.SPR = 15;
+      this.WEAPON_PRI = new WeaponClass("Spear","Ger",3);
+      this.primary_skill = "Spear";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("Bow","Ger",2);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Ger",3);
+      this.HELMET = new Armor("Helmet","Ger",3);
+      this.HORSE = null;
+      this.setActiveSkills("spear",1,2,0);
+   }
+   function UnitGer_spear4()
+   {
+      this.NAME = "Seçkin Piyade";
+      this.STR = 40;
+      this.DEX = 8;
+      this.CON = 24;
+      this.SPR = 16;
+      this.WEAPON_PRI = new WeaponClass("Spear","Ger",3);
+      this.primary_skill = "Spear";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("Bow","Ger",2);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Ger",4);
+      this.HELMET = new Armor("Helmet","Ger",4);
+      this.HORSE = null;
+      this.setActiveSkills("spear",2,0,1);
+   }
+   function UnitGer_spear7()
+   {
+      this.NAME = "Kutsal Atlı";
+      this.STR = 85;
+      this.DEX = 17;
+      this.CON = 51;
+      this.SPR = 34;
+      this.WEAPON_PRI = new WeaponClass("Spear","Ger",5);
+      this.primary_skill = "Spear";
+      this.SKILL[this.primary_skill] = 97;
+      this.WEAPON_SEC = new WeaponClass("Bow","Ger",4);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 94;
+      this.ARMOR = new Armor("Clothes","Ger",7);
+      this.HELMET = new Armor("Helmet","Ger",7);
+      this.HORSE = new Horse("white",200,20,0);
+   }
+   function UnitGer_dual4()
+   {
+      this.NAME = "Topuz Ustası";
+      this.STR = 18;
+      this.DEX = 18;
+      this.CON = 44;
+      this.SPR = 18;
+      this.WEAPON_PRI = new WeaponClass("OnehandedMace","Ger",4);
+      this.primary_skill = "Mace";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("OnehandedMace","Ger",4);
+      this.secondary_skill = "Mace";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Ger",4);
+      this.HELMET = new Armor("Helmet","Ger",3);
+      this.HORSE = null;
+      this.setActiveSkills("dual",2,0,0);
+   }
+   function UnitGer_bow1()
+   {
+      this.NAME = "Avcı";
+      this.STR = 2;
+      this.DEX = 18;
+      this.CON = 11;
+      this.SPR = 9;
+      this.WEAPON_PRI = new WeaponClass("Bow","Ger",1);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Ger",1);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 52;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("bow",0,0,1);
+   }
+   function UnitGer_bow3()
+   {
+      this.NAME = "Kıdemli Okçu";
+      this.STR = 3;
+      this.DEX = 28;
+      this.CON = 17;
+      this.SPR = 14;
+      this.WEAPON_PRI = new WeaponClass("Bow","Ger",2);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Ger",2);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Ger",2);
+      this.HELMET = new Armor("Helmet","Ger",1);
+      this.HORSE = null;
+      this.setActiveSkills("bow",1,0,1);
+   }
+   function UnitGer_crossbow2()
+   {
+      this.NAME = "Kale Savunucusu";
+      this.STR = 3;
+      this.DEX = 28;
+      this.CON = 22;
+      this.SPR = 8;
+      this.WEAPON_PRI = new WeaponClass("Crossbow","Ger",2);
+      this.primary_skill = "Crossbow";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Ger",2);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Ger",1);
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("crossbow",0,0,1);
+   }
+   function UnitGer_crossbow4()
+   {
+      this.NAME = "Kale Bekçisi";
+      this.STR = 5;
+      this.DEX = 50;
+      this.CON = 40;
+      this.SPR = 15;
+      this.WEAPON_PRI = new WeaponClass("Crossbow","Ger",3);
+      this.primary_skill = "Crossbow";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Ger",3);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Ger",3);
+      this.HELMET = new Armor("Helmet","Ger",2);
+      this.HORSE = null;
+      this.setActiveSkills("crossbow",2,0,1);
+   }
+   function UnitGer_crossbow6()
+   {
+      this.NAME = "Kara Nişancı";
+      this.STR = 9;
+      this.DEX = 90;
+      this.CON = 72;
+      this.SPR = 27;
+      this.WEAPON_PRI = new WeaponClass("Crossbow","Ger",4);
+      this.primary_skill = "Crossbow";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Ger",4);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Ger",4);
+      this.HELMET = new Armor("Helmet","Ger",3);
+      this.HORSE = new Horse("black",20,15,1);
+      this.setActiveSkills("crossbow",1,1,3);
+   }
+   function UnitGer_throwing1()
+   {
+      this.NAME = "Keşifçi";
+      this.STR = 4;
+      this.DEX = 20;
+      this.CON = 8;
+      this.SPR = 12;
+      this.WEAPON_PRI = new WeaponClass("Throwing","Ger",2);
+      this.primary_skill = "Throwing";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Ger",1);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 52;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("throwing",1,0,0);
+   }
+   function UnitGer_throwing3()
+   {
+      this.NAME = "Usta Keşifçi";
+      this.STR = 6;
+      this.DEX = 28;
+      this.CON = 11;
+      this.SPR = 17;
+      this.WEAPON_PRI = new WeaponClass("Throwing","Ger",3);
+      this.primary_skill = "Throwing";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Ger",3);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Ger",2);
+      this.HELMET = new Armor("Helmet","Ger",1);
+      this.HORSE = null;
+      this.setActiveSkills("throwing",1,1,0);
+   }
+   function UnitGer_throwing5()
+   {
+      this.NAME = "Engizisyoncu";
+      this.STR = 10;
+      this.DEX = 50;
+      this.CON = 20;
+      this.SPR = 30;
+      this.WEAPON_PRI = new WeaponClass("Throwing","Ger",5);
+      this.primary_skill = "Throwing";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Ger",4);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Ger",4);
+      this.HELMET = new Armor("Helmet","Ger",3);
+      this.HORSE = new Horse("black",50,5,3);
+      this.setActiveSkills("throwing",0,3,1);
+   }
+   function UnitRus_shield2()
+   {
+      this.NAME = "Savaşçı";
+      this.STR = 28;
+      this.DEX = 10;
+      this.CON = 10;
+      this.SPR = 8;
+      this.WEAPON_PRI = new WeaponClass("OnehandedAxe","Rus",2);
+      this.primary_skill = "Axe";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("Shield","Rus",2);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Rus",2);
+      this.HELMET = new Armor("Helmet","Rus",2);
+      this.HORSE = null;
+      this.setActiveSkills("shield",1,0,1);
+   }
+   function UnitRus_shield3()
+   {
+      this.NAME = "Kıdemli Savaşçı";
+      this.STR = 35;
+      this.DEX = 13;
+      this.CON = 13;
+      this.SPR = 10;
+      this.WEAPON_PRI = new WeaponClass("OnehandedAxe","Rus",3);
+      this.primary_skill = "Axe";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("Shield","Rus",2);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Rus",3);
+      this.HELMET = new Armor("Helmet","Rus",3);
+      this.HORSE = null;
+      this.setActiveSkills("shield",1,0,2);
+   }
+   function UnitRus_shield4()
+   {
+      this.NAME = "Seçkin Savaşçı";
+      this.STR = 48;
+      this.DEX = 18;
+      this.CON = 18;
+      this.SPR = 13;
+      this.WEAPON_PRI = new WeaponClass("OnehandedAxe","Rus",4);
+      this.primary_skill = "Axe";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("Shield","Rus",3);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Rus",4);
+      this.HELMET = new Armor("Helmet","Rus",4);
+      this.HORSE = null;
+      this.setActiveSkills("shield",1,0,3);
+   }
+   function UnitRus_2H_sword0()
+   {
+      this.NAME = "Milis Komutanı";
+      this.STR = 16;
+      this.DEX = 9;
+      this.CON = 3;
+      this.SPR = 2;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Rus",1);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 55;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("2H_sword",1,0,0);
+   }
+   function UnitRus_2H_sword7()
+   {
+      this.NAME = "Kutsal Savaşçı";
+      this.STR = 94;
+      this.DEX = 51;
+      this.CON = 17;
+      this.SPR = 8;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Rus",6);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 97;
+      this.WEAPON_SEC = new WeaponClass("Bow","Rus",4);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 94;
+      this.ARMOR = new Armor("Clothes","Rus",7);
+      this.HELMET = new Armor("Helmet","Rus",7);
+      this.HORSE = new Horse("white",300,10,0);
+   }
+   function UnitRus_2H_axe0()
+   {
+      this.NAME = "Milis";
+      this.STR = 16;
+      this.DEX = 2;
+      this.CON = 9;
+      this.SPR = 3;
+      this.WEAPON_PRI = new WeaponClass("TwohandedAxe","Rus",1);
+      this.primary_skill = "Axe";
+      this.SKILL[this.primary_skill] = 55;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("2H_axe",0,1,0);
+   }
+   function UnitRus_2H_axe1()
+   {
+      this.NAME = "Köy Muhafızı";
+      this.STR = 24;
+      this.DEX = 2;
+      this.CON = 13;
+      this.SPR = 4;
+      this.WEAPON_PRI = new WeaponClass("TwohandedAxe","Rus",1);
+      this.primary_skill = "Axe";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Rus",1);
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("2H_axe",0,0,1);
+   }
+   function UnitRus_2H_axe6()
+   {
+      this.NAME = "Büyük Muhafız";
+      this.STR = 72;
+      this.DEX = 6;
+      this.CON = 39;
+      this.SPR = 13;
+      this.WEAPON_PRI = new WeaponClass("TwohandedAxe","Rus",5);
+      this.primary_skill = "Axe";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("Crossbow","Rus",3);
+      this.secondary_skill = "Crossbow";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Rus",6);
+      this.HELMET = new Armor("Helmet","Rus",6);
+      this.HORSE = new Horse("any",250,5,1);
+      this.setActiveSkills("2H_axe",0,4,0);
+   }
+   function UnitRus_2H_axe7()
+   {
+      this.NAME = "Büyük Kahraman";
+      this.STR = 94;
+      this.DEX = 8;
+      this.CON = 51;
+      this.SPR = 17;
+      this.WEAPON_PRI = new WeaponClass("TwohandedAxe","Rus",6);
+      this.primary_skill = "Axe";
+      this.SKILL[this.primary_skill] = 97;
+      this.WEAPON_SEC = new WeaponClass("Crossbow","Rus",4);
+      this.secondary_skill = "Crossbow";
+      this.SKILL[this.secondary_skill] = 94;
+      this.ARMOR = new Armor("Clothes","Rus",7);
+      this.HELMET = new Armor("Helmet","Rus",7);
+      this.HORSE = new Horse("white",350,5,0);
+   }
+   function UnitRus_spear4()
+   {
+      this.NAME = "Hafif Atlı";
+      this.STR = 40;
+      this.DEX = 16;
+      this.CON = 24;
+      this.SPR = 8;
+      this.WEAPON_PRI = new WeaponClass("Spear","Rus",3);
+      this.primary_skill = "Spear";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("Bow","Rus",2);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Rus",4);
+      this.HELMET = new Armor("Helmet","Rus",4);
+      this.HORSE = new Horse("any",20,5,4);
+   }
+   function UnitRus_spear5()
+   {
+      this.NAME = "Seçkin Muhafız";
+      this.STR = 58;
+      this.DEX = 23;
+      this.CON = 35;
+      this.SPR = 12;
+      this.WEAPON_PRI = new WeaponClass("Spear","Rus",4);
+      this.primary_skill = "Spear";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("Bow","Rus",3);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Rus",5);
+      this.HELMET = new Armor("Helmet","Rus",5);
+      this.HORSE = new Horse("any",100,7,2);
+   }
+   function UnitRus_dual3()
+   {
+      this.NAME = "Balta Ustası";
+      this.STR = 35;
+      this.DEX = 3;
+      this.CON = 22;
+      this.SPR = 10;
+      this.WEAPON_PRI = new WeaponClass("OnehandedAxe","Rus",3);
+      this.primary_skill = "Axe";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("OnehandedAxe","Rus",3);
+      this.secondary_skill = "Axe";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Rus",3);
+      this.HELMET = new Armor("Helmet","Rus",2);
+      this.HORSE = null;
+      this.setActiveSkills("dual",0,3,0);
+   }
+   function UnitRus_dual5()
+   {
+      this.NAME = "Çılgın Savaşçı";
+      this.STR = 55;
+      this.DEX = 5;
+      this.CON = 35;
+      this.SPR = 15;
+      this.WEAPON_PRI = new WeaponClass("OnehandedAxe","Rus",4);
+      this.primary_skill = "Axe";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("OnehandedAxe","Rus",4);
+      this.secondary_skill = "Axe";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Rus",5);
+      this.HELMET = new Armor("Helmet","Rus",4);
+      this.HORSE = null;
+      this.setActiveSkills("dual",4,0,0);
+   }
+   function UnitRus_bow2()
+   {
+      this.NAME = "Orman Muhafızı";
+      this.STR = 14;
+      this.DEX = 28;
+      this.CON = 3;
+      this.SPR = 17;
+      this.WEAPON_PRI = new WeaponClass("Bow","Rus",2);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("TwohandedMace","Rus",2);
+      this.secondary_skill = "Mace";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Rus",1);
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("bow",0,2,0);
+   }
+   function UnitRus_bow4()
+   {
+      this.NAME = "Orman Bekçisi";
+      this.STR = 25;
+      this.DEX = 50;
+      this.CON = 5;
+      this.SPR = 30;
+      this.WEAPON_PRI = new WeaponClass("Bow","Rus",3);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("TwohandedMace","Rus",3);
+      this.secondary_skill = "Mace";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Rus",3);
+      this.HELMET = new Armor("Helmet","Rus",2);
+      this.HORSE = null;
+      this.setActiveSkills("bow",1,3,0);
+   }
+   function UnitRus_bow6()
+   {
+      this.NAME = "İhtiyar";
+      this.STR = 45;
+      this.DEX = 90;
+      this.CON = 9;
+      this.SPR = 54;
+      this.WEAPON_PRI = new WeaponClass("Bow","Rus",4);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("TwohandedMace","Rus",4);
+      this.secondary_skill = "Mace";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Rus",4);
+      this.HELMET = new Armor("Helmet","Rus",3);
+      this.HORSE = new Horse("white",80,5,3);
+      this.setActiveSkills("bow",0,4,1);
+   }
+   function UnitRus_crossbow1()
+   {
+      this.NAME = "Arbalet Ustası";
+      this.STR = 2;
+      this.DEX = 18;
+      this.CON = 11;
+      this.SPR = 9;
+      this.WEAPON_PRI = new WeaponClass("Crossbow","Rus",1);
+      this.primary_skill = "Crossbow";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = new WeaponClass("TwohandedMace","Rus",1);
+      this.secondary_skill = "Mace";
+      this.SKILL[this.secondary_skill] = 52;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("crossbow",1,0,0);
+   }
+   function UnitRus_throwing3()
+   {
+      this.NAME = "Balta Atıcı";
+      this.STR = 28;
+      this.DEX = 6;
+      this.CON = 22;
+      this.SPR = 6;
+      this.WEAPON_PRI = new WeaponClass("Throwing","Rus",3);
+      this.primary_skill = "Throwing";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("TwohandedAxe","Rus",3);
+      this.secondary_skill = "Axe";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Rus",2);
+      this.HELMET = new Armor("Helmet","Rus",1);
+      this.HORSE = null;
+      this.setActiveSkills("throwing",0,2,0);
+   }
+   function UnitRus_throwing5()
+   {
+      this.NAME = "Seçkin Balta Atıcı";
+      this.STR = 50;
+      this.DEX = 10;
+      this.CON = 40;
+      this.SPR = 10;
+      this.WEAPON_PRI = new WeaponClass("Throwing","Rus",5);
+      this.primary_skill = "Throwing";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("TwohandedAxe","Rus",4);
+      this.secondary_skill = "Axe";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Rus",4);
+      this.HELMET = new Armor("Helmet","Rus",3);
+      this.HORSE = null;
+      this.setActiveSkills("throwing",2,3,0);
+   }
+   function UnitJap_katana2()
+   {
+      this.NAME = "Ninja";
+      this.STR = 21;
+      this.DEX = 26;
+      this.CON = 5;
+      this.SPR = 13;
+      this.WEAPON_PRI = new WeaponClass("Katana","Jap",2);
+      this.primary_skill = "FarEast";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("Throwing","Jap",1);
+      this.secondary_skill = "Throwing";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Jap",2);
+      this.HELMET = new Armor("Helmet","Jap",2);
+      this.HORSE = null;
+      this.setActiveSkills("katana",2,0,0);
+   }
+   function UnitJap_katana3()
+   {
+      this.NAME = "Ronin";
+      this.STR = 26;
+      this.DEX = 33;
+      this.CON = 7;
+      this.SPR = 16;
+      this.WEAPON_PRI = new WeaponClass("Katana","Jap",3);
+      this.primary_skill = "FarEast";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("Throwing","Jap",2);
+      this.secondary_skill = "Throwing";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Jap",3);
+      this.HELMET = new Armor("Helmet","Jap",3);
+      this.HORSE = null;
+      this.setActiveSkills("katana",2,2,0);
+   }
+   function UnitJap_katana4()
+   {
+      this.NAME = "Ronin Atlı";
+      this.STR = 34;
+      this.DEX = 42;
+      this.CON = 8;
+      this.SPR = 21;
+      this.WEAPON_PRI = new WeaponClass("Katana","Jap",4);
+      this.primary_skill = "FarEast";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("Throwing","Jap",3);
+      this.secondary_skill = "Throwing";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Jap",4);
+      this.HELMET = new Armor("Helmet","Jap",4);
+      this.HORSE = new Horse("any",150,15,4);
+   }
+   function UnitJap_katana5()
+   {
+      this.NAME = "Samuray";
+      this.STR = 43;
+      this.DEX = 54;
+      this.CON = 11;
+      this.SPR = 27;
+      this.WEAPON_PRI = new WeaponClass("Katana","Jap",5);
+      this.primary_skill = "FarEast";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("Throwing","Jap",4);
+      this.secondary_skill = "Throwing";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Jap",5);
+      this.HELMET = new Armor("Helmet","Jap",5);
+      this.HORSE = null;
+      this.setActiveSkills("katana",4,2,0);
+   }
+   function UnitJap_katana6()
+   {
+      this.NAME = "Kara Samuray";
+      this.STR = 52;
+      this.DEX = 65;
+      this.CON = 13;
+      this.SPR = 32;
+      this.WEAPON_PRI = new WeaponClass("Katana","Jap",6);
+      this.primary_skill = "FarEast";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("Throwing","Jap",6);
+      this.secondary_skill = "Throwing";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Jap",6);
+      this.HELMET = new Armor("Helmet","Jap",6);
+      this.HORSE = null;
+      this.setActiveSkills("katana",4,2,1);
+   }
+   function UnitJap_katana7()
+   {
+      this.NAME = "Şogun";
+      this.STR = 68;
+      this.DEX = 85;
+      this.CON = 17;
+      this.SPR = 42;
+      this.WEAPON_PRI = new WeaponClass("Katana","Jap",7);
+      this.primary_skill = "FarEast";
+      this.SKILL[this.primary_skill] = 97;
+      this.WEAPON_SEC = new WeaponClass("Throwing","Jap",7);
+      this.secondary_skill = "Throwing";
+      this.SKILL[this.secondary_skill] = 94;
+      this.ARMOR = new Armor("Clothes","Jap",7);
+      this.HELMET = new Armor("Helmet","Jap",7);
+      this.HORSE = null;
+      this.setActiveSkills("katana",4,3,2);
+   }
+   function UnitJap_katana8()
+   {
+      this.NAME = "Şogun Hayaleti";
+      this.STR = 80;
+      this.DEX = 100;
+      this.CON = 20;
+      this.SPR = 50;
+      this.WEAPON_PRI = new WeaponClass("Katana","Jap",8);
+      this.primary_skill = "FarEast";
+      this.SKILL[this.primary_skill] = 100;
+      this.WEAPON_SEC = new WeaponClass("Throwing","Jap",7);
+      this.secondary_skill = "Throwing";
+      this.SKILL[this.secondary_skill] = 100;
+      this.ARMOR = new Armor("Clothes","Jap",8);
+      this.HELMET = new Armor("Helmet","Jap",8);
+      this.HORSE = null;
+      this.setActiveSkills("katana",0,0,5);
+   }
+   function UnitJap_dual3()
+   {
+      this.NAME = "Seçkin Ninja";
+      this.STR = 29;
+      this.DEX = 29;
+      this.CON = 10;
+      this.SPR = 13;
+      this.WEAPON_PRI = new WeaponClass("NinjaTo","Jap",3);
+      this.primary_skill = "FarEast";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("NinjaTo","Jap",3);
+      this.secondary_skill = "FarEast";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Jap",3);
+      this.HELMET = new Armor("Helmet","Jap",2);
+      this.HORSE = null;
+      this.setActiveSkills("dual",2,2,0);
+   }
+   function UnitJap_dual4()
+   {
+      this.NAME = "Usta Ninja";
+      this.STR = 40;
+      this.DEX = 40;
+      this.CON = 13;
+      this.SPR = 18;
+      this.WEAPON_PRI = new WeaponClass("NinjaTo","Jap",4);
+      this.primary_skill = "FarEast";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("NinjaTo","Jap",4);
+      this.secondary_skill = "FarEast";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Jap",4);
+      this.HELMET = new Armor("Helmet","Jap",3);
+      this.HORSE = null;
+      this.setActiveSkills("dual",2,0,3);
+   }
+   function UnitJap_dual5()
+   {
+      this.NAME = "Ninja Hayaleti";
+      this.STR = 45;
+      this.DEX = 45;
+      this.CON = 15;
+      this.SPR = 20;
+      this.WEAPON_PRI = new WeaponClass("NinjaTo","Jap",4);
+      this.primary_skill = "FarEast";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("NinjaTo","Jap",4);
+      this.secondary_skill = "FarEast";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Jap",5);
+      this.HELMET = new Armor("Helmet","Jap",4);
+      this.HORSE = null;
+      this.setActiveSkills("dual",0,4,4);
+   }
+   function UnitJap_staff1()
+   {
+      this.NAME = "Çırak";
+      this.STR = 8;
+      this.DEX = 24;
+      this.CON = 6;
+      this.SPR = 12;
+      this.WEAPON_PRI = new WeaponClass("Staff","Jap",2);
+      this.primary_skill = "Staff";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Jap",1);
+      this.HELMET = new Armor("Helmet","Jap",1);
+      this.HORSE = null;
+      this.setActiveSkills("staff",1,0,0);
+   }
+   function UnitJap_staff2()
+   {
+      this.NAME = "Kıdemli Çırak";
+      this.STR = 10;
+      this.DEX = 31;
+      this.CON = 8;
+      this.SPR = 16;
+      this.WEAPON_PRI = new WeaponClass("Staff","Jap",3);
+      this.primary_skill = "Staff";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Jap",2);
+      this.HELMET = new Armor("Helmet","Jap",2);
+      this.HORSE = null;
+      this.setActiveSkills("staff",3,0,0);
+   }
+   function UnitJap_staff3()
+   {
+      this.NAME = "Samuray Muhafız";
+      this.STR = 13;
+      this.DEX = 40;
+      this.CON = 10;
+      this.SPR = 20;
+      this.WEAPON_PRI = new WeaponClass("Staff","Jap",4);
+      this.primary_skill = "Staff";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("Bow","Jap",1);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Jap",3);
+      this.HELMET = new Armor("Helmet","Jap",3);
+      this.HORSE = null;
+      this.setActiveSkills("staff",3,1,0);
+   }
+   function UnitJap_staff4()
+   {
+      this.NAME = "Samuray Asker";
+      this.STR = 17;
+      this.DEX = 50;
+      this.CON = 13;
+      this.SPR = 25;
+      this.WEAPON_PRI = new WeaponClass("Staff","Jap",5);
+      this.primary_skill = "Staff";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("Bow","Jap",2);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Jap",4);
+      this.HELMET = new Armor("Helmet","Jap",4);
+      this.HORSE = null;
+      this.setActiveSkills("staff",0,3,2);
+   }
+   function UnitJap_staff5()
+   {
+      this.NAME = "Şogun Muhafızı";
+      this.STR = 22;
+      this.DEX = 65;
+      this.CON = 16;
+      this.SPR = 32;
+      this.WEAPON_PRI = new WeaponClass("Staff","Jap",6);
+      this.primary_skill = "Staff";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("Bow","Jap",2);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Jap",5);
+      this.HELMET = new Armor("Helmet","Jap",5);
+      this.HORSE = null;
+      this.setActiveSkills("staff",2,4,0);
+   }
+   function UnitJap_staff6()
+   {
+      this.NAME = "Gizli Seçkinler";
+      this.STR = 28;
+      this.DEX = 84;
+      this.CON = 21;
+      this.SPR = 42;
+      this.WEAPON_PRI = new WeaponClass("Staff","Jap",7);
+      this.primary_skill = "Staff";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("Bow","Jap",3);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Jap",6);
+      this.HELMET = new Armor("Helmet","Jap",6);
+      this.HORSE = null;
+      this.setActiveSkills("staff",0,4,3);
+   }
+   function UnitJap_bow1()
+   {
+      this.NAME = "Gölge Okçu";
+      this.STR = 11;
+      this.DEX = 18;
+      this.CON = 2;
+      this.SPR = 14;
+      this.WEAPON_PRI = new WeaponClass("Bow","Jap",1);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = new WeaponClass("Staff","Jap",1);
+      this.secondary_skill = "Staff";
+      this.SKILL[this.secondary_skill] = 52;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("bow",0,1,0);
+   }
+   function UnitJap_bow2()
+   {
+      this.NAME = "Hayalet Okçu";
+      this.STR = 17;
+      this.DEX = 28;
+      this.CON = 3;
+      this.SPR = 22;
+      this.WEAPON_PRI = new WeaponClass("Bow","Jap",2);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("Staff","Jap",2);
+      this.secondary_skill = "Staff";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Jap",1);
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("bow",1,2,0);
+   }
+   function UnitJap_bow3()
+   {
+      this.NAME = "Hayalet Yaycı";
+      this.STR = 17;
+      this.DEX = 28;
+      this.CON = 3;
+      this.SPR = 22;
+      this.WEAPON_PRI = new WeaponClass("Bow","Jap",2);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("Staff","Jap",2);
+      this.secondary_skill = "Staff";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Jap",2);
+      this.HELMET = new Armor("Helmet","Jap",1);
+      this.HORSE = null;
+      this.setActiveSkills("bow",4,0,0);
+   }
+   function UnitJap_bow5()
+   {
+      this.NAME = "Fısıltı Okçusu";
+      this.STR = 36;
+      this.DEX = 60;
+      this.CON = 6;
+      this.SPR = 48;
+      this.WEAPON_PRI = new WeaponClass("Bow","Jap",3);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("Staff","Jap",4);
+      this.secondary_skill = "Staff";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Jap",3);
+      this.HELMET = new Armor("Helmet","Jap",2);
+      this.HORSE = null;
+      this.setActiveSkills("bow",4,4,0);
+   }
+   function UnitJap_throwing0()
+   {
+      this.NAME = "Şuriken Atıcı";
+      this.STR = 12;
+      this.DEX = 15;
+      this.CON = 2;
+      this.SPR = 9;
+      this.WEAPON_PRI = new WeaponClass("Throwing","Jap",1);
+      this.primary_skill = "Throwing";
+      this.SKILL[this.primary_skill] = 55;
+      this.WEAPON_SEC = new WeaponClass("Staff","Jap",1);
+      this.secondary_skill = "Staff";
+      this.SKILL[this.secondary_skill] = 45;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("throwing",1,0,0);
+   }
+   function UnitJap_throwing1()
+   {
+      this.NAME = "Şuriken Ustası";
+      this.STR = 16;
+      this.DEX = 20;
+      this.CON = 2;
+      this.SPR = 12;
+      this.WEAPON_PRI = new WeaponClass("Throwing","Jap",2);
+      this.primary_skill = "Throwing";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = new WeaponClass("Staff","Jap",1);
+      this.secondary_skill = "Staff";
+      this.SKILL[this.secondary_skill] = 52;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("throwing",0,1,0);
+   }
+   function UnitJap_throwing3()
+   {
+      this.NAME = "Seçkin Şuriken Atıcı";
+      this.STR = 22;
+      this.DEX = 28;
+      this.CON = 3;
+      this.SPR = 17;
+      this.WEAPON_PRI = new WeaponClass("Throwing","Jap",3);
+      this.primary_skill = "Throwing";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("Staff","Jap",3);
+      this.secondary_skill = "Staff";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Jap",2);
+      this.HELMET = new Armor("Helmet","Jap",1);
+      this.HORSE = null;
+      this.setActiveSkills("throwing",2,1,1);
+   }
+   function UnitJap_throwing4()
+   {
+      this.NAME = "Kara Şuriken Atıcı";
+      this.STR = 30;
+      this.DEX = 37;
+      this.CON = 4;
+      this.SPR = 22;
+      this.WEAPON_PRI = new WeaponClass("Throwing","Jap",4);
+      this.primary_skill = "Throwing";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("Staff","Jap",4);
+      this.secondary_skill = "Staff";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Jap",3);
+      this.HELMET = new Armor("Helmet","Jap",2);
+      this.HORSE = null;
+      this.setActiveSkills("throwing",2,3,1);
+   }
+   function UnitJap_throwing6()
+   {
+      this.NAME = "Gölge";
+      this.STR = 54;
+      this.DEX = 67;
+      this.CON = 7;
+      this.SPR = 40;
+      this.WEAPON_PRI = new WeaponClass("Throwing","Jap",6);
+      this.primary_skill = "Throwing";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("Staff","Jap",5);
+      this.secondary_skill = "Staff";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Jap",5);
+      this.HELMET = new Armor("Helmet","Jap",4);
+      this.HORSE = null;
+      this.setActiveSkills("throwing",0,3,4);
+   }
+   function UnitJap_throwing7()
+   {
+      this.NAME = "Altın Gölge";
+      this.STR = 68;
+      this.DEX = 85;
+      this.CON = 8;
+      this.SPR = 51;
+      this.WEAPON_PRI = new WeaponClass("Throwing","Jap",7);
+      this.primary_skill = "Throwing";
+      this.SKILL[this.primary_skill] = 97;
+      this.WEAPON_SEC = new WeaponClass("Staff","Jap",5);
+      this.secondary_skill = "Staff";
+      this.SKILL[this.secondary_skill] = 94;
+      this.ARMOR = new Armor("Clothes","Jap",6);
+      this.HELMET = new Armor("Helmet","Jap",5);
+      this.HORSE = null;
+      this.setActiveSkills("throwing",0,4,5);
+   }
+   function UnitJap_fists1()
+   {
+      this.NAME = "Taekwon";
+      this.STR = 20;
+      this.DEX = 20;
+      this.CON = 8;
+      this.SPR = 2;
+      this.WEAPON_PRI = null;
+      this.primary_skill = "Fists";
+      this.SKILL[this.primary_skill] = 100;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Jap",1);
+      this.HELMET = new Armor("Helmet","Jap",1);
+      this.HORSE = null;
+   }
+   function UnitJap_fists2()
+   {
+      this.NAME = "Taekwon Ustası";
+      this.STR = 30;
+      this.DEX = 30;
+      this.CON = 12;
+      this.SPR = 3;
+      this.WEAPON_PRI = null;
+      this.primary_skill = "Fists";
+      this.SKILL[this.primary_skill] = 100;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Jap",2);
+      this.HELMET = new Armor("Helmet","Jap",2);
+      this.HORSE = null;
+   }
+   function UnitMon_shield1()
+   {
+      this.NAME = "Kılıççı";
+      this.STR = 20;
+      this.DEX = 10;
+      this.CON = 8;
+      this.SPR = 12;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Mon",1);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = new WeaponClass("Shield","Mon",1);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 52;
+      this.ARMOR = new Armor("Clothes","Mon",1);
+      this.HELMET = new Armor("Helmet","Mon",1);
+      this.HORSE = null;
+      this.setActiveSkills("shield",0,1,0);
+   }
+   function UnitMon_shield2()
+   {
+      this.NAME = "Yaya Muhafız";
+      this.STR = 25;
+      this.DEX = 12;
+      this.CON = 10;
+      this.SPR = 15;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Mon",2);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("Shield","Mon",2);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Mon",2);
+      this.HELMET = new Armor("Helmet","Mon",2);
+      this.HORSE = null;
+      this.setActiveSkills("shield",0,2,0);
+   }
+   function UnitMon_shield3()
+   {
+      this.NAME = "Atlı Muhafız";
+      this.STR = 32;
+      this.DEX = 16;
+      this.CON = 13;
+      this.SPR = 19;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Mon",3);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("Shield","Mon",2);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Mon",3);
+      this.HELMET = new Armor("Helmet","Mon",3);
+      this.HORSE = new Horse("any",20,3,4);
+   }
+   function UnitMon_shield4()
+   {
+      this.NAME = "Rüzgâr Atlısı";
+      this.STR = 44;
+      this.DEX = 22;
+      this.CON = 18;
+      this.SPR = 26;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Mon",4);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("Shield","Mon",3);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Mon",4);
+      this.HELMET = new Armor("Helmet","Mon",4);
+      this.HORSE = new Horse("any",30,4,4);
+   }
+   function UnitMon_shield5()
+   {
+      this.NAME = "Fırtına Atlısı";
+      this.STR = 50;
+      this.DEX = 25;
+      this.CON = 20;
+      this.SPR = 30;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Mon",4);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("Shield","Mon",3);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Mon",5);
+      this.HELMET = new Armor("Helmet","Mon",5);
+      this.HORSE = new Horse("any",50,6,4);
+   }
+   function UnitMon_shield6()
+   {
+      this.NAME = "Kasırga Atlısı";
+      this.STR = 65;
+      this.DEX = 32;
+      this.CON = 26;
+      this.SPR = 39;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Mon",5);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("Shield","Mon",4);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Mon",6);
+      this.HELMET = new Armor("Helmet","Mon",6);
+      this.HORSE = new Horse("any",100,8,5);
+   }
+   function UnitMon_shield7()
+   {
+      this.NAME = "Han Muhafızı";
+      this.STR = 85;
+      this.DEX = 42;
+      this.CON = 34;
+      this.SPR = 51;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Mon",6);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 97;
+      this.WEAPON_SEC = new WeaponClass("Shield","Mon",4);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 94;
+      this.ARMOR = new Armor("Clothes","Mon",7);
+      this.HELMET = new Armor("Helmet","Mon",7);
+      this.HORSE = new Horse("any",100,20,6);
+   }
+   function UnitMon_2H_sword0()
+   {
+      this.NAME = "Tüccar Muhafızı";
+      this.STR = 15;
+      this.DEX = 9;
+      this.CON = 6;
+      this.SPR = 8;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Mon",1);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 55;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("2H_sword",1,0,0);
+   }
+   function UnitMon_2H_sword2()
+   {
+      this.NAME = "Hafif Gözcü";
+      this.STR = 25;
+      this.DEX = 15;
+      this.CON = 10;
+      this.SPR = 12;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Mon",2);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("Bow","Mon",1);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Mon",2);
+      this.HELMET = new Armor("Helmet","Mon",1);
+      this.HORSE = null;
+      this.setActiveSkills("2H_sword",0,2,0);
+   }
+   function UnitMon_2H_sword3()
+   {
+      this.NAME = "Gözcü";
+      this.STR = 32;
+      this.DEX = 19;
+      this.CON = 13;
+      this.SPR = 16;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Mon",3);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("Bow","Mon",2);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Mon",3);
+      this.HELMET = new Armor("Helmet","Mon",2);
+      this.HORSE = new Horse("any",10,2,5);
+   }
+   function UnitMon_2H_sword4()
+   {
+      this.NAME = "Kıdemli Gözcü";
+      this.STR = 44;
+      this.DEX = 26;
+      this.CON = 18;
+      this.SPR = 22;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Mon",4);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("Bow","Mon",2);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Mon",4);
+      this.HELMET = new Armor("Helmet","Mon",3);
+      this.HORSE = new Horse("any",15,5,5);
+   }
+   function UnitMon_2H_sword5()
+   {
+      this.NAME = "Orda Muhafızı";
+      this.STR = 50;
+      this.DEX = 30;
+      this.CON = 20;
+      this.SPR = 25;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Mon",4);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("Bow","Mon",3);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Mon",5);
+      this.HELMET = new Armor("Helmet","Mon",5);
+      this.HORSE = new Horse("any",50,8,3);
+   }
+   function UnitMon_2H_sword6()
+   {
+      this.NAME = "Seçkin Atlı";
+      this.STR = 65;
+      this.DEX = 39;
+      this.CON = 26;
+      this.SPR = 32;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Mon",5);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("Bow","Mon",3);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Mon",6);
+      this.HELMET = new Armor("Helmet","Mon",6);
+      this.HORSE = new Horse("any",120,12,4);
+   }
+   function UnitMon_2H_sword7()
+   {
+      this.NAME = "Kıdemli Atlı";
+      this.STR = 85;
+      this.DEX = 51;
+      this.CON = 34;
+      this.SPR = 42;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Mon",6);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 97;
+      this.WEAPON_SEC = new WeaponClass("Bow","Mon",4);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 94;
+      this.ARMOR = new Armor("Clothes","Mon",7);
+      this.HELMET = new Armor("Helmet","Mon",7);
+      this.HORSE = new Horse("any",200,5,6);
+   }
+   function UnitMon_dual1()
+   {
+      this.NAME = "Usta Göçebe";
+      this.STR = 20;
+      this.DEX = 10;
+      this.CON = 12;
+      this.SPR = 8;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Mon",1);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Mon",1);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 52;
+      this.ARMOR = new Armor("Clothes","Mon",1);
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("dual",1,0,0);
+   }
+   function UnitMon_dual2()
+   {
+      this.NAME = "Eskrimci";
+      this.STR = 25;
+      this.DEX = 12;
+      this.CON = 15;
+      this.SPR = 10;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Mon",2);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Mon",2);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Mon",2);
+      this.HELMET = new Armor("Helmet","Mon",1);
+      this.HORSE = null;
+      this.setActiveSkills("dual",2,0,0);
+   }
+   function UnitMon_dual3()
+   {
+      this.NAME = "Usta Eskrimci";
+      this.STR = 32;
+      this.DEX = 16;
+      this.CON = 19;
+      this.SPR = 13;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Mon",3);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Mon",3);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Mon",3);
+      this.HELMET = new Armor("Helmet","Mon",2);
+      this.HORSE = null;
+      this.setActiveSkills("dual",3,0,0);
+   }
+   function UnitMon_dual4()
+   {
+      this.NAME = "Gezgin";
+      this.STR = 44;
+      this.DEX = 22;
+      this.CON = 26;
+      this.SPR = 18;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Mon",4);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Mon",4);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Mon",4);
+      this.HELMET = new Armor("Helmet","Mon",3);
+      this.HORSE = null;
+      this.setActiveSkills("dual",2,0,1);
+   }
+   function UnitMon_dual5()
+   {
+      this.NAME = "Kanlı Gezgin";
+      this.STR = 50;
+      this.DEX = 25;
+      this.CON = 30;
+      this.SPR = 20;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Mon",4);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Mon",4);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Mon",5);
+      this.HELMET = new Armor("Helmet","Mon",4);
+      this.HORSE = null;
+      this.setActiveSkills("dual",2,0,2);
+   }
+   function UnitMon_dual6()
+   {
+      this.NAME = "Kılıç Üstadı";
+      this.STR = 65;
+      this.DEX = 32;
+      this.CON = 39;
+      this.SPR = 26;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Mon",5);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Mon",5);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Mon",6);
+      this.HELMET = new Armor("Helmet","Mon",5);
+      this.HORSE = null;
+      this.setActiveSkills("dual",3,2,0);
+   }
+   function UnitMon_dual7()
+   {
+      this.NAME = "Toz Savaşçısı";
+      this.STR = 85;
+      this.DEX = 42;
+      this.CON = 51;
+      this.SPR = 34;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Mon",6);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 97;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Mon",6);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 94;
+      this.ARMOR = new Armor("Clothes","Mon",7);
+      this.HELMET = new Armor("Helmet","Mon",6);
+      this.HORSE = null;
+      this.setActiveSkills("dual",3,1,2);
+   }
+   function UnitMon_dagger0()
+   {
+      this.NAME = "Yoksul Göçebe";
+      this.STR = 3;
+      this.DEX = 15;
+      this.CON = 6;
+      this.SPR = 14;
+      this.WEAPON_PRI = new WeaponClass("Dagger","Mon",1);
+      this.primary_skill = "Dagger";
+      this.SKILL[this.primary_skill] = 55;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("dagger",0,1,0);
+   }
+   function UnitMon_dagger2()
+   {
+      this.NAME = "Orman Haydudu";
+      this.STR = 4;
+      this.DEX = 22;
+      this.CON = 9;
+      this.SPR = 20;
+      this.WEAPON_PRI = new WeaponClass("Dagger","Mon",2);
+      this.primary_skill = "Dagger";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("Bow","Mon",1);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Mon",2);
+      this.HELMET = new Armor("Helmet","Mon",1);
+      this.HORSE = null;
+      this.setActiveSkills("dagger",1,1,0);
+   }
+   function UnitMon_dagger3()
+   {
+      this.NAME = "Kasaba Haydudu";
+      this.STR = 6;
+      this.DEX = 32;
+      this.CON = 13;
+      this.SPR = 29;
+      this.WEAPON_PRI = new WeaponClass("Dagger","Mon",3);
+      this.primary_skill = "Dagger";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("Bow","Mon",2);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Mon",2);
+      this.HELMET = new Armor("Helmet","Mon",2);
+      this.HORSE = null;
+      this.setActiveSkills("dagger",2,0,1);
+   }
+   function UnitMon_dagger4()
+   {
+      this.NAME = "Kelle Avcısı";
+      this.STR = 8;
+      this.DEX = 40;
+      this.CON = 16;
+      this.SPR = 36;
+      this.WEAPON_PRI = new WeaponClass("Dagger","Mon",4);
+      this.primary_skill = "Dagger";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("Bow","Mon",2);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Mon",3);
+      this.HELMET = new Armor("Helmet","Mon",3);
+      this.HORSE = null;
+      this.setActiveSkills("dagger",2,2,0);
+   }
+   function UnitMon_dagger5()
+   {
+      this.NAME = "Kaos Haydudu";
+      this.STR = 10;
+      this.DEX = 50;
+      this.CON = 20;
+      this.SPR = 45;
+      this.WEAPON_PRI = new WeaponClass("Dagger","Mon",5);
+      this.primary_skill = "Dagger";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("Bow","Mon",3);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Mon",3);
+      this.HELMET = new Armor("Helmet","Mon",4);
+      this.HORSE = null;
+      this.setActiveSkills("dagger",2,2,1);
+   }
+   function UnitMon_dagger6()
+   {
+      this.NAME = "Kasvet Bekçisi";
+      this.STR = 14;
+      this.DEX = 68;
+      this.CON = 27;
+      this.SPR = 61;
+      this.WEAPON_PRI = new WeaponClass("Dagger","Mon",6);
+      this.primary_skill = "Dagger";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("Bow","Mon",4);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Mon",4);
+      this.HELMET = new Armor("Helmet","Mon",5);
+      this.HORSE = null;
+      this.setActiveSkills("dagger",2,3,2);
+   }
+   function UnitMon_bow0()
+   {
+      this.NAME = "Hafif Yaycı";
+      this.STR = 3;
+      this.DEX = 15;
+      this.CON = 4;
+      this.SPR = 15;
+      this.WEAPON_PRI = new WeaponClass("Bow","Mon",1);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 55;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Mon",1);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 45;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = new Horse("any",5,0,3);
+      this.setActiveSkills("bow",2,0,1);
+   }
+   function UnitMon_bow2()
+   {
+      this.NAME = "Hafif Süvari Eri";
+      this.STR = 6;
+      this.DEX = 28;
+      this.CON = 8;
+      this.SPR = 28;
+      this.WEAPON_PRI = new WeaponClass("Bow","Mon",2);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Mon",2);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Mon",1);
+      this.HELMET = null;
+      this.HORSE = new Horse("any",10,3,3);
+      this.setActiveSkills("bow",0,2,1);
+   }
+   function UnitMon_bow4()
+   {
+      this.NAME = "Okçu Ustası";
+      this.STR = 10;
+      this.DEX = 50;
+      this.CON = 15;
+      this.SPR = 50;
+      this.WEAPON_PRI = new WeaponClass("Bow","Mon",3);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Mon",3);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Mon",3);
+      this.HELMET = new Armor("Helmet","Mon",2);
+      this.HORSE = new Horse("any",15,5,4);
+      this.setActiveSkills("bow",0,0,4);
+   }
+   function UnitMon_bow6()
+   {
+      this.NAME = "Ürkünç Okçu";
+      this.STR = 18;
+      this.DEX = 90;
+      this.CON = 27;
+      this.SPR = 90;
+      this.WEAPON_PRI = new WeaponClass("Bow","Mon",4);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Mon",4);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Mon",4);
+      this.HELMET = new Armor("Helmet","Mon",3);
+      this.HORSE = new Horse("any",30,10,4);
+      this.setActiveSkills("bow",0,2,4);
+   }
+   function UnitAra_2H_sword1()
+   {
+      this.NAME = "Hafif Kılıççı";
+      this.STR = 22;
+      this.DEX = 18;
+      this.CON = 9;
+      this.SPR = 7;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Ara",1);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Ara",1);
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("2H_sword",1,0,0);
+   }
+   function UnitAra_2H_sword2()
+   {
+      this.NAME = "Kıdemli Kılıççı";
+      this.STR = 25;
+      this.DEX = 20;
+      this.CON = 10;
+      this.SPR = 8;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Ara",2);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("Crossbow","Viz",1);
+      this.secondary_skill = "Crossbow";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Ara",2);
+      this.HELMET = new Armor("Helmet","Ara",1);
+      this.HORSE = null;
+      this.setActiveSkills("2H_sword",2,0,0);
+   }
+   function UnitAra_2H_sword3()
+   {
+      this.NAME = "Pala Ustası";
+      this.STR = 32;
+      this.DEX = 26;
+      this.CON = 13;
+      this.SPR = 10;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Ara",3);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("Crossbow","Viz",2);
+      this.secondary_skill = "Crossbow";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Ara",3);
+      this.HELMET = new Armor("Helmet","Ara",2);
+      this.HORSE = null;
+      this.setActiveSkills("2H_sword",0,2,0);
+   }
+   function UnitAra_2H_sword4()
+   {
+      this.NAME = "Hafif Yeniçeri";
+      this.STR = 44;
+      this.DEX = 35;
+      this.CON = 18;
+      this.SPR = 13;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Ara",4);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("Crossbow","Viz",2);
+      this.secondary_skill = "Crossbow";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Ara",4);
+      this.HELMET = new Armor("Helmet","Ara",3);
+      this.HORSE = null;
+      this.setActiveSkills("2H_sword",0,2,1);
+   }
+   function UnitAra_2H_sword5()
+   {
+      this.NAME = "Yeniçeri";
+      this.STR = 50;
+      this.DEX = 40;
+      this.CON = 20;
+      this.SPR = 15;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Ara",4);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("Crossbow","Viz",3);
+      this.secondary_skill = "Crossbow";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Ara",5);
+      this.HELMET = new Armor("Helmet","Ara",5);
+      this.HORSE = null;
+      this.setActiveSkills("2H_sword",0,2,2);
+   }
+   function UnitAra_2H_sword6()
+   {
+      this.NAME = "Yeniçeri Ağası";
+      this.STR = 65;
+      this.DEX = 52;
+      this.CON = 26;
+      this.SPR = 20;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Ara",5);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("Crossbow","Viz",3);
+      this.secondary_skill = "Crossbow";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Ara",6);
+      this.HELMET = new Armor("Helmet","Ara",6);
+      this.HORSE = null;
+      this.setActiveSkills("2H_sword",3,0,2);
+   }
+   function UnitAra_2H_sword7()
+   {
+      this.NAME = "Seçkin Yeniçeri";
+      this.STR = 85;
+      this.DEX = 68;
+      this.CON = 34;
+      this.SPR = 26;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Ara",6);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 97;
+      this.WEAPON_SEC = new WeaponClass("Crossbow","Viz",4);
+      this.secondary_skill = "Crossbow";
+      this.SKILL[this.secondary_skill] = 94;
+      this.ARMOR = new Armor("Clothes","Ara",7);
+      this.HELMET = new Armor("Helmet","Ara",7);
+      this.HORSE = null;
+      this.setActiveSkills("2H_sword",0,4,3);
+   }
+   function UnitAra_dual0()
+   {
+      this.NAME = "Köle";
+      this.STR = 15;
+      this.DEX = 10;
+      this.CON = 8;
+      this.SPR = 4;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Ara",1);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 55;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Ara",1);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 45;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("dual",0,1,0);
+   }
+   function UnitAra_dual2()
+   {
+      this.NAME = "Denizci";
+      this.STR = 25;
+      this.DEX = 18;
+      this.CON = 12;
+      this.SPR = 8;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Ara",2);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Ara",2);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Ara",2);
+      this.HELMET = new Armor("Helmet","Ara",1);
+      this.HORSE = null;
+      this.setActiveSkills("dual",2,0,0);
+   }
+   function UnitAra_dual3()
+   {
+      this.NAME = "Korsan";
+      this.STR = 32;
+      this.DEX = 22;
+      this.CON = 16;
+      this.SPR = 10;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Ara",3);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Ara",3);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Ara",3);
+      this.HELMET = new Armor("Helmet","Ara",2);
+      this.HORSE = null;
+      this.setActiveSkills("dual",2,1,0);
+   }
+   function UnitAra_dual4()
+   {
+      this.NAME = "Deniz Kurdu";
+      this.STR = 44;
+      this.DEX = 31;
+      this.CON = 22;
+      this.SPR = 13;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Ara",4);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Ara",4);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Ara",4);
+      this.HELMET = new Armor("Helmet","Ara",3);
+      this.HORSE = null;
+      this.setActiveSkills("dual",2,0,1);
+   }
+   function UnitAra_dual5()
+   {
+      this.NAME = "Deniz Akıncısı";
+      this.STR = 50;
+      this.DEX = 35;
+      this.CON = 25;
+      this.SPR = 15;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Ara",4);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Ara",4);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Ara",5);
+      this.HELMET = new Armor("Helmet","Ara",4);
+      this.HORSE = null;
+      this.setActiveSkills("dual",3,0,2);
+   }
+   function UnitAra_dual6()
+   {
+      this.NAME = "Kaptan";
+      this.STR = 65;
+      this.DEX = 46;
+      this.CON = 32;
+      this.SPR = 20;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Ara",5);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Ara",5);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Ara",6);
+      this.HELMET = new Armor("Helmet","Ara",5);
+      this.HORSE = null;
+      this.setActiveSkills("dual",3,0,3);
+   }
+   function UnitAra_dual7()
+   {
+      this.NAME = "Korsan Kaptanı";
+      this.STR = 85;
+      this.DEX = 59;
+      this.CON = 42;
+      this.SPR = 26;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Ara",6);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 97;
+      this.WEAPON_SEC = new WeaponClass("OnehandedSword","Ara",6);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 94;
+      this.ARMOR = new Armor("Clothes","Ara",7);
+      this.HELMET = new Armor("Helmet","Ara",6);
+      this.HORSE = null;
+      this.setActiveSkills("dual",4,3,0);
+   }
+   function UnitAra_katar1()
+   {
+      this.NAME = "Hırsız";
+      this.STR = 18;
+      this.DEX = 18;
+      this.CON = 8;
+      this.SPR = 6;
+      this.WEAPON_PRI = new WeaponClass("Katar","Ara",1);
+      this.primary_skill = "Katar";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Ara",1);
+      this.HELMET = new Armor("Helmet","Ara",1);
+      this.HORSE = null;
+      this.setActiveSkills("katar",1,0,0);
+   }
+   function UnitAra_katar3()
+   {
+      this.NAME = "Suikastçı";
+      this.STR = 29;
+      this.DEX = 29;
+      this.CON = 13;
+      this.SPR = 10;
+      this.WEAPON_PRI = new WeaponClass("Katar","Ara",3);
+      this.primary_skill = "Katar";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Ara",3);
+      this.HELMET = new Armor("Helmet","Ara",3);
+      this.HORSE = null;
+      this.setActiveSkills("katar",1,2,0);
+   }
+   function UnitAra_katar4()
+   {
+      this.NAME = "Gölge Suikastçı";
+      this.STR = 40;
+      this.DEX = 40;
+      this.CON = 18;
+      this.SPR = 13;
+      this.WEAPON_PRI = new WeaponClass("Katar","Ara",4);
+      this.primary_skill = "Katar";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Ara",4);
+      this.HELMET = new Armor("Helmet","Ara",4);
+      this.HORSE = null;
+      this.setActiveSkills("katar",0,3,0);
+   }
+   function UnitAra_katar5()
+   {
+      this.NAME = "Usta Suikastçı";
+      this.STR = 45;
+      this.DEX = 45;
+      this.CON = 20;
+      this.SPR = 15;
+      this.WEAPON_PRI = new WeaponClass("Katar","Ara",4);
+      this.primary_skill = "Katar";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Ara",5);
+      this.HELMET = new Armor("Helmet","Ara",5);
+      this.HORSE = null;
+      this.setActiveSkills("katar",0,3,1);
+   }
+   function UnitAra_katar6()
+   {
+      this.NAME = "Hayalet Suikastçı";
+      this.STR = 58;
+      this.DEX = 58;
+      this.CON = 26;
+      this.SPR = 20;
+      this.WEAPON_PRI = new WeaponClass("Katar","Ara",5);
+      this.primary_skill = "Katar";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Ara",6);
+      this.HELMET = new Armor("Helmet","Ara",6);
+      this.HORSE = null;
+      this.setActiveSkills("katar",2,3,1);
+   }
+   function UnitAra_katar7()
+   {
+      this.NAME = "Seçkin Suikastçı";
+      this.STR = 81;
+      this.DEX = 81;
+      this.CON = 36;
+      this.SPR = 27;
+      this.WEAPON_PRI = new WeaponClass("Katar","Ara",6);
+      this.primary_skill = "Katar";
+      this.SKILL[this.primary_skill] = 97;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Ara",7);
+      this.HELMET = new Armor("Helmet","Ara",7);
+      this.HORSE = null;
+      this.setActiveSkills("katar",0,4,3);
+   }
+   function UnitAra_crossbow0()
+   {
+      this.NAME = "Hafif Okçu";
+      this.STR = 9;
+      this.DEX = 15;
+      this.CON = 8;
+      this.SPR = 6;
+      this.WEAPON_PRI = new WeaponClass("Crossbow","Viz",1);
+      this.primary_skill = "Crossbow";
+      this.SKILL[this.primary_skill] = 55;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Ara",1);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 45;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("crossbow",0,0,1);
+   }
+   function UnitAra_crossbow2()
+   {
+      this.NAME = "Kuşatma Okçusu";
+      this.STR = 17;
+      this.DEX = 28;
+      this.CON = 14;
+      this.SPR = 11;
+      this.WEAPON_PRI = new WeaponClass("Crossbow","Viz",2);
+      this.primary_skill = "Crossbow";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Ara",2);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Ara",1);
+      this.HELMET = null;
+      this.HORSE = null;
+      this.setActiveSkills("crossbow",0,0,2);
+   }
+   function UnitAra_crossbow4()
+   {
+      this.NAME = "Kale Muhafızı";
+      this.STR = 30;
+      this.DEX = 50;
+      this.CON = 25;
+      this.SPR = 20;
+      this.WEAPON_PRI = new WeaponClass("Crossbow","Viz",3);
+      this.primary_skill = "Crossbow";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Ara",3);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Ara",3);
+      this.HELMET = new Armor("Helmet","Ara",2);
+      this.HORSE = null;
+      this.setActiveSkills("crossbow",3,0,0);
+   }
+   function UnitAra_crossbow6()
+   {
+      this.NAME = "Sinsi Takipçi";
+      this.STR = 54;
+      this.DEX = 90;
+      this.CON = 45;
+      this.SPR = 36;
+      this.WEAPON_PRI = new WeaponClass("Crossbow","Viz",4);
+      this.primary_skill = "Crossbow";
+      this.SKILL[this.primary_skill] = 91;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Ara",4);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 87;
+      this.ARMOR = new Armor("Clothes","Ara",4);
+      this.HELMET = new Armor("Helmet","Ara",3);
+      this.HORSE = null;
+      this.setActiveSkills("crossbow",2,0,2);
+   }
+   function UnitViz_caster1()
+   {
+      this.NAME = "Koruyucu";
+      this.STR = 32;
+      this.DEX = 10;
+      this.CON = 19;
+      this.SPR = 10;
+      this.WEAPON_PRI = new WeaponClass("OnehandedSword","Viz",3);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 73;
+      this.WEAPON_SEC = new WeaponClass("Shield","Viz",2);
+      this.secondary_skill = "Shield";
+      this.SKILL[this.secondary_skill] = 66;
+      this.ARMOR = new Armor("Clothes","Viz",3);
+      this.HELMET = new Armor("Helmet","Viz",3);
+      this.HORSE = null;
+      this.AURA_SKILLS.push(["Barrier",3]);
+      this.SPR = 30;
+   }
+   function UnitViz_caster2()
+   {
+      this.NAME = "Şifacı";
+      this.STR = 50;
+      this.DEX = 15;
+      this.CON = 25;
+      this.SPR = 20;
+      this.WEAPON_PRI = new WeaponClass("TwohandedAxe","Viz",4);
+      this.primary_skill = "Axe";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("Bow","Viz",3);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Viz",5);
+      this.HELMET = new Armor("Helmet","Viz",5);
+      this.HORSE = null;
+      this.AURA_SKILLS.push(["DivineHelp",4]);
+      this.SPR = 60;
+   }
+   function UnitGer_caster1()
+   {
+      this.NAME = "Mürit";
+      this.STR = 22;
+      this.DEX = 2;
+      this.CON = 22;
+      this.SPR = 2;
+      this.WEAPON_PRI = new WeaponClass("TwohandedMace","Ger",1);
+      this.primary_skill = "Mace";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Ger",1);
+      this.HELMET = null;
+      this.HORSE = null;
+      this.AURA_SKILLS.push(["DivineHelp",3]);
+      this.SPR = 30;
+   }
+   function UnitGer_caster2()
+   {
+      this.NAME = "Rahip";
+      this.STR = 22;
+      this.DEX = 2;
+      this.CON = 22;
+      this.SPR = 2;
+      this.WEAPON_PRI = new WeaponClass("TwohandedMace","Ger",1);
+      this.primary_skill = "Mace";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Ger",1);
+      this.HELMET = null;
+      this.HORSE = null;
+      this.AURA_SKILLS.push(["Devotion",3]);
+      this.SPR = 60;
+   }
+   function UnitRus_caster1()
+   {
+      this.NAME = "Orman Perisi";
+      this.STR = 24;
+      this.DEX = 13;
+      this.CON = 4;
+      this.SPR = 2;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Rus",1);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Rus",1);
+      this.HELMET = null;
+      this.HORSE = null;
+      this.AURA_SKILLS.push(["HolyTribunal",3]);
+      this.SPR = 30;
+   }
+   function UnitRus_caster2()
+   {
+      this.NAME = "Orman Ruhu";
+      this.STR = 58;
+      this.DEX = 23;
+      this.CON = 35;
+      this.SPR = 12;
+      this.WEAPON_PRI = new WeaponClass("Spear","Rus",4);
+      this.primary_skill = "Spear";
+      this.SKILL[this.primary_skill] = 85;
+      this.WEAPON_SEC = new WeaponClass("Bow","Rus",3);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Rus",5);
+      this.HELMET = new Armor("Helmet","Rus",5);
+      this.HORSE = null;
+      this.AURA_SKILLS.push(["DivineHelp",3]);
+      this.SPR = 60;
+   }
+   function UnitJap_caster1()
+   {
+      this.NAME = "Ak Keşiş";
+      this.STR = 8;
+      this.DEX = 24;
+      this.CON = 6;
+      this.SPR = 12;
+      this.WEAPON_PRI = new WeaponClass("Staff","Jap",2);
+      this.primary_skill = "Staff";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = new Armor("Clothes","Jap",1);
+      this.HELMET = new Armor("Helmet","Jap",1);
+      this.HORSE = null;
+      this.AURA_SKILLS.push(["Barrier",4]);
+      this.SPR = 30;
+   }
+   function UnitJap_caster2()
+   {
+      this.NAME = "Akıl Hocası";
+      this.STR = 17;
+      this.DEX = 50;
+      this.CON = 13;
+      this.SPR = 25;
+      this.WEAPON_PRI = new WeaponClass("Staff","Jap",5);
+      this.primary_skill = "Staff";
+      this.SKILL[this.primary_skill] = 79;
+      this.WEAPON_SEC = new WeaponClass("Bow","Jap",2);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 73;
+      this.ARMOR = new Armor("Clothes","Jap",4);
+      this.HELMET = new Armor("Helmet","Jap",4);
+      this.HORSE = null;
+      this.AURA_SKILLS.push(["NationJap",3]);
+      this.SPR = 60;
+   }
+   function UnitMon_caster1()
+   {
+      this.NAME = "Şaman";
+      this.STR = 4;
+      this.DEX = 18;
+      this.CON = 5;
+      this.SPR = 18;
+      this.WEAPON_PRI = new WeaponClass("Bow","Mon",1);
+      this.primary_skill = "Bow";
+      this.SKILL[this.primary_skill] = 61;
+      this.WEAPON_SEC = new WeaponClass("TwohandedSword","Mon",1);
+      this.secondary_skill = "Sword";
+      this.SKILL[this.secondary_skill] = 52;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.AURA_SKILLS.push(["Devotion",3]);
+      this.SPR = 30;
+   }
+   function UnitMon_caster2()
+   {
+      this.NAME = "Bilge";
+      this.STR = 4;
+      this.DEX = 22;
+      this.CON = 9;
+      this.SPR = 20;
+      this.WEAPON_PRI = new WeaponClass("Dagger","Mon",2);
+      this.primary_skill = "Dagger";
+      this.SKILL[this.primary_skill] = 67;
+      this.WEAPON_SEC = new WeaponClass("Bow","Mon",1);
+      this.secondary_skill = "Bow";
+      this.SKILL[this.secondary_skill] = 59;
+      this.ARMOR = new Armor("Clothes","Mon",2);
+      this.HELMET = new Armor("Helmet","Mon",1);
+      this.HORSE = null;
+      this.AURA_SKILLS.push(["ForceBalance",3]);
+      this.SPR = 60;
+   }
+   function UnitAra_caster1()
+   {
+      this.NAME = "Molla";
+      this.STR = 15;
+      this.DEX = 6;
+      this.CON = 15;
+      this.SPR = 2;
+      this.WEAPON_PRI = null;
+      this.primary_skill = "Fists";
+      this.SKILL[this.primary_skill] = 100;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.AURA_SKILLS.push(["Devotion",3]);
+      this.SPR = 30;
+   }
+   function UnitAra_caster2()
+   {
+      this.NAME = "Bakire Savaşçı";
+      this.STR = 15;
+      this.DEX = 12;
+      this.CON = 6;
+      this.SPR = 4;
+      this.WEAPON_PRI = new WeaponClass("TwohandedSword","Ara",1);
+      this.primary_skill = "Sword";
+      this.SKILL[this.primary_skill] = 55;
+      this.WEAPON_SEC = null;
+      this.secondary_skill = "Fists";
+      this.SKILL[this.secondary_skill] = 80;
+      this.ARMOR = null;
+      this.HELMET = null;
+      this.HORSE = null;
+      this.AURA_SKILLS.push(["BansheeCry",2]);
+      this.SPR = 60;
+      this.GENDER = "f";
+   }
+   static function getMeleeRogue(lv)
+   {
+      var _loc6_ = ["shield","2H_sword","2H_axe","staff","dagger","dual"];
+      var _loc2_ = new Unit("Rog",_loc6_[_root.dice(5)],Math.floor(lv / 10));
+      _loc2_.NAME = "Rogue (" + _loc2_.TYPE + ")";
+      _loc2_.STR = 16 + lv;
+      _loc2_.DEX = 5 + Math.floor(lv / 2);
+      _loc2_.CON = 10 + Math.floor(lv / 2);
+      _loc2_.SPR = 1;
+      var _loc4_;
+      var _loc5_;
+      switch(_loc2_.TYPE)
+      {
+         case "dual":
+            _loc4_ = ["OnehandedSword","OnehandedAxe","OnehandedMace","NinjaTo"];
+            _loc2_.WEAPON_PRI = new WeaponClass(_loc4_[_root.dice(4)],"Rog",_root.d(2));
+            _loc2_.WEAPON_SEC = new WeaponClass(_loc4_[_root.dice(4)],"Rog",_root.d(2));
+            break;
+         case "shield":
+            _loc5_ = ["Viz","Ger","Rus"];
+            _loc4_ = ["OnehandedSword","OnehandedAxe","OnehandedMace"];
+            _loc2_.WEAPON_PRI = new WeaponClass(_loc4_[_root.dice(3)],"Rog",_root.d(2));
+            _loc2_.WEAPON_SEC = new WeaponClass("Shield",_loc5_[_root.dice(3)],1);
+            break;
+         case "2H_sword":
+            _loc4_ = ["TwohandedSword","Katana"];
+            _loc2_.WEAPON_PRI = new WeaponClass("TwohandedSword","Rog",_root.d(2));
+            _loc2_.WEAPON_SEC = null;
+            break;
+         case "2H_axe":
+            _loc4_ = ["TwohandedAxe","TwohandedMace"];
+            _loc2_.WEAPON_PRI = new WeaponClass(_loc4_[_root.dice(2)],"Rog",_root.d(2));
+            _loc2_.WEAPON_SEC = null;
+            break;
+         case "staff":
+            _loc2_.WEAPON_PRI = new WeaponClass("Staff","Jap",1);
+            _loc2_.WEAPON_SEC = null;
+            break;
+         case "dagger":
+            _loc5_ = ["Viz","Mon"];
+            _loc2_.WEAPON_PRI = new WeaponClass("Dagger",_loc5_[_root.dice(2)],1);
+            _loc2_.WEAPON_SEC = null;
+      }
+      _loc2_.ARMOR = lv <= 8 ? null : new Armor("Clothes",_loc2_.NATION,Math.floor(lv / 8));
+      _loc2_.HELMET = lv <= 8 ? null : new Armor("Helmet",_loc2_.NATION,Math.floor(lv / 8));
+      _loc2_.primary_skill = _loc2_.WEAPON_PRI.skill;
+      _loc2_.secondary_skill = "none";
+      _loc2_.SKILL[_loc2_.primary_skill] = 40 + lv;
+      _loc2_.price = 10 * lv;
+      return _loc2_;
+   }
+   static function getRangedRogue(lv)
+   {
+      var _loc5_ = ["bow","crossbow","throwing"];
+      var _loc2_ = new Unit("Rog",_loc5_[_root.dice(3)],Math.floor(lv / 10));
+      _loc2_.NAME = "Rogue (" + _loc2_.TYPE + ")";
+      _loc2_.STR = 10 + Math.floor(lv / 2);
+      _loc2_.DEX = 15 + lv;
+      _loc2_.CON = 5 + Math.floor(lv / 2);
+      _loc2_.SPR = 1;
+      var _loc4_;
+      switch(_loc2_.TYPE)
+      {
+         case "bow":
+            _loc4_ = ["Viz","Ger","Rus","Jap","Mon"];
+            _loc2_.WEAPON_PRI = new WeaponClass("Bow",_loc4_[_root.dice(5)],1);
+            break;
+         case "crossbow":
+            _loc4_ = ["Viz","Ger","Rus"];
+            _loc2_.WEAPON_PRI = new WeaponClass("Crossbow",_loc4_[_root.dice(3)],1);
+            break;
+         case "throwing":
+            _loc4_ = ["Ger","Rus"];
+            _loc2_.WEAPON_PRI = new WeaponClass("Throwing",_loc4_[_root.dice(2)],1);
+      }
+      _loc2_.WEAPON_SEC = null;
+      _loc2_.ARMOR = lv <= 10 ? null : new Armor("Clothes",_loc2_.NATION,Math.floor(lv / 10));
+      _loc2_.HELMET = lv <= 10 ? null : new Armor("Helmet",_loc2_.NATION,Math.floor(lv / 10));
+      _loc2_.primary_skill = _loc2_.WEAPON_PRI.skill;
+      _loc2_.secondary_skill = "none";
+      _loc2_.SKILL[_loc2_.primary_skill] = 40 + lv;
+      _loc2_.price = 10 * lv;
+      return _loc2_;
+   }
+   static function getMeleeMilitia(nation, sub_lv)
+   {
+      if(!sub_lv)
+      {
+         sub_lv = 0;
+      }
+      if(sub_lv < 0 || sub_lv > 7)
+      {
+         trace("Inacceptable militia level:" + sub_lv);
+      }
+      switch(nation)
+      {
+         case "Viz":
+            switch(sub_lv)
+            {
+               case 0:
+                  return new Unit(nation,"shield",sub_lv);
+               case 1:
+                  return new Unit(nation,"spear",sub_lv);
+               case 2:
+                  return new Unit(nation,"2H_axe",sub_lv);
+               case 3:
+                  return new Unit(nation,"spear",sub_lv);
+               case 4:
+                  return new Unit(nation,"shield",sub_lv);
+               case 5:
+                  return new Unit(nation,"2H_sword",sub_lv);
+               case 6:
+                  return new Unit(nation,"2H_sword",sub_lv);
+               case 7:
+                  return new Unit(nation,"shield",sub_lv);
+            }
+            break;
+         case "Ger":
+            switch(sub_lv)
+            {
+               case 0:
+                  return new Unit(nation,"2H_sword",sub_lv);
+               case 1:
+                  return new Unit(nation,"shield",sub_lv);
+               case 2:
+                  return new Unit(nation,"shield",sub_lv);
+               case 3:
+                  return new Unit(nation,"shield",sub_lv);
+               case 4:
+                  return new Unit(nation,"2H_sword",sub_lv);
+               case 5:
+                  return new Unit(nation,"shield",sub_lv);
+               case 6:
+                  return new Unit(nation,"2H_axe",sub_lv);
+               case 7:
+                  return new Unit(nation,"2H_sword",sub_lv);
+            }
+            break;
+         case "Rus":
+            switch(sub_lv)
+            {
+               case 0:
+                  return new Unit(nation,"2H_axe",sub_lv);
+               case 1:
+                  return new Unit(nation,"2H_axe",sub_lv);
+               case 2:
+                  return new Unit(nation,"shield",sub_lv);
+               case 3:
+                  return new Unit(nation,"shield",sub_lv);
+               case 4:
+                  return new Unit(nation,"shield",sub_lv);
+               case 5:
+                  return new Unit(nation,"dual",sub_lv);
+               case 6:
+                  return new Unit(nation,"2H_axe",sub_lv);
+               case 7:
+                  return new Unit(nation,"2H_axe",sub_lv);
+            }
+            break;
+         case "Jap":
+            switch(sub_lv)
+            {
+               case 0:
+                  return new Unit(nation,"fists",sub_lv + 1);
+               case 1:
+                  return new Unit(nation,"staff",sub_lv);
+               case 2:
+                  return new Unit(nation,"staff",sub_lv);
+               case 3:
+                  return new Unit(nation,"staff",sub_lv);
+               case 4:
+                  return new Unit(nation,"staff",sub_lv);
+               case 5:
+                  return new Unit(nation,"staff",sub_lv);
+               case 6:
+                  return new Unit(nation,"staff",sub_lv);
+               case 7:
+                  return new Unit(nation,"katana",sub_lv);
+            }
+            break;
+         case "Mon":
+            switch(sub_lv)
+            {
+               case 0:
+                  return new Unit(nation,"dagger",sub_lv);
+               case 1:
+                  return new Unit(nation,"shield",sub_lv);
+               case 2:
+                  return new Unit(nation,"2H_sword",sub_lv);
+               case 3:
+                  return new Unit(nation,"dual",sub_lv);
+               case 4:
+                  return new Unit(nation,"shield",sub_lv);
+               case 5:
+                  return new Unit(nation,"2H_sword",sub_lv);
+               case 6:
+                  return new Unit(nation,"dual",sub_lv);
+               case 7:
+                  return new Unit(nation,"2H_sword",sub_lv);
+            }
+            break;
+         case "Ara":
+            switch(sub_lv)
+            {
+               case 0:
+                  return new Unit(nation,"dual",sub_lv);
+               case 1:
+                  return new Unit(nation,"2H_sword",sub_lv);
+               case 2:
+                  return new Unit(nation,"dual",sub_lv);
+               case 3:
+                  return new Unit(nation,"katar",sub_lv);
+               case 4:
+                  return new Unit(nation,"katar",sub_lv);
+               case 5:
+                  return new Unit(nation,"2H_sword",sub_lv);
+               case 6:
+                  return new Unit(nation,"katar",sub_lv);
+               case 7:
+                  return new Unit(nation,"katar",sub_lv);
+            }
+         default:
+            return;
+      }
+   }
+   static function getRangedMilitia(nation, sub_lv)
+   {
+      if(!sub_lv)
+      {
+         sub_lv = 0;
+      }
+      if(sub_lv < 0 || sub_lv > 7)
+      {
+         trace("Inacceptable militia level:" + sub_lv);
+      }
+      switch(nation)
+      {
+         case "Viz":
+            switch(sub_lv)
+            {
+               case 0:
+                  return new Unit(nation,"bow",sub_lv);
+               case 1:
+                  return new Unit(nation,"crossbow",sub_lv - 1);
+               case 2:
+                  return new Unit(nation,"bow",sub_lv);
+               case 3:
+                  return new Unit(nation,"crossbow",sub_lv - 1);
+               case 4:
+                  return new Unit(nation,"bow",sub_lv);
+               case 5:
+                  return new Unit(nation,"crossbow",sub_lv - 1);
+               case 6:
+                  return new Unit(nation,"throwing",0);
+               case 7:
+                  return new Unit(nation,"throwing",2);
+            }
+            break;
+         case "Ger":
+            switch(sub_lv)
+            {
+               case 0:
+                  return new Unit(nation,"bow",sub_lv + 1);
+               case 1:
+                  return new Unit(nation,"throwing",sub_lv);
+               case 2:
+                  return new Unit(nation,"crossbow",sub_lv);
+               case 3:
+                  return new Unit(nation,"bow",sub_lv);
+               case 4:
+                  return new Unit(nation,"crossbow",sub_lv);
+               case 5:
+                  return new Unit(nation,"throwing",sub_lv);
+               case 6:
+                  return new Unit(nation,"crossbow",sub_lv);
+               case 7:
+                  return new Unit(nation,"crossbow",sub_lv - 1);
+            }
+            break;
+         case "Rus":
+            switch(sub_lv)
+            {
+               case 0:
+                  return new Unit(nation,"crossbow",sub_lv + 1);
+               case 1:
+                  return new Unit(nation,"crossbow",sub_lv);
+               case 2:
+                  return new Unit(nation,"bow",sub_lv);
+               case 3:
+                  return new Unit(nation,"throwing",sub_lv);
+               case 4:
+                  return new Unit(nation,"bow",sub_lv);
+               case 5:
+                  return new Unit(nation,"throwing",sub_lv);
+               case 6:
+                  return new Unit(nation,"bow",sub_lv);
+               case 7:
+                  return new Unit(nation,"bow",sub_lv - 1);
+            }
+            break;
+         case "Jap":
+            switch(sub_lv)
+            {
+               case 0:
+                  return new Unit(nation,"throwing",sub_lv + 1);
+               case 1:
+                  return new Unit(nation,"bow",sub_lv);
+               case 2:
+                  return new Unit(nation,"bow",sub_lv);
+               case 3:
+                  return new Unit(nation,"bow",sub_lv);
+               case 4:
+                  return new Unit(nation,"throwing",sub_lv);
+               case 5:
+                  return new Unit(nation,"bow",sub_lv);
+               case 6:
+                  return new Unit(nation,"throwing",sub_lv);
+               case 7:
+                  return new Unit(nation,"throwing",sub_lv);
+            }
+            break;
+         case "Mon":
+            switch(sub_lv)
+            {
+               case 0:
+                  return new Unit(nation,"bow",sub_lv);
+               case 1:
+                  return new Unit(nation,"bow",sub_lv - 1);
+               case 2:
+                  return new Unit(nation,"bow",sub_lv);
+               case 3:
+                  return new Unit(nation,"bow",sub_lv - 1);
+               case 4:
+                  return new Unit(nation,"bow",sub_lv);
+               case 5:
+                  return new Unit(nation,"bow",sub_lv - 1);
+               case 6:
+                  return new Unit(nation,"bow",sub_lv);
+               case 7:
+                  return new Unit(nation,"bow",sub_lv - 1);
+            }
+            break;
+         case "Ara":
+            switch(sub_lv)
+            {
+               case 0:
+                  return new Unit(nation,"crossbow",sub_lv);
+               case 1:
+                  return new Unit(nation,"crossbow",sub_lv - 1);
+               case 2:
+                  return new Unit(nation,"crossbow",sub_lv);
+               case 3:
+                  return new Unit(nation,"crossbow",sub_lv - 1);
+               case 4:
+                  return new Unit(nation,"crossbow",sub_lv);
+               case 5:
+                  return new Unit(nation,"crossbow",sub_lv - 1);
+               case 6:
+                  return new Unit(nation,"crossbow",sub_lv);
+               case 7:
+                  return new Unit(nation,"crossbow",sub_lv - 1);
+            }
+         default:
+            return;
+      }
+   }
+}

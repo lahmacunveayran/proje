@@ -1,0 +1,567 @@
+{
+ "oyun": "f2",
+ "kukla_sprite": 1038,
+ "govde_sprite": 1034,
+ "parca_sayisi": 12,
+ "bas_yuksekligi_px": 28.12,
+ "cizim_sirasi": [
+  "hand_r",
+  "weapR",
+  "arm_r",
+  "legR",
+  "footR",
+  "legL",
+  "footL",
+  "body",
+  "head",
+  "weapL",
+  "hand_l",
+  "arm_l"
+ ],
+ "parcalar": [
+  {
+   "ad": "hand_r",
+   "ad_tr": "ust_kol_arka",
+   "derinlik": 1,
+   "sprite": 562,
+   "kare_sayisi": 12,
+   "eklem_bas": [
+    -0.34,
+    -1.38
+   ],
+   "aci": 26.9,
+   "yerel_kutu_bas": [
+    -0.359,
+    -0.199,
+    0.232,
+    1.326
+   ]
+  },
+  {
+   "ad": "weapR",
+   "ad_tr": "silah_arka",
+   "derinlik": 4,
+   "sprite": 849,
+   "kare_sayisi": 287,
+   "eklem_bas": [
+    -1.662,
+    -0.439
+   ],
+   "aci": 10.0,
+   "yerel_kutu_bas": [
+    -0.979,
+    -1.791,
+    0.99,
+    1.774
+   ]
+  },
+  {
+   "ad": "arm_r",
+   "ad_tr": "on_kol_arka",
+   "derinlik": 7,
+   "sprite": 903,
+   "kare_sayisi": 12,
+   "eklem_bas": [
+    -1.012,
+    -0.306
+   ],
+   "aci": 111.0,
+   "yerel_kutu_bas": [
+    -0.179,
+    -0.18,
+    0.225,
+    1.442
+   ]
+  },
+  {
+   "ad": "legR",
+   "ad_tr": "uyluk_arka",
+   "derinlik": 10,
+   "sprite": 914,
+   "kare_sayisi": 12,
+   "eklem_bas": [
+    -0.19,
+    0.037
+   ],
+   "aci": 37.3,
+   "yerel_kutu_bas": [
+    -0.329,
+    -0.279,
+    0.382,
+    1.534
+   ]
+  },
+  {
+   "ad": "footR",
+   "ad_tr": "baldir_arka",
+   "derinlik": 12,
+   "sprite": 927,
+   "kare_sayisi": 12,
+   "eklem_bas": [
+    -1.04,
+    1.284
+   ],
+   "aci": 8.1,
+   "yerel_kutu_bas": [
+    -0.162,
+    -0.221,
+    0.732,
+    1.917
+   ]
+  },
+  {
+   "ad": "legL",
+   "ad_tr": "uyluk_on",
+   "derinlik": 14,
+   "sprite": 914,
+   "kare_sayisi": 12,
+   "eklem_bas": [
+    0.0,
+    0.0
+   ],
+   "aci": -8.5,
+   "yerel_kutu_bas": [
+    -0.329,
+    -0.274,
+    0.382,
+    1.535
+   ]
+  },
+  {
+   "ad": "footL",
+   "ad_tr": "baldir_on",
+   "derinlik": 16,
+   "sprite": 927,
+   "kare_sayisi": 12,
+   "eklem_bas": [
+    0.304,
+    1.476
+   ],
+   "aci": -29.1,
+   "yerel_kutu_bas": [
+    -0.162,
+    -0.222,
+    0.731,
+    1.925
+   ]
+  },
+  {
+   "ad": "body",
+   "ad_tr": "govde",
+   "derinlik": 18,
+   "sprite": 989,
+   "kare_sayisi": 12,
+   "eklem_bas": [
+    -0.018,
+    -0.005
+   ],
+   "aci": -5.1,
+   "yerel_kutu_bas": [
+    -0.601,
+    -1.955,
+    0.524,
+    0.539
+   ]
+  },
+  {
+   "ad": "head",
+   "ad_tr": "bas",
+   "derinlik": 45,
+   "sprite": 432,
+   "kare_sayisi": 12,
+   "eklem_bas": [
+    -0.023,
+    -1.941
+   ],
+   "aci": 0.0,
+   "yerel_kutu_bas": [
+    -0.55,
+    -0.709,
+    0.33,
+    0.291
+   ]
+  },
+  {
+   "ad": "weapL",
+   "ad_tr": "silah_on",
+   "derinlik": 51,
+   "sprite": 849,
+   "kare_sayisi": 287,
+   "eklem_bas": [
+    -0.757,
+    0.236
+   ],
+   "aci": -33.3,
+   "yerel_kutu_bas": [
+    -0.216,
+    -2.159,
+    0.206,
+    0.312
+   ]
+  },
+  {
+   "ad": "hand_l",
+   "ad_tr": "ust_kol_on",
+   "derinlik": 54,
+   "sprite": 562,
+   "kare_sayisi": 12,
+   "eklem_bas": [
+    0.272,
+    -1.513
+   ],
+   "aci": -6.2,
+   "yerel_kutu_bas": [
+    -0.36,
+    -0.199,
+    0.231,
+    1.33
+   ]
+  },
+  {
+   "ad": "arm_l",
+   "ad_tr": "on_kol_on",
+   "derinlik": 57,
+   "sprite": 903,
+   "kare_sayisi": 12,
+   "eklem_bas": [
+    0.297,
+    -0.265
+   ],
+   "aci": 73.9,
+   "yerel_kutu_bas": [
+    -0.179,
+    -0.18,
+    0.225,
+    1.442
+   ]
+  }
+ ],
+ "toplam_kare": 2505,
+ "animasyonlar": [
+  {
+   "ad": "shield",
+   "ilk_kare": 1,
+   "kare_sayisi": 30
+  },
+  {
+   "ad": "shield_1",
+   "ilk_kare": 31,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "shield_2",
+   "ilk_kare": 71,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "shield_3",
+   "ilk_kare": 111,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "2H_sword",
+   "ilk_kare": 151,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "2H_sword_1",
+   "ilk_kare": 191,
+   "kare_sayisi": 50
+  },
+  {
+   "ad": "2H_sword_2",
+   "ilk_kare": 241,
+   "kare_sayisi": 50
+  },
+  {
+   "ad": "2H_sword_3",
+   "ilk_kare": 291,
+   "kare_sayisi": 50
+  },
+  {
+   "ad": "2H_axe",
+   "ilk_kare": 341,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "2H_axe_1",
+   "ilk_kare": 381,
+   "kare_sayisi": 50
+  },
+  {
+   "ad": "2H_axe_2",
+   "ilk_kare": 431,
+   "kare_sayisi": 50
+  },
+  {
+   "ad": "2H_axe_3",
+   "ilk_kare": 481,
+   "kare_sayisi": 50
+  },
+  {
+   "ad": "dual",
+   "ilk_kare": 531,
+   "kare_sayisi": 31
+  },
+  {
+   "ad": "dual_1",
+   "ilk_kare": 562,
+   "kare_sayisi": 39
+  },
+  {
+   "ad": "dual_2",
+   "ilk_kare": 601,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "dual_3",
+   "ilk_kare": 641,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "katar",
+   "ilk_kare": 681,
+   "kare_sayisi": 30
+  },
+  {
+   "ad": "katar_1",
+   "ilk_kare": 711,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "katar_2",
+   "ilk_kare": 751,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "katar_3",
+   "ilk_kare": 791,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "spear",
+   "ilk_kare": 831,
+   "kare_sayisi": 30
+  },
+  {
+   "ad": "spear_1",
+   "ilk_kare": 861,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "spear_2",
+   "ilk_kare": 901,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "spear_3",
+   "ilk_kare": 941,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "bow",
+   "ilk_kare": 981,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "bow_1",
+   "ilk_kare": 1021,
+   "kare_sayisi": 50
+  },
+  {
+   "ad": "bow_2",
+   "ilk_kare": 1071,
+   "kare_sayisi": 50
+  },
+  {
+   "ad": "bow_3",
+   "ilk_kare": 1121,
+   "kare_sayisi": 50
+  },
+  {
+   "ad": "crossbow",
+   "ilk_kare": 1171,
+   "kare_sayisi": 60
+  },
+  {
+   "ad": "crossbow_1",
+   "ilk_kare": 1231,
+   "kare_sayisi": 70
+  },
+  {
+   "ad": "crossbow_2",
+   "ilk_kare": 1301,
+   "kare_sayisi": 70
+  },
+  {
+   "ad": "crossbow_3",
+   "ilk_kare": 1371,
+   "kare_sayisi": 70
+  },
+  {
+   "ad": "dagger",
+   "ilk_kare": 1441,
+   "kare_sayisi": 20
+  },
+  {
+   "ad": "dagger_1",
+   "ilk_kare": 1461,
+   "kare_sayisi": 30
+  },
+  {
+   "ad": "dagger_2",
+   "ilk_kare": 1491,
+   "kare_sayisi": 30
+  },
+  {
+   "ad": "dagger_3",
+   "ilk_kare": 1521,
+   "kare_sayisi": 30
+  },
+  {
+   "ad": "katana",
+   "ilk_kare": 1551,
+   "kare_sayisi": 25
+  },
+  {
+   "ad": "katana_1",
+   "ilk_kare": 1576,
+   "kare_sayisi": 35
+  },
+  {
+   "ad": "katana_2",
+   "ilk_kare": 1611,
+   "kare_sayisi": 35
+  },
+  {
+   "ad": "katana_3",
+   "ilk_kare": 1646,
+   "kare_sayisi": 35
+  },
+  {
+   "ad": "staff",
+   "ilk_kare": 1681,
+   "kare_sayisi": 35
+  },
+  {
+   "ad": "staff_1",
+   "ilk_kare": 1716,
+   "kare_sayisi": 45
+  },
+  {
+   "ad": "staff_2",
+   "ilk_kare": 1761,
+   "kare_sayisi": 45
+  },
+  {
+   "ad": "staff_3",
+   "ilk_kare": 1806,
+   "kare_sayisi": 45
+  },
+  {
+   "ad": "fists",
+   "ilk_kare": 1851,
+   "kare_sayisi": 35
+  },
+  {
+   "ad": "throwing",
+   "ilk_kare": 1886,
+   "kare_sayisi": 30
+  },
+  {
+   "ad": "throwing_1",
+   "ilk_kare": 1916,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "throwing_2",
+   "ilk_kare": 1956,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "throwing_3",
+   "ilk_kare": 1996,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "bow_on",
+   "ilk_kare": 2036,
+   "kare_sayisi": 20
+  },
+  {
+   "ad": "bow_off",
+   "ilk_kare": 2056,
+   "kare_sayisi": 20
+  },
+  {
+   "ad": "crossbow_on",
+   "ilk_kare": 2076,
+   "kare_sayisi": 20
+  },
+  {
+   "ad": "crossbow_off",
+   "ilk_kare": 2096,
+   "kare_sayisi": 20
+  },
+  {
+   "ad": "run_shield",
+   "ilk_kare": 2116,
+   "kare_sayisi": 30
+  },
+  {
+   "ad": "run_2H_sword",
+   "ilk_kare": 2146,
+   "kare_sayisi": 30
+  },
+  {
+   "ad": "run_2H_axe",
+   "ilk_kare": 2176,
+   "kare_sayisi": 30
+  },
+  {
+   "ad": "run_dual",
+   "ilk_kare": 2206,
+   "kare_sayisi": 30
+  },
+  {
+   "ad": "run_katar",
+   "ilk_kare": 2236,
+   "kare_sayisi": 30
+  },
+  {
+   "ad": "run_bow",
+   "ilk_kare": 2266,
+   "kare_sayisi": 30
+  },
+  {
+   "ad": "run_crossbow",
+   "ilk_kare": 2296,
+   "kare_sayisi": 30
+  },
+  {
+   "ad": "run_throwing",
+   "ilk_kare": 2326,
+   "kare_sayisi": 30
+  },
+  {
+   "ad": "run_katana",
+   "ilk_kare": 2356,
+   "kare_sayisi": 30
+  },
+  {
+   "ad": "die_ranged",
+   "ilk_kare": 2386,
+   "kare_sayisi": 40
+  },
+  {
+   "ad": "die_twohanded",
+   "ilk_kare": 2426,
+   "kare_sayisi": 50
+  },
+  {
+   "ad": "die_onehanded",
+   "ilk_kare": 2476,
+   "kare_sayisi": 30
+  }
+ ]
+}

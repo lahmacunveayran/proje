@@ -8,12 +8,12 @@ sonra derinleştirilir.
 
 Amaç: motorun iskeleti ve otomatik Windows sürümü.
 
-- [ ] Pencere, sabit adımlı oyun döngüsü (saniyede 60 benzetim adımı), girdi
-- [ ] Vektör çizim: renkli şekiller, konturlar, kenar yumuşatma, 1920×1080 mantıksal ekran
-- [ ] SVG dosyasından çizim
-- [ ] Yazı çizimi (Türkçe harflerin hepsiyle)
-- [ ] Ekransız görüntü testi (sahne → resim dosyası)
-- [ ] Her güncellemede Windows `.exe` derlemesi ve sabit indirme linki
+- [x] Pencere, sabit adımlı oyun döngüsü (saniyede 60 benzetim adımı), girdi
+- [x] Vektör çizim: renkli şekiller, konturlar, kenar yumuşatma, 1920×1080 mantıksal ekran
+- [x] SVG dosyasından çizim
+- [x] Yazı çizimi (Türkçe harflerin hepsiyle)
+- [x] Ekransız görüntü testi (sahne → resim dosyası)
+- [x] Her güncellemede Windows `.exe` derlemesi ve sabit indirme linki
 
 ## Aşama 1 — Savaş dilimi
 

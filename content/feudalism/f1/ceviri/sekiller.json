@@ -1,0 +1,4 @@
+{
+  "_aciklama": "Resim olarak çizilmiş yazılar. Anahtar: çizimin kimlik numarası. Çizimin son renkle çizilen yazı bölümü silinip yerine 'metin', 'yazitipi' ile 'boyut' piksel büyüklüğünde, taban çizgisi 'taban' yüksekliğinde ve 'orta_x' noktasına ortalanarak çizilir.",
+  "2019": { "metin": "Öldün...", "yazitipi": "araclar/yazitipleri/texgyrepagella-bold.otf", "boyut": 58, "taban": 83, "orta_x": 292 }
+}

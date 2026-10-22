@@ -1,0 +1,188 @@
+# Oyunun renk paleti. Her satır: ad renk
+#
+# Bütün renkler esin kaynağı oyunların vektör dosyalarından ve ekran görüntülerinden ölçülerek
+# alındı (bkz. docs/SANAT.md, "Palet"). Çizimlerde YALNIZCA bu renkler kullanılır.
+# Denetim: `cargo test -p game --test art_rules` ve `python3 tools/art/palet_denetle.py <svg...>`.
+
+# Ten
+ten                     #FFCC99
+ten-gölge               #F3B58C
+ten-derin               #C69271
+ten-açık                #FED8B4
+ten-buğday              #F3C98B
+ten-pembe               #F5C4A3
+ten-sarı                #F4D0A0
+ten-sarı-gölge          #F2BE8C
+dudak                   #CC3300
+dudak-açık              #EF9C65
+dudak-pembe             #F1A674
+ağız-koyu               #881111
+ağız                    #660000
+
+# Saç ve sakal
+saç-siyah               #000000
+saç-siyah-ışık          #333333
+saç-sarı                #FEFDBC
+saç-sarı-gölge          #FEDE5F
+saç-kızıl               #CC3300
+saç-kızıl-gölge         #A73403
+saç-ak                  #E6E6E6
+saç-ak-gölge            #CCCCCC
+
+# Kırmızı kumaş
+kırmızı-parlak          #FF0000
+kırmızı                 #CC0000
+kırmızı-koyu            #990000
+kırmızı-degrade-açık    #BA0101
+kırmızı-degrade-koyu    #871212
+kırmızı-gölge           #57150F
+kırmızı-soluk           #B92E2E
+
+# Beyaz, gri, siyah kumaş
+beyaz                   #FFFFFF
+beyaz-gölge             #E6E6E6
+gri-açık                #CCCCCC
+gri                     #999999
+gri-koyu                #666666
+kömür-açık              #4D4D4D
+kömür                   #333333
+kömür-koyu              #222222
+siyah-ışık              #1A1A1A
+siyah                   #000000
+
+# Yeşil ve zeytin kumaş
+yeşil-parlak            #00CC00
+yeşil                   #009900
+yeşil-soluk             #669966
+yeşil-soluk-gölge       #558055
+zeytin                  #77773C
+zeytin-koyu             #5A5A2E
+zeytin-derin            #505027
+zeytin-sarı             #E0CB16
+zeytin-açık             #B2B27D
+zeytin-gri              #9C8D52
+zeytin-sarı-gölge       #C2B012
+
+# Çelik ve demir
+çelik-parlak            #D0D5D9
+çelik-lavanta           #CCCCE6
+çelik-açık              #B2B2B2
+çelik-mavi              #A1A8AB
+çelik-gölge             #778A9A
+çelik-koyu              #646579
+çelik-derin             #353642
+
+# Mavi
+mavi                    #003399
+mavi-koyu               #003366
+mavi-derin              #000099
+mavi-soluk              #395593
+mavi-açık               #89ADFE
+lacivert-zemin          #253C56
+
+# Altın ve sarı
+altın                   #FFCC00
+altın-açık              #FEDE5F
+altın-parlama           #FEEDAB
+altın-gölge             #C6A04A
+altın-koyu              #A88535
+altın-derin             #745425
+altın-çerçeve           #D5B32B
+turuncu                 #FF9900
+altın-sarı              #F3C81D
+altın-hardal            #D6AC07
+altın-çizme             #D0A706
+
+# Kahve, deri, ahşap
+deri-açık               #996633
+deri                    #795128
+deri-gölge              #6C4824
+kahve                   #664422
+kahve-gölge             #604020
+kahve-koyu              #4D331A
+kahve-derin             #392613
+kahve-siyah             #2D1E0F
+ahşap-degrade-koyu      #57390F
+ahşap-degrade-açık      #A06A1B
+çizme-degrade-koyu      #321E01
+çizme-degrade-açık      #985B01
+sap                     #996600
+sap-koyu                #4A2C01
+
+# Gök (gündüz ve gece)
+gök-tepe                #00359B
+gök                     #0045AB
+gök-ufuk                #0057BD
+gece-tepe               #001122
+gece                    #0D1D2D
+gece-ufuk               #35567B
+ay-ışığı                #C3CDD8
+ay                      #EBEEF2
+
+# Yaprak, çimen
+yaprak-parlak           #39DE10
+yaprak-açık             #68B968
+yaprak                  #4DA94D
+yaprak-canlı            #009900
+yaprak-koyu             #14510D
+yaprak-derin            #0D3309
+çam-koyu                #003300
+çam                     #006600
+çam-açık                #336633
+çam-ışık                #339900
+çimen-açık              #AFD3AB
+çimen-soluk             #85BC7E
+çimen-gri               #99BB9F
+gövde-kızıl             #651F01
+gövde-koyu              #3B3831
+gövde-gri               #5B5346
+
+# Zemin ve kuru ot
+zemin-açık              #538548
+zemin                   #4C8F40
+zemin-koyu              #307439
+zemin-derin             #417336
+kuru-ot                 #9DA139
+kuru-ot-koyu            #9B8528
+toprak                  #A08639
+toprak-koyu             #867A23
+
+# Su ve harita
+deniz-koyu              #003366
+deniz                   #01597E
+deniz-açık              #0B828E
+kara-koyu               #1C8233
+kara                    #339933
+kara-açık               #62AF23
+kara-sarı               #82B013
+kıyı                    #C4C41A
+kıyı-koyu               #B5B517
+
+# Taş ve yapı
+taş-gri                 #5E5E5E
+taş-yeşil               #4D7574
+badana                  #FFFFCC
+badana-sarı             #EBDF78
+badana-açık             #F1ECC0
+kiremit                 #831F1F
+kiremit-koyu            #691E18
+
+# Arayüz: parşömen, çerçeve, düğme
+parşömen-koyu           #AD936B
+parşömen                #CCBF91
+parşömen-açık           #EBE1D8
+parşömen-kenar          #8F7145
+parşömen-mürekkep       #453621
+parşömen-derin          #221B11
+parşömen-kart           #BCA97E
+parşömen-rulo           #4D3F2B
+altın-rakam             #E1CC7A
+altın-ışıltı            #FFCC33
+yuva-gri                #5F5F5F
+yuva-siyah              #050505
+düğme-kırmızı-odak      #CF5A5A
+düğme-kırmızı-koyu      #A20000
+panel-yeşil-koyu        #042607
+panel-yeşil             #446130
+panel-yeşil-açık        #54773C
+panel-yeşil-derin       #07450D

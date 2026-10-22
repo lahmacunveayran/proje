@@ -1,0 +1,15 @@
+delete _global.MAIN_HERO;
+_global.GOLD = 20000;
+_global.SHIP_LOCATION = "none";
+_global.GAME_ENDED = false;
+_global.IS_HOSTILE = new Array();
+_global.IS_HOSTILE.Viz = false;
+_global.IS_HOSTILE.Ger = false;
+_global.IS_HOSTILE.Rus = false;
+_global.IS_HOSTILE.Jap = false;
+_global.IS_HOSTILE.Mon = false;
+_global.IS_HOSTILE.Ara = false;
+_global.POTION_HealSmall = 10;
+_global.POTION_HealMedium = 3;
+_global.BATTLE_TUTORIAL_PLAYED = false;
+choose_mark._visible = false;

@@ -1,0 +1,16 @@
+{
+ "aciklama": "Kahraman yüzlerinin ölçüleri. Birim: baş yüksekliği (baş tepesi–çene, olcum/isaretler.json). Yüz öğeleri SVG'deki küçük dolgulardan (renk ve kutu) elle ayırt edildi; y tepeden ölçülür, en yataydır. Çift göz ve çift iris çoğu çizimde tek yolda olduğundan 'aciklik' iki gözün birlikte kapladığı endir. Boş alan: o öğe o figürde ayrı bir şekil değil ya da başlıkla örtülü.",
+ "figurler": {
+  "f1/1104": {"goz_aki": {"y": [0.50, 0.56], "aciklik": 0.49}, "iris": {"renk": "#562410", "aciklik": 0.39}, "agiz": {"renk": "#660000", "en": 0.20, "y": [0.81, 0.94]}},
+  "f1/1106": {"goz_aki": {"y": [0.55, 0.60], "aciklik": 0.45}, "burun": {"renk": "#FEC289", "boy": 0.20, "en": 0.09}},
+  "f1/1108": {"kas": {"renk": "#FFE87C", "kalinlik": 0.10}, "iris": {"renk": "#01498F", "aciklik": 0.38}, "burun": {"renk": "#FEC792", "boy": 0.33, "en": 0.15}, "agiz": {"renk": "#FD9935", "en": 0.23, "y": [0.84, 0.93]}},
+  "f1/1110": {"kas": {"renk": "#C4C4C4", "kalinlik": 0.11}, "iris": {"renk": "#01498F", "aciklik": 0.31}, "burun": {"renk": "#F3B58C", "boy": 0.32, "en": 0.17}, "agiz": {"renk": "#660000", "en": 0.24, "y": [0.71, 0.82]}},
+  "f1/1112": {"burun": {"renk": "#F2BE8C", "boy": 0.23, "en": 0.14}, "agiz": {"renk": "#EF9C65", "en": 0.28, "y": [0.84, 0.94]}},
+  "f1/1114": {"goz_aki": {"y": [0.59, 0.64], "aciklik": 0.49}, "kas": {"renk": "#A92201", "kalinlik": 0.09}, "iris": {"renk": "#651F01", "aciklik": 0.40}, "agiz": {"renk": "#E86A17", "en": 0.22, "y": [0.87, 1.00]}},
+  "f1/1116": {"goz_aki": {"y": [0.55, 0.60], "aciklik": 0.45}, "agiz": {"renk": "#EA792F", "en": 0.25, "y": [0.86, 0.97]}},
+  "f1/1118": {"burun": {"renk": "#F2C27B", "boy": 0.14, "en": 0.07}},
+  "f2/2005": {"iris": {"renk": "#000000", "aciklik": 0.33}, "burun": {"renk": "#EDCCAB", "boy": 0.25, "en": 0.09}, "agiz": {"renk": "#EA792F", "en": 0.11, "y": [0.81, 0.89]}},
+  "f2/2007": {"goz_aki": {"y": [0.55, 0.60], "aciklik": 0.47}, "kas": {"renk": "#4D3C2B", "kalinlik": 0.06}, "burun": {"renk": "#FEC792", "boy": 0.19, "en": 0.07}, "agiz": {"renk": "#FDBA79", "en": 0.13, "y": [0.82, 0.90]}},
+  "f2/2011": {"kas": {"renk": "#2B2B2B", "kalinlik": 0.12}, "iris": {"renk": "#000000", "aciklik": 0.42}, "burun": {"renk": "#FEC792", "boy": 0.31}, "agiz": {"renk": "#EA792F", "en": 0.21, "y": [0.92, 1.03]}}
+ }
+}

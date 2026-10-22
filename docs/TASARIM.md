@@ -160,7 +160,8 @@ Yeni olanlar:
 
 ## Görsel tarz
 
-- **Karar:** Flash döneminin el çizimi vektör tarzı: belirgin kontur, sıcak toprak renkleri, canlı gök.
+- **Karar:** Flash döneminin el çizimi vektör tarzı: kontursuz, belirgin şekiller, sıcak toprak renkleri,
+  canlı gök; karakterlerde ince ve koyu renkli bir dış hat. Ayrıntılar: [SANAT.md](SANAT.md).
   Seriden esinlenilir, bütün çizimler özgündür.
 - Görseller vektör olarak saklanır ve çizilir: her çözünürlükte (4K dahil) keskindir.
 - Karakterler parçalı kukla olarak canlandırılır (gövde, kollar, baş, silah ayrı parçalar; kemiklerle

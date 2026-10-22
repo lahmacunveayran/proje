@@ -1,0 +1,8 @@
+on(release){
+   if(_global.MAIN_HERO.free_points >= 1)
+   {
+      _global.MAIN_HERO.SKILL.Patriotism = _global.MAIN_HERO.SKILL.Patriotism + 1;
+      _global.MAIN_HERO.free_points--;
+      _parent.inventoryShowStats();
+   }
+}

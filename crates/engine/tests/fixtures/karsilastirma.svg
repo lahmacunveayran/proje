@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="150" viewBox="0 0 200 150">
+  <!-- SVG okuyucuyu ve çiziciyi bağımsız bir çiziciyle karşılaştırmak için deneme çizimi. -->
+  <defs>
+    <linearGradient id="gok" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1E4FA6"/>
+      <stop offset="1" stop-color="#9FCBEA"/>
+    </linearGradient>
+    <radialGradient id="gunes" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFE9A0"/>
+      <stop offset="1" stop-color="#FFE9A0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="odak" cx="60" cy="110" r="30" fx="50" fy="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F2CFA8"/>
+      <stop offset="1" stop-color="#915F38"/>
+    </radialGradient>
+    <linearGradient id="kol" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="20" y2="0" gradientTransform="rotate(30)">
+      <stop offset="0" stop-color="#DCE2E8"/>
+      <stop offset="0.4" stop-color="#9AA4AE"/>
+      <stop offset="1" stop-color="#5C646C"/>
+    </linearGradient>
+  </defs>
+  <rect width="200" height="150" fill="url(#gok)"/>
+  <circle cx="150" cy="35" r="28" fill="url(#gunes)"/>
+  <circle cx="150" cy="35" r="10" fill="#FFF6D2"/>
+  <path d="M0 150 L0 95 Q50 70 100 92 T200 85 L200 150 Z" fill="#5E9A3A"/>
+  <path d="M0 150 L0 115 C40 100 80 125 120 110 S180 100 200 112 L200 150 Z" fill="#3B6E2C" opacity="0.9"/>
+  <circle cx="60" cy="110" r="30" fill="url(#odak)" stroke="#5E3B22" stroke-width="3"/>
+  <g transform="translate(130 90) rotate(-20)">
+    <rect x="0" y="0" width="50" height="14" rx="4" fill="url(#kol)"/>
+    <path d="M5 30 L25 22 L45 30" fill="none" stroke="#2E2116" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M5 45 L25 37 L45 45" fill="none" stroke="#A3241A" stroke-width="4" stroke-linejoin="miter" stroke-linecap="square"/>
+  </g>
+  <path fill-rule="evenodd" fill="#E8B22C" d="M20 20 h40 v40 h-40 Z M30 30 v20 h20 v-20 Z"/>
+  <g opacity="0.6">
+    <ellipse cx="100" cy="40" rx="25" ry="10" fill="#FFFFFF"/>
+  </g>
+</svg>
