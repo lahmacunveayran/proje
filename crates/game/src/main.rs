@@ -8,9 +8,8 @@ use std::process::ExitCode;
 use engine::app::{AppConfig, run};
 use engine::glam::UVec2;
 use engine::render::Renderer;
-use engine::viewport::LOGICAL_SIZE;
 use game::args::{Args, HELP};
-use game::demo::DemoScene;
+use game::menu::MenuScreen;
 use game::texts::Texts;
 
 fn main() -> ExitCode {
@@ -45,26 +44,24 @@ fn start() -> Result<(), Box<dyn Error>> {
     log::info!("sürüm {}", env!("CARGO_PKG_VERSION"));
 
     if let Some(path) = &args.screenshot {
-        let size = args.size.unwrap_or(UVec2::new(1920, 1080));
+        let size = args.size.unwrap_or(UVec2::new(1600, 1200));
         let mut renderer = Renderer::headless()?;
-        let mut scene = DemoScene::new(&mut renderer, &assets)?;
-        let image = game::demo::render_frame(&mut scene, &mut renderer, size)?;
+        let mut screen = MenuScreen::new(&assets)?;
+        let image = game::menu::render_frame(&mut screen, &mut renderer, size)?;
         image.save_png(path)?;
         log::info!("resim yazıldı: {}", path.display());
         return Ok(());
     }
 
     let texts = Texts::load(&assets, "tr")?;
+    let screen = MenuScreen::new(&assets)?;
     let config = AppConfig {
         title: texts.get("window_title").to_string(),
-        logical_size: LOGICAL_SIZE,
-        window_size: UVec2::new(1600, 900),
+        logical_size: screen.stage_size(),
+        window_size: UVec2::new(1200, 900),
         ticks_per_second: sim::TICKS_PER_SECOND,
         fullscreen: args.fullscreen,
     };
-    run(
-        config,
-        Box::new(move |renderer: &mut Renderer| DemoScene::new(renderer, &assets)),
-    )?;
+    run(config, Box::new(move |_: &mut Renderer| Ok(screen)))?;
     Ok(())
 }

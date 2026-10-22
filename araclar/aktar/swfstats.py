@@ -1,6 +1,6 @@
 """SWF şekil (DefineShape) çözümleyici: dolgu, çizgi, degrade ve kenar istatistikleri.
 
-Kullanım: python3 araclar/olcum/swfstats.py <oyun.swf> <çıktı.json>
+Kullanım: python3 araclar/aktar/swfstats.py <oyun.swf> <çıktı.json>
 """
 import sys, zlib, struct, json, math, colorsys
 from collections import Counter, defaultdict

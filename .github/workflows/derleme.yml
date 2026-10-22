@@ -37,9 +37,8 @@ jobs:
         run: cargo clippy --workspace --all-targets -- -D warnings
       - name: Testler
         run: cargo test --workspace
-      - name: Ölçüm ve aktarım araçlarının testleri
+      - name: Aktarım araçlarının testleri
         run: |
-          python3 -m unittest discover -s araclar/olcum -p 'test_*.py'
           python3 -m unittest discover -s araclar/aktar -p 'test_*.py'
       - name: Görüntü testlerinin çıktıları
         if: always()

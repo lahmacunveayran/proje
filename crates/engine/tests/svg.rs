@@ -1,18 +1,22 @@
-//! SVG okuyucunun ve çizicinin, bağımsız bir SVG çiziciyle (resvg) karşılaştırılması.
+//! SVG okuyucunun ve çizicinin, bağımsız bir SVG çiziciyle (resvg) karşılaştırılması (Feudalism'in
+//! degradeli ve çizgili şekilleriyle).
 #![allow(clippy::unwrap_used, clippy::expect_used, clippy::panic)]
 
 mod common;
 
-use common::{assert_snapshot, renderer};
+use common::renderer;
 use engine::color::Color;
-use engine::glam::{Affine2, UVec2};
+use engine::glam::Affine2;
 use engine::image::{RgbaImage, compare};
 use engine::render::DrawList;
 use engine::svg::load_svg;
 use engine::tessellate::tessellate;
 use engine::viewport::Viewport;
 
-const FIXTURE: &[u8] = include_bytes!("fixtures/karsilastirma.svg");
+const SHAPES: [&[u8]; 2] = [
+    include_bytes!("../../../content/feudalism/f1/shapes/1003.svg"),
+    include_bytes!("../../../content/feudalism/f1/shapes/1012.svg"),
+];
 
 /// resvg ile işlemcide çizer (önceden çarpılmış saydamlığı geri çevirerek).
 fn render_with_resvg(data: &[u8], scale: f32) -> RgbaImage {
@@ -42,38 +46,37 @@ fn render_with_engine(data: &[u8], scale: f32) -> RgbaImage {
     let mesh = r.upload(&tessellate(&image, 0.02).unwrap());
     let mut list = DrawList::new(Color::TRANSPARENT);
     list.draw(&mesh, Affine2::IDENTITY);
+    // resvg gibi kesirli boyu aşağı yuvarlar; mantıksal alan resme tam oturur (kenarda şerit kalmaz)
     let px = (image.size * scale).as_uvec2();
-    r.render_to_image(&Viewport::fit(image.size, UVec2::new(px.x, px.y)), &list)
+    r.render_to_image(&Viewport::fit(px.as_vec2() / scale, px), &list)
         .unwrap()
 }
 
 #[test]
 fn engine_matches_reference_renderer() {
-    for scale in [1.0, 3.0] {
-        let ours = render_with_engine(FIXTURE, scale);
-        let reference = render_with_resvg(FIXTURE, scale);
-        let diff = compare(&reference, &ours, 24).unwrap();
-        let name = format!("svg-karsilastirma-{scale}x");
-        let out = engine::snapshot::output_dir();
-        ours.save_png(&out.join(format!("{name}-motor.png")))
-            .unwrap();
-        reference
-            .save_png(&out.join(format!("{name}-resvg.png")))
-            .unwrap();
-        diff.diff_image
-            .save_png(&out.join(format!("{name}-fark.png")))
-            .unwrap();
-        // Kenar yumuşatma yöntemleri farklı (resvg analitik, motor MSAA); farklar kenarlarda kalmalı.
-        assert!(
-            diff.differing_fraction() < 0.02 && diff.mean_abs_diff < 1.5,
-            "{name}: piksellerin %{:.2}'si farklı, ortalama fark {:.2}",
-            diff.differing_fraction() * 100.0,
-            diff.mean_abs_diff
-        );
+    for (i, shape) in SHAPES.iter().enumerate() {
+        // 1× boyda ince ayrıntılı şekillerde piksellerin çoğu kenardır; karşılaştırma büyütülerek yapılır
+        for scale in [3.0, 4.0] {
+            let ours = render_with_engine(shape, scale);
+            let reference = render_with_resvg(shape, scale);
+            let diff = compare(&reference, &ours, 24).unwrap();
+            let name = format!("svg-karsilastirma-{i}-{scale}x");
+            let out = engine::snapshot::output_dir();
+            ours.save_png(&out.join(format!("{name}-motor.png")))
+                .unwrap();
+            reference
+                .save_png(&out.join(format!("{name}-resvg.png")))
+                .unwrap();
+            diff.diff_image
+                .save_png(&out.join(format!("{name}-fark.png")))
+                .unwrap();
+            // Kenar yumuşatma yöntemleri farklı (resvg analitik, motor MSAA); farklar kenarlarda kalmalı.
+            assert!(
+                diff.differing_fraction() < 0.02 && diff.mean_abs_diff < 1.5,
+                "{name}: piksellerin %{:.2}'si farklı, ortalama fark {:.2}",
+                diff.differing_fraction() * 100.0,
+                diff.mean_abs_diff
+            );
+        }
     }
-}
-
-#[test]
-fn fixture_snapshot() {
-    assert_snapshot("svg-deneme", &render_with_engine(FIXTURE, 2.0));
 }

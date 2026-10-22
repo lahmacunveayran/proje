@@ -7,13 +7,10 @@ Zaman çizelgesi SWF'deki gibi kare kare "işlem" olarak saklanır: yerleştir, 
 bunları sırayla uygulayarak her karenin görüntü listesini kurar.
 """
 import hashlib
-import os
 import struct
-import sys
 import zlib
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "olcum"))
-from swfstats import Bits, tags  # noqa: E402
+from swfstats import Bits, tags
 
 SHAPE_TAGS = {2, 22, 32, 83}
 MORPH_TAGS = {46, 84}

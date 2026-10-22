@@ -80,8 +80,9 @@ mod tests {
     fn turkish_file_has_all_keys_used_in_code() {
         let assets = crate::content::assets(None);
         let t = Texts::load(&assets, "tr").unwrap();
-        for key in crate::demo::TEXT_KEYS.iter().chain(&["window_title"]) {
-            assert!(t.contains(key), "tr.ron içinde '{key}' yok");
-        }
+        assert!(
+            t.contains("window_title"),
+            "tr.ron içinde 'window_title' yok"
+        );
     }
 }

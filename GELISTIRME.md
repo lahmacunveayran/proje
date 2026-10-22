@@ -3,7 +3,6 @@
 ## Belgeler
 
 - [docs/TASARIM.md](docs/TASARIM.md): oyunun tasarımı
-- [docs/SANAT.md](docs/SANAT.md): sanat rehberi; her yeni çizimden önce okunur
 - [docs/MOTOR.md](docs/MOTOR.md): motorun kararları ve yapısı
 - [docs/YOL_HARITASI.md](docs/YOL_HARITASI.md): aşamalar ve yapılacaklar
 - [docs/gunluk/](docs/gunluk/): geliştirme günlüğü; her çalışma gününün sonunda ne yapıldığı,
@@ -28,30 +27,17 @@ Hepsi depo kökünde çalıştırılır.
 | Lint                        | `cargo clippy --workspace --all-targets -- -D warnings`   |
 | Lisans denetimi             | `cargo deny check licenses bans sources`                  |
 | Sürüm derlemesi             | `cargo build --release -p game`                           |
-| Sahneyi resme çiz           | `cargo run -p game -- --goruntu cikti.png --boyut 3840x2160` |
+| Açılış ekranını resme çiz   | `cargo run -p game -- --goruntu cikti.png --boyut 1600x1200` |
 | Bir SVG'yi resme çiz        | `cargo run -p engine --example svg-png -- girdi.svg cikti.png 2` |
-| Örnek çizimleri yeniden üret | `python3 tools/art/ciz_birlikler.py` (ayrıca `ciz_manzara.py`, `ciz_pencere.py`) |
-| Karakter ölçülerini karşılaştır | `python3 tools/art/kukla_olc.py` (önce `araclar/olcum/cikar.sh`) |
-| Oyunları eksiksiz çıkar ve aktar | `araclar/olcum/cikar.sh` → `referans/` (git dışı yerel arşiv) ve `content/feudalism/` |
-| Referans ölçüm raporu       | `python3 araclar/olcum/olcum.py rapor` → `olcum/sonuclar.md` |
-| Bir çizimi referansla karşılaştır | `python3 araclar/olcum/olcum.py karsilastir cizim.svg kahraman iskelet.json` |
-| Pozun özgünlüğü (ve üst üste çizimi) | `python3 araclar/olcum/olcum.py ortusme iskelet.json [cizim.png]` |
-| Yan yana levha (aynı boy, %5 cetvel) | `python3 araclar/olcum/olcum.py levha cikti.png f1/1112 f1/1110 cizim.svg:iskelet.json` |
-| Feudalism içeriğini ve Türkçe çeviriyi aktar | `python3 araclar/aktar/aktar.py` → `content/feudalism/`, `content/fonts/` (önce `araclar/olcum/cikar.sh`) |
+| Oyunları eksiksiz çıkar ve aktar | `araclar/aktar/cikar.sh` → `referans/` (git dışı yerel arşiv) ve `content/feudalism/` |
+| Feudalism içeriğini ve Türkçe çeviriyi aktar | `python3 araclar/aktar/aktar.py` → `content/feudalism/`, `content/fonts/` (önce `araclar/aktar/cikar.sh`) |
 | Aktarım aracının testleri   | `python3 -m unittest discover -s araclar/aktar -p 'test_*.py'` |
 | Oyunların içerik dökümü     | `python3 araclar/aktar/envanter.py` → `docs/FEUDALISM_ICERIK.md` |
 | Ayıklama denetimi           | `python3 araclar/aktar/denetim.py --gorsel` → `docs/AYIKLAMA_DENETIMI.md` (önce `cargo build --release -p engine --example svg-batch`) |
 | Çok sayıda SVG'yi resme çiz | `cargo run --release -p engine --example svg-batch -- liste.txt` (satır: `girdi.svg<TAB>cikti.png<TAB>ölçek`) |
-| Ölçüm aracının testleri     | `python3 -m unittest discover -s araclar/olcum -p 'test_*.py'` |
-| Sanat kurallarını denetle   | `cargo test -p game --test art_rules`                     |
 | Feudalism'in bir ekranını çiz | `cargo run --release -p engine --example movie-png -- content feudalism/f1 4 menu.png` (kök filmin 4. karesi; kare yerine `sprite:1480:1` bir sprite'ı çizer; sona `800 0 orijinal` eklenirse yazılar İngilizce) |
 
-Çizimler elle değil, `tools/art/` içindeki betiklerle üretilir; betikler renkleri yalnızca
-`tools/art/palet.txt` paletinden adıyla alır. Üretilen SVG'ler `content/art/` altına yazılır ve
-commit edilir. `art_rules` testi her çizimi sanat rehberindeki kurallara göre denetler (palet,
-kontur, degrade, eğri oranı, saydamlık); kurala aykırı çizim CI'ı kırmızıya düşürür.
-
-Görüntü testleri: çizilen ve fark resimleri `target/goruntu-testleri/` altına yazılır. Bir test
+Görüntü testleri (Feudalism ekranları, `crates/game/tests/reference/`): çizilen ve fark resimleri `target/goruntu-testleri/` altına yazılır. Bir test
 "beklenen resim yok" ya da "farklı" derse önce bu resimlere bakılır; değişiklik bilerek yapıldıysa
 beklenen resimler `UPDATE_SNAPSHOTS=1` ile yenilenir ve değişiklikle birlikte commit edilir.
 

@@ -550,7 +550,6 @@ dependencies = [
  "engine",
  "log",
  "ron",
- "serde",
  "serde_json",
  "sim",
 ]

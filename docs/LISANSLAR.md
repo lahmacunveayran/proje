@@ -9,9 +9,6 @@ Kod kütüphanelerinin lisansları `cargo deny` ile denetlenir.
 | Feudalism ve Feudalism 2'nin Türkçe çevirisi: sabit yazılar, ekran kutuları, koddaki metinler, silah/zırh/birlik adları, "Öldün..." çizimi | Oyunların sahibinin `swf-oyunlar` deposu (`oyunlar/<oyun>/ceviri/`, sürüm `a679d21`, 14 Ekim 2026) | Oyunların sahibinin kendi çevirisi | `content/feudalism/<oyun>/ceviri/` (tablolar değiştirilmeden), çevrilmiş kod `kaynak/feudalism/<oyun>/kod-tr/` |
 | Liberation Sans ve Liberation Serif 2.1.5 (normal, kalın, kalın italik) | [liberationfonts](https://github.com/liberationfonts/liberation-fonts), yapımcı: Red Hat; dosyalar `swf-oyunlar/yazitipleri/` içinden | SIL Open Font License 1.1 | `content/fonts/Liberation*.ttf`, lisans: `content/fonts/OFL-Liberation.txt` |
 | TeX Gyre Pagella 2.501 (kalın, kalın italik), Bonum 2.004 (kalın, italik), Chorus 2.003, Adventor 2.501 (kalın); TeX Gyre dağıtımı 2.501 | [GUST](https://www.gust.org.pl/projects/e-foundry/tex-gyre); dosyalar `swf-oyunlar/araclar/yazitipleri/` içinden | GUST Font License (LaTeX Project Public License 1.3c) | `content/fonts/texgyre*.otf`, lisans: `content/fonts/GUST-Font-License.txt` ve `LPPL-1.3c.txt`, ailelerin dosya listesi ve tanıtımı: `MANIFEST-TeX-Gyre-<aile>.txt`, `README-TeX-Gyre-<aile>.txt` |
-| Alegreya (değişken kalınlık) | [google/fonts](https://github.com/google/fonts/tree/main/ofl/alegreya), yapımcı: Huerta Tipográfica | SIL Open Font License 1.1 | `content/fonts/Alegreya-Variable.ttf`, lisans: `content/fonts/OFL-Alegreya.txt` |
-| Alegreya SC (normal, kalın) | [google/fonts](https://github.com/google/fonts/tree/main/ofl/alegreyasc), yapımcı: Huerta Tipográfica | SIL Open Font License 1.1 | `content/fonts/AlegreyaSC-*.ttf`, lisans: `content/fonts/OFL-AlegreyaSC.txt` |
-| Alegreya Sans (normal, kalın) | [google/fonts](https://github.com/google/fonts/tree/main/ofl/alegreyasans), yapımcı: Huerta Tipográfica | SIL Open Font License 1.1 | `content/fonts/AlegreyaSans-*.ttf`, lisans: `content/fonts/OFL-AlegreyaSans.txt` |
 
 Notlar:
 
@@ -82,9 +79,3 @@ Notlar:
   - `README-TeX-Gyre-Bonum.txt`: `f52b76aff8bdedae3d3685a45b92e4cfbbf7a18e9bc3d8e9d7fea3140112a3d1`
   - `README-TeX-Gyre-Chorus.txt`: `e36730e8a5ddee2e176ddc5b0d788fc3c1c3017df47c00c87fc50ccd1087b0b6`
   - `README-TeX-Gyre-Pagella.txt`: `6fc4c72a8754f7e04ffbbec99167a568c0a3d21e231318ed624b58ddfeb1f896`
-- Alegreya yazı tipleri 14 Ekim 2026'da indirildi; SHA-256 özetleri:
-  - `Alegreya-Variable.ttf`: `ba5564634b93a8f8ba57b48cd4f1ae7417d2b4656fbac779028679b00de3cf12`
-  - `AlegreyaSC-Regular.ttf`: `5c8fba800b848b851e308dfdfdc573b64135e498db41cbd0b6d78ba9d267d9a1`
-  - `AlegreyaSC-Bold.ttf`: `3ef96cbf3be7b84d9dff9b1aa1e2ac40eec0cf323ccd0638395cdef9c5a91528`
-  - `AlegreyaSans-Regular.ttf`: `8fab634196007afca839f1e5a6fb300976daff55d8528b590ef032f01b14ea10`
-  - `AlegreyaSans-Bold.ttf`: `a3055a1893759bdbd7504bb22abc583769e7974c49353176eac0b03792c9fb8e`

@@ -468,28 +468,67 @@ mod tests {
     use crate::color::Color;
     use crate::tessellate::tessellate;
 
-    const ALEGREYA: &[u8] = include_bytes!("../../../content/fonts/Alegreya-Variable.ttf");
-    const ALEGREYA_SC: &[u8] = include_bytes!("../../../content/fonts/AlegreyaSC-Regular.ttf");
-    const ALEGREYA_SC_BOLD: &[u8] = include_bytes!("../../../content/fonts/AlegreyaSC-Bold.ttf");
-    const ALEGREYA_SANS: &[u8] = include_bytes!("../../../content/fonts/AlegreyaSans-Regular.ttf");
-    const ALEGREYA_SANS_BOLD: &[u8] =
-        include_bytes!("../../../content/fonts/AlegreyaSans-Bold.ttf");
+    /// Feudalism yazılarının açık lisanslı karşılıkları.
+    const FONTS: [(&str, &[u8]); 12] = [
+        (
+            "Liberation Sans",
+            include_bytes!("../../../content/fonts/LiberationSans-Regular.ttf"),
+        ),
+        (
+            "Liberation Sans Bold",
+            include_bytes!("../../../content/fonts/LiberationSans-Bold.ttf"),
+        ),
+        (
+            "Liberation Sans Bold Italic",
+            include_bytes!("../../../content/fonts/LiberationSans-BoldItalic.ttf"),
+        ),
+        (
+            "Liberation Serif",
+            include_bytes!("../../../content/fonts/LiberationSerif-Regular.ttf"),
+        ),
+        (
+            "Liberation Serif Bold",
+            include_bytes!("../../../content/fonts/LiberationSerif-Bold.ttf"),
+        ),
+        (
+            "Liberation Serif Bold Italic",
+            include_bytes!("../../../content/fonts/LiberationSerif-BoldItalic.ttf"),
+        ),
+        (
+            "TeX Gyre Adventor Bold",
+            include_bytes!("../../../content/fonts/texgyreadventor-bold.otf"),
+        ),
+        (
+            "TeX Gyre Bonum Bold",
+            include_bytes!("../../../content/fonts/texgyrebonum-bold.otf"),
+        ),
+        (
+            "TeX Gyre Bonum Italic",
+            include_bytes!("../../../content/fonts/texgyrebonum-italic.otf"),
+        ),
+        (
+            "TeX Gyre Chorus",
+            include_bytes!("../../../content/fonts/texgyrechorus-mediumitalic.otf"),
+        ),
+        (
+            "TeX Gyre Pagella Bold",
+            include_bytes!("../../../content/fonts/texgyrepagella-bold.otf"),
+        ),
+        (
+            "TeX Gyre Pagella Bold Italic",
+            include_bytes!("../../../content/fonts/texgyrepagella-bolditalic.otf"),
+        ),
+    ];
 
     const TURKISH: &str = "ÇçĞğİıÖöŞşÜüÂâÎîÛû";
 
     fn regular() -> Font {
-        Font::from_bytes(ALEGREYA.to_vec(), Some(400.0)).unwrap()
+        Font::from_bytes(FONTS[0].1.to_vec(), None).unwrap()
     }
 
     #[test]
     fn every_font_has_all_turkish_letters() {
-        for (name, data) in [
-            ("Alegreya", ALEGREYA),
-            ("Alegreya SC", ALEGREYA_SC),
-            ("Alegreya SC Bold", ALEGREYA_SC_BOLD),
-            ("Alegreya Sans", ALEGREYA_SANS),
-            ("Alegreya Sans Bold", ALEGREYA_SANS_BOLD),
-        ] {
+        for (name, data) in FONTS {
             let font = Font::from_bytes(data.to_vec(), None).unwrap();
             for c in TURKISH.chars() {
                 assert!(font.has_char(c), "{name} yazı tipinde '{c}' yok");
@@ -521,9 +560,9 @@ mod tests {
     }
 
     #[test]
-    fn bold_weight_is_heavier() {
-        let thin = Font::from_bytes(ALEGREYA.to_vec(), Some(400.0)).unwrap();
-        let bold = Font::from_bytes(ALEGREYA.to_vec(), Some(800.0)).unwrap();
+    fn bold_font_is_heavier() {
+        let thin = regular();
+        let bold = Font::from_bytes(FONTS[1].1.to_vec(), None).unwrap();
         let style = TextStyle::new(50.0);
         let area = |f: &Font| {
             tessellate(&f.text_image("Kale", &style, Color::BLACK).unwrap(), 0.05)

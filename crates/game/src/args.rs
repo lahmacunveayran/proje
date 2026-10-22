@@ -7,8 +7,8 @@ use engine::glam::UVec2;
 
 pub const HELP: &str = "Kullanım: oyun [seçenekler]
 
-  --goruntu <dosya.png>   Deneme sahnesini pencere açmadan resme çizer ve çıkar
-  --boyut <GxY>           --goruntu için resim boyu (varsayılan 1920x1080)
+  --goruntu <dosya.png>   Açılış ekranını pencere açmadan resme çizer ve çıkar
+  --boyut <GxY>           --goruntu için resim boyu (varsayılan 1600x1200)
   --icerik <klasör>       İçeriği önce bu klasörden okur
   --tam-ekran             Tam ekran açılır
   --surum                 Sürümü yazar
